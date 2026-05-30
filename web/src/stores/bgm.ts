@@ -1,94 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-
-// BGM 风格配置
-const BGM_STYLES: Record<string, { name: string; notes: number[]; tempo: number; mood: string }> = {
-  mountain: {
-    name: '山野清风',
-    notes: [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25], // C大调
-    tempo: 0.8,
-    mood: 'peaceful'
-  },
-  cafe: {
-    name: '咖啡时光',
-    notes: [220.00, 246.94, 261.63, 293.66, 329.63, 349.23, 392.00, 440.00], // A小调
-    tempo: 0.6,
-    mood: 'warm'
-  },
-  city: {
-    name: '城市夜景',
-    notes: [196.00, 220.00, 246.94, 261.63, 293.66, 329.63, 349.23, 392.00], // G小调
-    tempo: 0.7,
-    mood: 'urban'
-  },
-  romantic: {
-    name: '心动瞬间',
-    notes: [261.63, 293.66, 329.63, 392.00, 440.00, 493.88, 523.25, 587.33], // C大调高音
-    tempo: 0.5,
-    mood: 'romantic'
-  },
-  healing: {
-    name: '治愈时刻',
-    notes: [174.61, 196.00, 220.00, 246.94, 261.63, 293.66, 329.63, 349.23], // F大调
-    tempo: 0.4,
-    mood: 'healing'
-  },
-  default: {
-    name: '轻音乐',
-    notes: [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25],
-    tempo: 0.6,
-    mood: 'neutral'
-  }
-}
-
-// 场景到 BGM 类型的映射
-const SCENE_TO_BGM: Record<string, string> = {
-  // 山野场景
-  jinyun_mountain_trail: 'mountain',
-  jinyun_summit: 'mountain',
-  mountain_trail: 'mountain',
-  mountain_path: 'mountain',
-  mountain_viewpoint: 'mountain',
-  wugongshan: 'mountain',
-  geluoshan: 'mountain',
-  changbaishan: 'mountain',
-  jinfoshan: 'mountain',
-  nanshan: 'mountain',
-  desert: 'mountain',
-  desert_night: 'mountain',
-
-  // 咖啡店场景
-  cafe: 'cafe',
-  coffee_shop: 'cafe',
-  restaurant: 'cafe',
-  hotpot_restaurant: 'cafe',
-
-  // 城市/夜市场景
-  chongqing_night: 'city',
-  chongqing_station: 'city',
-  station: 'city',
-  night_market: 'city',
-  home_night: 'city',
-  office: 'city',
-  school_office: 'city',
-  school_entrance: 'city',
-  meeting_hall: 'city',
-  classroom: 'city',
-
-  // 湖边/野餐场景
-  dai_lake_picnic: 'healing',
-  minsu: 'healing',
-
-  // 浪漫场景
-  romantic: 'romantic'
-}
-
-// 角色专属 BGM 类型
-const CHARACTER_BGM: Record<string, string> = {
-  suqingyan: 'cafe',
-  linwanxing: 'healing',
-  xuzhinan: 'city'
-}
+import { MusicGenerator, MUSIC_STYLES, SCENE_TO_MUSIC, CHARACTER_TO_MUSIC } from '@/utils/musicGenerator'
 
 export const useBgmStore = defineStore('bgm', () => {
   // 状态
@@ -101,109 +13,32 @@ export const useBgmStore = defineStore('bgm', () => {
 
   // 音频相关
   let audioContext: AudioContext | null = null
-  let gainNode: GainNode | null = null
-  let oscillators: OscillatorNode[] = []
-  let intervalId: number | null = null
+  let masterGain: GainNode | null = null
+  let musicGenerator: MusicGenerator | null = null
 
   // 初始化音频上下文
   function initAudioContext() {
     if (!audioContext) {
       audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
-      gainNode = audioContext.createGain()
-      gainNode.connect(audioContext.destination)
-      gainNode.gain.value = isMuted.value ? 0 : volume.value
+
+      // 创建主音量控制
+      masterGain = audioContext.createGain()
+      masterGain.gain.value = isMuted.value ? 0 : volume.value
+      masterGain.connect(audioContext.destination)
+
+      // 创建音乐生成器
+      musicGenerator = new MusicGenerator(audioContext, masterGain)
     }
   }
 
-  // 获取场景对应的 BGM 类型
+  // 获取场景对应的音乐风格
   function getBgmTypeForScene(sceneId: string): string {
-    return SCENE_TO_BGM[sceneId] || 'default'
+    return SCENE_TO_MUSIC[sceneId] || 'default'
   }
 
-  // 获取角色对应的 BGM 类型
+  // 获取角色对应的音乐风格
   function getBgmTypeForCharacter(characterId: string): string {
-    return CHARACTER_BGM[characterId] || 'default'
-  }
-
-  // 停止当前播放
-  function stopCurrent() {
-    if (oscillators.length > 0) {
-      oscillators.forEach(osc => {
-        try {
-          osc.stop()
-        } catch (e) {
-          // 忽略已停止的振荡器
-        }
-      })
-      oscillators = []
-    }
-    if (intervalId) {
-      clearInterval(intervalId)
-      intervalId = null
-    }
-  }
-
-  // 生成环境音
-  function generateAmbientSound(type: string) {
-    if (!audioContext || !gainNode) return
-
-    const style = BGM_STYLES[type] || BGM_STYLES.default
-    const { notes, tempo } = style
-
-    // 停止当前播放
-    stopCurrent()
-
-    // 创建主音色
-    const mainOsc = audioContext.createOscillator()
-    const mainGain = audioContext.createGain()
-    mainOsc.type = 'sine'
-    mainOsc.frequency.value = notes[0]
-    mainGain.gain.value = 0.15
-    mainOsc.connect(mainGain)
-    mainGain.connect(gainNode)
-    mainOsc.start()
-    oscillators.push(mainOsc)
-
-    // 创建和弦音
-    const chordOsc = audioContext.createOscillator()
-    const chordGain = audioContext.createGain()
-    chordOsc.type = 'triangle'
-    chordOsc.frequency.value = notes[2] * 2
-    chordGain.gain.value = 0.08
-    chordOsc.connect(chordGain)
-    chordGain.connect(gainNode)
-    chordOsc.start()
-    oscillators.push(chordOsc)
-
-    // 创建低音
-    const bassOsc = audioContext.createOscillator()
-    const bassGain = audioContext.createGain()
-    bassOsc.type = 'sine'
-    bassOsc.frequency.value = notes[0] / 2
-    bassGain.gain.value = 0.1
-    bassOsc.connect(bassGain)
-    bassGain.connect(gainNode)
-    bassOsc.start()
-    oscillators.push(bassOsc)
-
-    // 随机变化音符
-    let noteIndex = 0
-    intervalId = window.setInterval(() => {
-      if (isMuted.value) return
-
-      noteIndex = (noteIndex + 1) % notes.length
-      const nextNote = notes[noteIndex]
-
-      // 平滑过渡
-      mainOsc.frequency.exponentialRampToValueAtTime(
-        nextNote,
-        audioContext!.currentTime + tempo
-      )
-      chordOsc.frequency.exponentialRampToValueAtTime(
-        nextNote * 1.5,
-        audioContext!.currentTime + tempo
-      )
-    }, tempo * 2000)
+    return CHARACTER_TO_MUSIC[characterId] || 'default'
   }
 
   // 播放 BGM
@@ -221,14 +56,19 @@ export const useBgmStore = defineStore('bgm', () => {
       }
 
       // 停止当前播放
-      stopCurrent()
+      if (musicGenerator) {
+        musicGenerator.stop()
+      }
 
       // 更新状态
       currentBgmType.value = type
-      currentTrackName.value = BGM_STYLES[type]?.name || '轻音乐'
+      currentTrackName.value = MUSIC_STYLES[type]?.name || '轻音乐'
 
-      // 生成新音乐
-      generateAmbientSound(type)
+      // 开始播放新音乐
+      if (musicGenerator) {
+        await musicGenerator.play(type)
+      }
+
       isPlaying.value = true
 
       // 保存状态
@@ -253,33 +93,35 @@ export const useBgmStore = defineStore('bgm', () => {
 
   // 暂停
   function pause() {
-    if (gainNode) {
-      gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext!.currentTime + 0.5)
+    if (musicGenerator) {
+      musicGenerator.pause()
     }
-    setTimeout(() => {
-      stopCurrent()
-      isPlaying.value = false
-    }, 500)
+    isPlaying.value = false
   }
 
   // 恢复播放
   async function resume() {
     if (!isPlaying.value && currentBgmType.value) {
-      await play(currentBgmType.value)
+      if (musicGenerator) {
+        musicGenerator.resume()
+      }
+      isPlaying.value = true
     }
   }
 
   // 停止
   function stop() {
-    stopCurrent()
+    if (musicGenerator) {
+      musicGenerator.stop()
+    }
     isPlaying.value = false
   }
 
   // 切换静音
   function toggleMute() {
     isMuted.value = !isMuted.value
-    if (gainNode) {
-      gainNode.gain.value = isMuted.value ? 0 : volume.value
+    if (masterGain) {
+      masterGain.gain.value = isMuted.value ? 0 : volume.value
     }
     saveState()
   }
@@ -287,8 +129,8 @@ export const useBgmStore = defineStore('bgm', () => {
   // 设置音量
   function setVolume(value: number) {
     volume.value = Math.max(0, Math.min(1, value))
-    if (gainNode && !isMuted.value) {
-      gainNode.gain.value = volume.value
+    if (masterGain && !isMuted.value) {
+      masterGain.gain.value = volume.value
     }
     saveState()
   }
@@ -304,6 +146,9 @@ export const useBgmStore = defineStore('bgm', () => {
 
   // 刷新当前曲目
   async function refreshTrack() {
+    if (musicGenerator) {
+      musicGenerator.stop()
+    }
     await play(currentBgmType.value)
   }
 
@@ -340,15 +185,11 @@ export const useBgmStore = defineStore('bgm', () => {
   // 处理页面可见性变化
   function handleVisibilityChange() {
     if (document.hidden) {
-      // 页面隐藏时降低音量
-      if (gainNode) {
-        gainNode.gain.value = volume.value * 0.3
-      }
+      // 页面隐藏时暂停
+      pause()
     } else {
-      // 页面显示时恢复音量
-      if (gainNode && !isMuted.value) {
-        gainNode.gain.value = volume.value
-      }
+      // 页面显示时恢复
+      resume()
     }
   }
 
