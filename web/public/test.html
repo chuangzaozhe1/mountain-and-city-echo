@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>测试页面</title>
+  <style>
+    body {
+      background: #1A1A2E;
+      color: white;
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    .test-item {
+      margin: 10px 0;
+      padding: 10px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+    }
+    .success { border-left: 4px solid #00b894; }
+    .error { border-left: 4px solid #ff6b6b; }
+  </style>
+</head>
+<body>
+  <h1>山与城的回响 - 诊断页面</h1>
+
+  <div id="results"></div>
+
+  <script>
+    const results = document.getElementById('results');
+
+    function addResult(name, success, detail) {
+      const div = document.createElement('div');
+      div.className = `test-item ${success ? 'success' : 'error'}`;
+      div.innerHTML = `<strong>${success ? '✅' : '❌'} ${name}</strong><br><small>${detail}</small>`;
+      results.appendChild(div);
+    }
+
+    // 测试 1: 基础环境
+    addResult('浏览器环境', true, navigator.userAgent);
+
+    // 测试 2: CSS 变量
+    const style = getComputedStyle(document.documentElement);
+    const primaryColor = style.getPropertyValue('--color-primary');
+    addResult('CSS 变量', !!primaryColor, `--color-primary: ${primaryColor || '未定义'}`);
+
+    // 测试 3: JavaScript 模块支持
+    addResult('ES 模块支持', 'noModule' in document.createElement('script'), '检查浏览器是否支持 ES 模块');
+
+    // 测试 4: 加载 index.html
+    fetch('./index.html')
+      .then(r => r.text())
+      .then(html => {
+        addResult('index.html 加载', true, `大小: ${html.length} 字节`);
+
+        // 检查引用的 JS 文件
+        const jsMatch = html.match(/src="\.\/assets\/index-[^"]+\.js"/);
+        if (jsMatch) {
+          const jsFile = jsMatch[0].replace('src="', '').replace('"', '');
+          addResult('JS 文件引用', true, jsFile);
+
+          // 尝试加载 JS 文件
+          fetch(jsFile)
+            .then(r => {
+              addResult('JS 文件加载', r.ok, `状态: ${r.status}`);
+            })
+            .catch(e => {
+              addResult('JS 文件加载', false, e.message);
+            });
+        } else {
+          addResult('JS 文件引用', false, '未找到 JS 文件引用');
+        }
+      })
+      .catch(e => {
+        addResult('index.html 加载', false, e.message);
+      });
+
+    // 测试 5: 加载数据文件
+    fetch('./data/chapters/chapter_01.json')
+      .then(r => r.json())
+      .then(data => {
+        addResult('章节数据加载', true, `标题: ${data.title || '无标题'}`);
+      })
+      .catch(e => {
+        addResult('章节数据加载', false, e.message);
+      });
+  </script>
+</body>
+</html>
