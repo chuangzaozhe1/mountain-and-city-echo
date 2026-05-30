@@ -411,14 +411,14 @@ function getBackgroundStyle(id: string) {
 /* 顶部栏 */
 .top-bar {
   position: absolute;
-  top: 0; left: 0; right: 0;
+  top: 50%; left: 0; right: 0;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 12px 16px;
   z-index: 50;
   gap: 16px;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 100%);
 }
 
 .bar-btn {

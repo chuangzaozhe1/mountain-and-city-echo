@@ -27,8 +27,9 @@ const bgmStore = useBgmStore()
 <style scoped>
 .bgm-player {
   position: fixed;
-  top: 60px;
+  top: 50%;
   right: 16px;
+  transform: translateY(30px);
   display: flex;
   align-items: center;
   gap: 8px;
