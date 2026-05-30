@@ -51,6 +51,11 @@ const router = createRouter({
       path: '/hiking',
       name: 'HikingMap',
       component: () => import('@/views/HikingMapView.vue')
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import('@/views/NotFoundView.vue')
     }
   ]
 })

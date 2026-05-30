@@ -106,7 +106,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStoryStore } from '@/stores/story'
 import { useSfxStore } from '@/stores/sfx'
@@ -120,7 +120,18 @@ const baseUrl = import.meta.env.BASE_URL
 const chapterId = computed(() => route.params.chapterId as string)
 const hasNextChapter = computed(() => !!storyStore.state.nextChapterId)
 
-onMounted(() => storyStore.loadChapter(chapterId.value))
+onMounted(() => {
+  storyStore.loadChapter(chapterId.value)
+  window.addEventListener('keydown', handleKeydown)
+})
+onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
+
+function handleKeydown(e: KeyboardEvent) {
+  if (e.code === 'Space' || e.key === ' ') {
+    e.preventDefault()
+    handleClick()
+  }
+}
 
 function handleClick() {
   sfxStore.play('click')

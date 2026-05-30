@@ -1,0 +1,224 @@
+{
+  "chapterId": "chapter_05",
+  "title": "第五章：面试前夜的抉择",
+  "volume": 1,
+  "number": 5,
+  "unlockCondition": null,
+  "scenes": [
+    {
+      "sceneId": "scene_05_01",
+      "background": "home_night",
+      "bgm": "peaceful_mountain",
+      "characters": [],
+      "dialogues": [
+        {
+          "dialogueId": "d_05_01_01",
+          "speaker": "旁白",
+          "text": "周五晚上，唐鑫坐在书桌前，最后一遍检查自己的简历和面试资料。明天就是面试的日子了，他的心里既期待又紧张。"
+        },
+        {
+          "dialogueId": "d_05_01_02",
+          "speaker": "旁白",
+          "text": "这几天，三位女生都用不同的方式给了他鼓励。苏清颜每天都会给他发微信，给他加油打气，还给他发了很多面试技巧的文章；林晚星给他寄了一个手工制作的幸运符，上面绣着一个小小的「鑫」字，说可以带来好运；许知楠则给他发了公司的组织架构图和面试官的喜好，让他提前做好准备。"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": null
+    },
+    {
+      "sceneId": "scene_05_02",
+      "background": "home_night",
+      "bgm": "peaceful_mountain",
+      "characters": [],
+      "dialogues": [
+        {
+          "dialogueId": "d_05_02_01",
+          "speaker": "旁白",
+          "text": "唐鑫拿起那个幸运符，放在手心轻轻摩挲。幸运符是用红色的丝线绣的，针脚细密，看得出来林晚星花了很多心思。他的心底泛起一阵柔软，这个腼腆又温柔的小姑娘，总是用自己的方式默默关心着他。"
+        },
+        {
+          "dialogueId": "d_05_02_02",
+          "speaker": "旁白",
+          "text": "他又拿起手机，点开苏清颜的聊天框。最新的一条消息是她半小时前发的：「早点休息，别熬夜。明天放轻松，你一定可以的！」后面跟着一个抱抱的表情包。"
+        },
+        {
+          "dialogueId": "d_05_02_03",
+          "speaker": "旁白",
+          "text": "唐鑫看着消息，嘴角不自觉地上扬。苏清颜的热烈和直白，总是能轻易地打动他。和她在一起的时候，他总是觉得很开心、很放松，所有的烦恼都烟消云散了。"
+        },
+        {
+          "dialogueId": "d_05_02_04",
+          "speaker": "旁白",
+          "text": "他又点开许知楠的聊天框。许知楠最后一条消息是昨天晚上发的：「面试的时候不用紧张，如实回答就好。他们很看重踏实和细心，这正是你的优点。」许知楠的成熟和通透，总是能给他一种安心的感觉。她就像一个大姐姐一样，在他迷茫的时候给他指引方向，在他需要帮助的时候伸出援手。"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": null
+    },
+    {
+      "sceneId": "scene_05_03",
+      "background": "home_night",
+      "bgm": "peaceful_mountain",
+      "characters": [],
+      "dialogues": [
+        {
+          "dialogueId": "d_05_03_01",
+          "speaker": "旁白",
+          "text": "唐鑫放下手机，靠在椅背上，闭上眼睛。他的脑海里浮现出三个女生的身影：苏清颜的明媚笑容、林晚星的羞涩眼神、许知楠的温柔目光。每一个都那么美好，每一个都让他心动。"
+        },
+        {
+          "dialogueId": "d_05_03_02",
+          "speaker": "旁白",
+          "text": "他知道，自己不能再这样犹豫不决了。他必须做出选择，不仅是对自己负责，也是对她们三个负责。"
+        },
+        {
+          "dialogueId": "d_05_03_03",
+          "speaker": "旁白",
+          "text": "就在这时，手机突然响了，是安子龙打来的电话。"
+        },
+        {
+          "dialogueId": "d_05_03_04",
+          "speaker": "安子龙",
+          "text": "鑫哥，面试准备得怎么样了？"
+        },
+        {
+          "dialogueId": "d_05_03_05",
+          "speaker": "唐鑫",
+          "text": "还好，就是有点紧张。"
+        },
+        {
+          "dialogueId": "d_05_03_06",
+          "speaker": "安子龙",
+          "text": "紧张什么！你这么厉害，肯定没问题的！对了，鑫哥，我问你个事，你到底喜欢她们三个中的哪一个啊？"
+        },
+        {
+          "dialogueId": "d_05_03_07",
+          "speaker": "唐鑫",
+          "text": "我也不知道。她们都很好。"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": null
+    },
+    {
+      "sceneId": "scene_05_04",
+      "background": "home_night",
+      "bgm": "peaceful_mountain",
+      "characters": [],
+      "dialogues": [
+        {
+          "dialogueId": "d_05_04_01",
+          "speaker": "安子龙",
+          "text": "哎呀，你可别再犹豫了！再犹豫下去，三个都跑了！你想想，你跟谁在一起的时候最开心？最放松？"
+        },
+        {
+          "dialogueId": "d_05_04_02",
+          "speaker": "旁白",
+          "text": "唐鑫想了想，脑海里浮现出和苏清颜一起在山野徒步的画面，一起在咖啡店里聊天的画面，一起在夜市吃烧烤的画面。和苏清颜在一起的时候，他总是觉得很开心、很自由，仿佛所有的烦恼都不存在了。"
+        },
+        {
+          "dialogueId": "d_05_04_03",
+          "speaker": "唐鑫",
+          "text": "我好像……更喜欢清颜一点。"
+        },
+        {
+          "dialogueId": "d_05_04_04",
+          "speaker": "安子龙",
+          "text": "那不就得了！等你面试过了，就跟她表白！肯定能成！"
+        },
+        {
+          "dialogueId": "d_05_04_05",
+          "speaker": "唐鑫",
+          "text": "可是……晚星和知楠姐怎么办？"
+        },
+        {
+          "dialogueId": "d_05_04_06",
+          "speaker": "安子龙",
+          "text": "感情的事不能勉强啊！你不喜欢她们，早点说清楚，对她们也是一种尊重。晚星那么温柔，肯定能理解的；知楠姐那么通透，肯定也不会怪你的。"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": null
+    },
+    {
+      "sceneId": "scene_05_05",
+      "background": "home_night",
+      "bgm": "peaceful_mountain",
+      "characters": [],
+      "dialogues": [
+        {
+          "dialogueId": "d_05_05_01",
+          "speaker": "旁白",
+          "text": "唐鑫沉默了。安子龙说得对，感情的事不能勉强。长痛不如短痛，早点说清楚，对大家都好。"
+        },
+        {
+          "dialogueId": "d_05_05_02",
+          "speaker": "唐鑫",
+          "text": "我知道了。"
+        },
+        {
+          "dialogueId": "d_05_05_03",
+          "speaker": "安子龙",
+          "text": "这就对了！好了，不打扰你了，早点休息。明天面试加油！"
+        },
+        {
+          "dialogueId": "d_05_05_04",
+          "speaker": "唐鑫",
+          "text": "好，谢谢。"
+        },
+        {
+          "dialogueId": "d_05_05_05",
+          "speaker": "旁白",
+          "text": "唐鑫挂了电话。他走到窗边，看着窗外的夜景。山城的灯火璀璨，万家灯火，每一盏灯背后都有一个故事。他的故事，也即将迎来新的篇章。"
+        },
+        {
+          "dialogueId": "d_05_05_06",
+          "speaker": "旁白",
+          "text": "他拿出手机，给苏清颜发了一条微信：「清颜，等我面试过了，我有话想对你说。」"
+        },
+        {
+          "dialogueId": "d_05_05_07",
+          "speaker": "旁白",
+          "text": "没过多久，苏清颜就回复了：「好，我等你。」后面跟着一个爱心的表情包。"
+        },
+        {
+          "dialogueId": "d_05_05_08",
+          "speaker": "旁白",
+          "text": "唐鑫看着消息，心底充满了笃定。他关掉灯，躺在床上，很快就睡着了。这一夜，他睡得格外安稳。"
+        }
+      ],
+      "choices": [
+        {
+          "choiceId": "c_05_choice_01",
+          "text": "坚定选择苏清颜：准备面试成功后向她表白",
+          "nextSceneId": null,
+          "bondChanges": { "suqingyan": 20 }
+        },
+        {
+          "choiceId": "c_05_choice_02",
+          "text": "内心动摇，考虑林晚星：被她的默默付出打动",
+          "nextSceneId": null,
+          "bondChanges": { "linwanxing": 20 }
+        },
+        {
+          "choiceId": "c_05_choice_03",
+          "text": "欣赏许知楠的成熟：觉得和她在一起更有安全感",
+          "nextSceneId": null,
+          "bondChanges": { "xuzhinan": 20 }
+        },
+        {
+          "choiceId": "c_05_choice_04",
+          "text": "暂时搁置感情：专注于面试，等工作稳定后再考虑",
+          "nextSceneId": null,
+          "bondChanges": { "tangxin": 25 }
+        }
+      ],
+      "unlockPhoto": null,
+      "bondChanges": null
+    }
+  ]
+}
