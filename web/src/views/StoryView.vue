@@ -572,6 +572,7 @@ function getBackgroundStyle(id: string) {
   bottom: 0;
   left: 0;
   right: 0;
+  height: 60vh;
   padding: 0 16px 20px;
   background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
   pointer-events: none;
