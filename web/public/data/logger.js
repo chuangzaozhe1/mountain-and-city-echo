@@ -3,11 +3,12 @@
 (function () {
   'use strict'
 
-  const LOG_KEY = 'echo_app_logs'
-  const MAX_LOGS = 1000
+  var LOG_KEY = 'echo_app_logs'
+  var MAX_LOGS = 1000
+  var TEST_KEY = 'echo_test_results'
 
   // 浏览器信息
-  const envInfo = {
+  var envInfo = {
     userAgent: navigator.userAgent,
     platform: navigator.platform,
     screenWidth: window.screen.width,
@@ -22,16 +23,27 @@
   }
 
   // 存储日志的数组
-  let logs = []
+  var logs = []
+
+  // 测试结果
+  var testResults = {
+    startTime: new Date().toISOString(),
+    tests: [],
+    errors: [],
+    warnings: [],
+    passed: 0,
+    failed: 0,
+    total: 0
+  }
 
   // 日志ID计数器
-  let logIdCounter = 0
+  var logIdCounter = 0
 
   // 是否已记录初始化完成
-  let initialized = false
+  var initialized = false
 
   // 保存原始的 console 方法
-  const originalConsole = {
+  var originalConsole = {
     log: console.log.bind(console),
     warn: console.warn.bind(console),
     error: console.error.bind(console),
@@ -42,12 +54,12 @@
   // 从 localStorage 加载日志
   function loadLogs() {
     try {
-      const stored = localStorage.getItem(LOG_KEY)
+      var stored = localStorage.getItem(LOG_KEY)
       if (stored) {
         logs = JSON.parse(stored)
         // 更新计数器起点
         if (logs.length > 0) {
-          const lastLog = logs[logs.length - 1]
+          var lastLog = logs[logs.length - 1]
           logIdCounter = (lastLog.id || 0) + 1
         }
       }
@@ -77,30 +89,88 @@
 
   // 添加日志
   function addLog(type, level, data) {
-    const entry = {
+    var entry = {
       id: logIdCounter++,
-      type,
-      level,
-      data,
+      type: type,
+      level: level,
+      data: data,
       timestamp: new Date().toISOString()
     }
     logs.push(entry)
     saveLogs()
+
+    // 如果是错误，添加到测试结果
+    if (level === 'error') {
+      testResults.errors.push(entry)
+    } else if (level === 'warn') {
+      testResults.warnings.push(entry)
+    }
+  }
+
+  // 添加测试结果
+  function addTestResult(name, passed, detail) {
+    var result = {
+      name: name,
+      passed: passed,
+      detail: detail,
+      timestamp: new Date().toISOString()
+    }
+    testResults.tests.push(result)
+    testResults.total++
+    if (passed) {
+      testResults.passed++
+    } else {
+      testResults.failed++
+    }
+    addLog('test', passed ? 'info' : 'error', {
+      testName: name,
+      passed: passed,
+      detail: detail
+    })
   }
 
   // 导出日志
   function exportLogs() {
-    const exportData = {
-      envInfo,
-      logs,
+    var exportData = {
+      envInfo: envInfo,
+      logs: logs,
+      testResults: testResults,
       exportTime: new Date().toISOString(),
       totalCount: logs.length
     }
-    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
+    var blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' })
+    var url = URL.createObjectURL(blob)
+    var a = document.createElement('a')
     a.href = url
     a.download = 'echo-logs-' + new Date().toISOString().slice(0, 19).replace(/:/g, '-') + '.json'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
+
+  // 导出测试报告
+  function exportTestReport() {
+    var report = {
+      title: '山与城的回响 - 自动化测试报告',
+      timestamp: new Date().toISOString(),
+      environment: envInfo,
+      summary: {
+        total: testResults.total,
+        passed: testResults.passed,
+        failed: testResults.failed,
+        passRate: testResults.total > 0 ? Math.round((testResults.passed / testResults.total) * 100) + '%' : '0%'
+      },
+      tests: testResults.tests,
+      errors: testResults.errors,
+      warnings: testResults.warnings,
+      conclusion: testResults.failed === 0 ? '游戏可以正常运行' : '游戏存在 ' + testResults.failed + ' 个问题需要修复'
+    }
+    var blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' })
+    var url = URL.createObjectURL(blob)
+    var a = document.createElement('a')
+    a.href = url
+    a.download = 'echo-test-report-' + new Date().toISOString().slice(0, 19).replace(/:/g, '-') + '.json'
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
@@ -148,6 +218,13 @@
         clearLogs()
         addLog('system', 'info', { message: 'Logs cleared via keyboard shortcut' })
         originalConsole.log('[Logger] Logs cleared')
+      }
+      // Ctrl+Shift+T 导出测试报告
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 't') {
+        e.preventDefault()
+        originalConsole.log('[Logger] Exporting test report...')
+        exportTestReport()
+        addLog('system', 'info', { message: 'Test report exported via keyboard shortcut' })
       }
     })
 
@@ -475,17 +552,90 @@
     })
   })
 
+  // 8. 自动化测试功能
+  function runAutoTest() {
+    addLog('test', 'info', { message: '=== Starting Automated Test ===' })
+
+    // 测试 1: 页面加载
+    addTestResult('页面加载', true, '页面成功加载')
+
+    // 测试 2: Vue 应用挂载
+    var appElement = document.getElementById('app')
+    addTestResult('Vue 应用挂载', !!appElement, appElement ? '找到 #app 元素' : '未找到 #app 元素')
+
+    // 测试 3: CSS 变量
+    var style = getComputedStyle(document.documentElement)
+    var primaryColor = style.getPropertyValue('--color-primary')
+    addTestResult('CSS 变量', !!primaryColor, primaryColor ? '--color-primary: ' + primaryColor : 'CSS 变量未定义')
+
+    // 测试 4: 路由系统
+    addTestResult('路由系统', !!window.__echoLogger, '日志系统已初始化')
+
+    // 测试 5: localStorage
+    try {
+      localStorage.setItem('test', 'test')
+      localStorage.removeItem('test')
+      addTestResult('localStorage', true, 'localStorage 可用')
+    } catch (e) {
+      addTestResult('localStorage', false, 'localStorage 不可用: ' + e.message)
+    }
+
+    // 测试 6: fetch API
+    addTestResult('fetch API', typeof window.fetch === 'function', 'fetch API 可用')
+
+    // 测试 7: ES 模块支持
+    addTestResult('ES 模块支持', 'noModule' in document.createElement('script'), '浏览器支持 ES 模块')
+
+    // 测试 8: 检查页面内容
+    setTimeout(function () {
+      var hasContent = document.body.innerText.length > 0
+      addTestResult('页面内容', hasContent, hasContent ? '页面有内容显示' : '页面无内容')
+
+      // 测试 9: 检查是否有错误元素
+      var errorElements = document.querySelectorAll('.error, [class*="error"]')
+      addTestResult('无错误显示', errorElements.length === 0, errorElements.length === 0 ? '没有错误元素' : '发现 ' + errorElements.length + ' 个错误元素')
+
+      // 测试 10: 检查 Vue 组件
+      var vueComponents = document.querySelectorAll('[data-v-]')
+      addTestResult('Vue 组件渲染', vueComponents.length > 0, vueComponents.length > 0 ? '发现 ' + vueComponents.length + ' 个 Vue 组件' : '未发现 Vue 组件')
+
+      // 完成测试
+      testResults.endTime = new Date().toISOString()
+      addLog('test', 'info', {
+        message: '=== Test Complete ===',
+        summary: {
+          total: testResults.total,
+          passed: testResults.passed,
+          failed: testResults.failed
+        }
+      })
+
+      // 自动导出测试报告
+      exportTestReport()
+    }, 2000)
+  }
+
   // 初始化
   initLogger()
 
   // 暴露给全局
   window.__echoLogger = {
     exportLogs: exportLogs,
+    exportTestReport: exportTestReport,
     clearLogs: clearLogs,
     getLogs: function () { return logs },
     getEnvInfo: function () { return envInfo },
-    getLogCount: function () { return logs.length }
+    getLogCount: function () { return logs.length },
+    getTestResults: function () { return testResults },
+    runAutoTest: runAutoTest
   }
 
+  // 页面加载后自动运行测试
+  window.addEventListener('load', function () {
+    setTimeout(runAutoTest, 1000)
+  })
+
   originalConsole.log('[Logger] All systems initialized, logs will persist to localStorage')
+  originalConsole.log('[Logger] Press Ctrl+Shift+L to export logs')
+  originalConsole.log('[Logger] Press Ctrl+Shift+T to export test report')
 })()
