@@ -91,7 +91,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useGameStore } from '@/stores/game'
 
@@ -104,10 +103,6 @@ const characters = [
   { id: 'linwanxing', name: '林晚星', icon: '✿' },
   { id: 'xuzhinan', name: '许知楠', icon: '◆' }
 ]
-
-onMounted(() => {
-  gameStore.loadFromStorage()
-})
 
 function handleContinue() {
   const chapterId = gameStore.state.currentChapterId || 'chapter_01'

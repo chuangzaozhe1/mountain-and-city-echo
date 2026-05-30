@@ -12,7 +12,7 @@
 
       <div v-else class="photos-grid">
         <div v-for="photo in gameStore.state.photos" :key="photo" class="photo-item">
-          <img :src="`${baseUrl}images/photos/${photo}.jpg`" :alt="photo" />
+          <img :src="`${baseUrl}data/images/photos/${photo}.jpg`" :alt="photo" />
         </div>
       </div>
     </main>

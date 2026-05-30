@@ -15,7 +15,7 @@
               v-for="opt in speedOptions"
               :key="opt.value"
               :class="{ active: textSpeed === opt.value }"
-              @click="textSpeed = opt.value"
+              @click="textSpeed = opt.value; storyStore.setTextSpeed(opt.value)"
             >
               {{ opt.label }}
             </button>
@@ -28,7 +28,7 @@
               v-for="opt in intervalOptions"
               :key="opt.value"
               :class="{ active: autoInterval === opt.value }"
-              @click="autoInterval = opt.value"
+              @click="autoInterval = opt.value; storyStore.setAutoPlayInterval(opt.value)"
             >
               {{ opt.label }}
             </button>
@@ -54,7 +54,7 @@
         </div>
         <div class="setting-item">
           <span>音效音量</span>
-          <input type="range" v-model="sfxVolume" min="0" max="100" />
+          <input type="range" v-model="sfxVolume" min="0" max="100" @input="updateSfxVolume" />
         </div>
       </section>
 
@@ -72,11 +72,13 @@ import { useRouter } from 'vue-router'
 import { useStoryStore } from '@/stores/story'
 import { useGameStore } from '@/stores/game'
 import { useBgmStore } from '@/stores/bgm'
+import { useSfxStore } from '@/stores/sfx'
 
 const router = useRouter()
 const storyStore = useStoryStore()
 const gameStore = useGameStore()
 const bgmStore = useBgmStore()
+const sfxStore = useSfxStore()
 
 const speedOptions = [
   { label: '快', value: 30 },
@@ -97,6 +99,10 @@ const sfxVolume = ref(80)
 
 function updateBgmVolume() {
   bgmStore.setVolume(bgmVolume.value / 100)
+}
+
+function updateSfxVolume() {
+  sfxStore.setVolume(sfxVolume.value / 100)
 }
 
 function handleReset() {

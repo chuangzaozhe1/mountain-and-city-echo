@@ -13,14 +13,10 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useGameStore } from '@/stores/game'
 
 const router = useRouter()
-const gameStore = useGameStore()
 
 onMounted(() => {
-  gameStore.loadFromStorage()
-
   // Simulate loading
   setTimeout(() => {
     router.replace('/home')

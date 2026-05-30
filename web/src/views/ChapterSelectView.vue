@@ -42,7 +42,6 @@ interface ChapterInfo {
 const chapters = ref<ChapterInfo[]>([])
 
 onMounted(() => {
-  gameStore.loadFromStorage()
   chapters.value = [
     { id: 'chapter_01', number: 1, title: '山城内耗与山野契机', unlocked: true },
     { id: 'chapter_02', number: 2, title: '缙云山初见，风里藏着心动的味道', unlocked: gameStore.isChapterUnlocked('chapter_02') },
