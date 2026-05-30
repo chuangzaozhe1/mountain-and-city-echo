@@ -470,6 +470,7 @@ function getParticleStyle(index: number) {
   gap: 10px;
   font-size: 0.7rem;
   color: rgba(255, 255, 255, 0.3);
+  z-index: 5;
 }
 
 .version {
