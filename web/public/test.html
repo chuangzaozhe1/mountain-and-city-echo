@@ -231,15 +231,6 @@
     var tests = [
       { name: '页面加载', check: function() { return { passed: true, detail: '页面成功加载' }; } },
       { name: '日志系统', check: function() { return { passed: !!window.__echoLogger, detail: window.__echoLogger ? '日志系统已初始化' : '日志系统未初始化' }; } },
-      { name: 'CSS 变量', check: function() {
-        var style = getComputedStyle(document.documentElement);
-        var primary = style.getPropertyValue('--color-primary');
-        return { passed: !!primary, detail: primary ? '--color-primary: ' + primary : 'CSS 变量未定义' };
-      }},
-      { name: 'Vue 应用', check: function() {
-        var app = document.getElementById('app');
-        return { passed: !!app, detail: app ? '找到 #app 元素' : '未找到 #app 元素' };
-      }},
       { name: 'localStorage', check: function() {
         try {
           localStorage.setItem('test', 'test');
@@ -256,6 +247,33 @@
         var supported = 'noModule' in document.createElement('script');
         return { passed: supported, detail: 'ES 模块 ' + (supported ? '支持' : '不支持') };
       }},
+      { name: 'index.html 可访问', check: function() {
+        return fetch('./index.html')
+          .then(function(r) {
+            return { passed: r.ok, detail: 'index.html 状态: ' + r.status };
+          })
+          .catch(function(e) {
+            return { passed: false, detail: '加载失败: ' + e.message };
+          });
+      }},
+      { name: 'JS 文件可访问', check: function() {
+        return fetch('./assets/index-CqCLrDAr.js')
+          .then(function(r) {
+            return { passed: r.ok, detail: 'JS 文件状态: ' + r.status + ', 大小: ' + (r.headers.get('content-length') || '未知') };
+          })
+          .catch(function(e) {
+            return { passed: false, detail: '加载失败: ' + e.message };
+          });
+      }},
+      { name: 'CSS 文件可访问', check: function() {
+        return fetch('./assets/index-D7dYIGzJ.css')
+          .then(function(r) {
+            return { passed: r.ok, detail: 'CSS 文件状态: ' + r.status };
+          })
+          .catch(function(e) {
+            return { passed: false, detail: '加载失败: ' + e.message };
+          });
+      }},
       { name: '章节数据', check: function() {
         return fetch('./data/chapters/chapter_01.json')
           .then(function(r) { return r.json(); })
@@ -266,14 +284,42 @@
             return { passed: false, detail: '加载失败: ' + e.message };
           });
       }},
-      { name: '资源加载', check: function() {
-        return fetch('./index.html')
-          .then(function(r) {
-            return { passed: r.ok, detail: 'index.html 状态: ' + r.status };
-          })
-          .catch(function(e) {
-            return { passed: false, detail: '加载失败: ' + e.message };
-          });
+      { name: '主页面加载测试', check: function() {
+        return new Promise(function(resolve) {
+          var iframe = document.createElement('iframe');
+          iframe.style.width = '1px';
+          iframe.style.height = '1px';
+          iframe.style.position = 'absolute';
+          iframe.style.left = '-9999px';
+          iframe.src = './index.html';
+          iframe.onload = function() {
+            try {
+              var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+              var appElement = iframeDoc.getElementById('app');
+              var hasContent = iframeDoc.body.innerText.length > 0;
+              var title = iframeDoc.title;
+              document.body.removeChild(iframe);
+              resolve({
+                passed: !!appElement && hasContent,
+                detail: '标题: ' + title + ', #app: ' + (!!appElement ? '存在' : '不存在') + ', 内容: ' + (hasContent ? '有' : '无')
+              });
+            } catch(e) {
+              document.body.removeChild(iframe);
+              resolve({ passed: false, detail: '跨域或加载错误: ' + e.message });
+            }
+          };
+          iframe.onerror = function() {
+            document.body.removeChild(iframe);
+            resolve({ passed: false, detail: 'iframe 加载失败' });
+          };
+          document.body.appendChild(iframe);
+          setTimeout(function() {
+            if (iframe.parentNode) {
+              document.body.removeChild(iframe);
+              resolve({ passed: false, detail: '加载超时' });
+            }
+          }, 10000);
+        });
       }}
     ];
 
