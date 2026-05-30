@@ -404,20 +404,23 @@ function getBackgroundStyle(id: string) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
+  padding: 12px 16px;
   z-index: 50;
+  gap: 12px;
 }
 
 .bar-btn {
-  width: 38px; height: 38px;
+  width: 40px; height: 40px;
+  min-width: 40px;
   border-radius: 50%;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.5);
   color: white;
   font-size: 1rem;
   border: none;
   cursor: pointer;
   backdrop-filter: blur(8px);
   transition: all 0.2s;
+  flex-shrink: 0;
 }
 .bar-btn:hover { background: rgba(124,111,205,0.7); }
 .bar-btn.on { background: var(--color-primary); }
@@ -426,6 +429,11 @@ function getBackgroundStyle(id: string) {
   font-size: 0.85rem;
   color: rgba(255,255,255,0.85);
   text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  text-align: center;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* 加载/错误 */
@@ -769,12 +777,13 @@ function getBackgroundStyle(id: string) {
 /* 移动端适配 */
 @media (max-width: 768px) {
   .top-bar {
-    padding: 12px 16px;
+    padding: 10px 12px;
   }
 
   .bar-btn {
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
     font-size: 0.9rem;
   }
 
