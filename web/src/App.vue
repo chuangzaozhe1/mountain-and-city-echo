@@ -11,10 +11,15 @@
 import { onMounted } from 'vue'
 import BgmPlayer from '@/components/BgmPlayer.vue'
 import { useBgmStore } from '@/stores/bgm'
+import { useGameStore } from '@/stores/game'
 
 const bgmStore = useBgmStore()
+const gameStore = useGameStore()
 
 onMounted(() => {
+  // 初始化游戏数据
+  gameStore.loadFromStorage()
+  // 初始化 BGM
   bgmStore.init()
 })
 </script>
