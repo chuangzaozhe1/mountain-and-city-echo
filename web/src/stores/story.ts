@@ -363,21 +363,42 @@ async function loadChapterData(chapterId: string): Promise<ChapterData | null> {
     return cached
   }
 
-  try {
-    // 优先从 public 目录加载
-    const response = await fetch(`${import.meta.env.BASE_URL}data/chapters/${chapterId}.json`)
-    if (response.ok) {
-      const data = await response.json()
-      console.log(`Loaded chapter ${chapterId} from external file`, data)
-      return data
-    } else {
-      console.warn(`Failed to load chapter ${chapterId}: HTTP ${response.status}`)
+  const maxRetries = 3
+  const retryDelay = 1000
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      // 优先从 public 目录加载
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 10000) // 10秒超时
+
+      const response = await fetch(`${import.meta.env.BASE_URL}data/chapters/${chapterId}.json`, {
+        signal: controller.signal
+      })
+      clearTimeout(timeoutId)
+
+      if (response.ok) {
+        const data = await response.json()
+        console.log(`Loaded chapter ${chapterId} from external file`, data)
+        return data
+      } else {
+        console.warn(`Failed to load chapter ${chapterId}: HTTP ${response.status} (attempt ${attempt}/${maxRetries})`)
+      }
+    } catch (e: any) {
+      if (e.name === 'AbortError') {
+        console.warn(`Timeout loading chapter ${chapterId} (attempt ${attempt}/${maxRetries})`)
+      } else {
+        console.warn(`Failed to load chapter ${chapterId} from public/data (attempt ${attempt}/${maxRetries}):`, e)
+      }
     }
-  } catch (e) {
-    console.warn(`Failed to load chapter ${chapterId} from public/data:`, e)
+
+    // 等待后重试
+    if (attempt < maxRetries) {
+      await new Promise(resolve => setTimeout(resolve, retryDelay * attempt))
+    }
   }
 
-  // 回退：内嵌示例数据
+  // 所有重试都失败，回退到内嵌数据
   console.log(`Falling back to embedded data for ${chapterId}`)
   return getEmbeddedChapter(chapterId)
 }

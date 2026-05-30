@@ -4,10 +4,13 @@
     @click="handleClick"
   >
     <!-- 背景 -->
-    <div
-      class="bg-layer"
-      :style="{ background: storyStore.currentBackground ? getBackgroundStyle(storyStore.currentBackground) : defaultBg }"
-    ></div>
+    <transition name="bg-fade" mode="out-in">
+      <div
+        :key="storyStore.currentBackground"
+        class="bg-layer"
+        :style="{ background: storyStore.currentBackground ? getBackgroundStyle(storyStore.currentBackground) : defaultBg }"
+      ></div>
+    </transition>
 
     <!-- 角色层 -->
     <div class="characters">
@@ -59,22 +62,20 @@
     </div>
 
     <!-- 对话框 -->
-    <div v-else class="dialogue-area">
-      <!-- 选项 -->
-      <div v-if="storyStore.state.choices.length > 0" class="choice-wrap">
+    <transition name="dialogue-slide" mode="out-in">
+      <div v-if="storyStore.state.choices.length > 0" key="choices" class="choice-wrap">
         <div class="choice-label">— 请选择 —</div>
         <div
           v-for="c in storyStore.state.choices"
           :key="c.choiceId"
           class="choice-item"
-          @click.stop="storyStore.makeChoice(c.choiceId)"
+          @click.stop="sfxStore.play('choice'); storyStore.makeChoice(c.choiceId)"
         >
           {{ c.text }}
         </div>
       </div>
 
-      <!-- 对话 -->
-      <div v-else class="dialogue-wrap">
+      <div v-else key="dialogue" class="dialogue-wrap">
         <div class="dialogue-box" :class="{ 'typing': !storyStore.state.isTextComplete }">
           <!-- 说话人 -->
           <div class="speaker" :class="{ 'narrator': storyStore.currentSpeaker === '旁白' }">
@@ -91,7 +92,7 @@
           <span>点击继续</span>
         </div>
       </div>
-    </div>
+    </transition>
 
     <!-- 顶部栏 -->
     <div class="top-bar">
@@ -108,10 +109,12 @@
 import { computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStoryStore } from '@/stores/story'
+import { useSfxStore } from '@/stores/sfx'
 
 const route = useRoute()
 const router = useRouter()
 const storyStore = useStoryStore()
+const sfxStore = useSfxStore()
 const baseUrl = import.meta.env.BASE_URL
 
 const chapterId = computed(() => route.params.chapterId as string)
@@ -119,8 +122,14 @@ const hasNextChapter = computed(() => !!storyStore.state.nextChapterId)
 
 onMounted(() => storyStore.loadChapter(chapterId.value))
 
-function handleClick() { storyStore.nextDialogue() }
-function handleBack() { router.back() }
+function handleClick() {
+  sfxStore.play('click')
+  storyStore.nextDialogue()
+}
+function handleBack() {
+  sfxStore.play('click')
+  router.back()
+}
 
 function goToNext() {
   const n = storyStore.state.nextChapterId
@@ -261,6 +270,17 @@ function getBackgroundStyle(id: string) {
   background-position: center;
 }
 
+/* 背景切换动画 */
+.bg-fade-enter-active,
+.bg-fade-leave-active {
+  transition: opacity 0.8s ease;
+}
+
+.bg-fade-enter-from,
+.bg-fade-leave-to {
+  opacity: 0;
+}
+
 /* 角色 */
 .characters {
   position: absolute;
@@ -292,6 +312,22 @@ function getBackgroundStyle(id: string) {
 @keyframes char-enter-c {
   from { opacity: 0; transform: translateX(-50%) translateY(20px); }
   to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* 对话框动画 */
+.dialogue-slide-enter-active,
+.dialogue-slide-leave-active {
+  transition: all 0.3s ease;
+}
+
+.dialogue-slide-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.dialogue-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
 }
 
 .char-frame {
