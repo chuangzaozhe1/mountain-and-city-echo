@@ -1,0 +1,262 @@
+{
+  "chapterId": "chapter_01",
+  "title": "立信的蝉鸣与羽毛球拍",
+  "volume": 1,
+  "number": 1,
+  "unlockCondition": null,
+  "scenes": [
+    {
+      "sceneId": "scene_01_01",
+      "background": "lixin_schoolyard_summer",
+      "bgm": "school",
+      "characters": [
+        {
+          "characterId": "tangxin",
+          "position": "center",
+          "expression": "normal"
+        }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "dialogue_01_01_01",
+          "speaker": "旁白",
+          "text": "2017年的夏天，重庆立信职业教育中心的蝉鸣聒噪刺耳，却掩盖不住操场上的欢笑声。"
+        },
+        {
+          "dialogueId": "dialogue_01_01_02",
+          "speaker": "旁白",
+          "text": "一个皮肤黝黑的少年抱着旧羽毛球拍冲向操场，他挥拍的动作干净利落，引来场边一片叫好声。"
+        },
+        {
+          "dialogueId": "dialogue_01_01_03",
+          "speaker": "唐鑫",
+          "text": "好球！再来一个！"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": null
+    },
+    {
+      "sceneId": "scene_01_02",
+      "background": "lixin_schoolyard_summer",
+      "bgm": "school",
+      "characters": [
+        {
+          "characterId": "tangxin",
+          "position": "left",
+          "expression": "normal"
+        },
+        {
+          "characterId": "suwan",
+          "position": "right",
+          "expression": "surprised"
+        }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "dialogue_01_02_01",
+          "speaker": "旁白",
+          "text": "少年飞身救球，却没注意到身后抱着一摞作业本的女生。"
+        },
+        {
+          "dialogueId": "dialogue_01_02_02",
+          "speaker": "旁白",
+          "text": "\"砰\"的一声，两人撞在一起，作业本散落一地。"
+        },
+        {
+          "dialogueId": "dialogue_01_02_03",
+          "speaker": "苏晚",
+          "text": "啊！"
+        },
+        {
+          "dialogueId": "dialogue_01_02_04",
+          "speaker": "唐鑫",
+          "text": "对不起对不起！你没事吧？"
+        }
+      ],
+      "choices": [
+        {
+          "choiceId": "choice_01_01",
+          "text": "连忙道歉帮她捡作业本",
+          "nextSceneId": "scene_01_03",
+          "bondChanges": { "suwan": 2 }
+        },
+        {
+          "choiceId": "choice_01_02",
+          "text": "愣在原地不知所措",
+          "nextSceneId": "scene_01_03",
+          "bondChanges": { "suwan": 1 }
+        }
+      ],
+      "unlockPhoto": "photo_001",
+      "bondChanges": null
+    },
+    {
+      "sceneId": "scene_01_03",
+      "background": "lixin_schoolyard_summer",
+      "bgm": "school",
+      "characters": [
+        {
+          "characterId": "suwan",
+          "position": "right",
+          "expression": "smile"
+        }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "dialogue_01_03_01",
+          "speaker": "苏晚",
+          "text": "没事没事，是我没注意看路。"
+        },
+        {
+          "dialogueId": "dialogue_01_03_02",
+          "speaker": "苏晚",
+          "text": "你是隔壁班的对吧？打球很厉害呀。"
+        },
+        {
+          "dialogueId": "dialogue_01_03_03",
+          "speaker": "唐鑫",
+          "text": "啊...谢谢，我叫唐鑫。"
+        },
+        {
+          "dialogueId": "dialogue_01_03_04",
+          "speaker": "苏晚",
+          "text": "我是苏晚，一班的语文课代表。你的羽毛球拍...很旧了呢。"
+        },
+        {
+          "dialogueId": "dialogue_01_03_05",
+          "speaker": "唐鑫",
+          "text": "嗯...二手市场淘的，不过很好用。"
+        },
+        {
+          "dialogueId": "dialogue_01_03_06",
+          "speaker": "苏晚",
+          "text": "下次比赛加油！我要去送作业了，回见~"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": null
+    },
+    {
+      "sceneId": "scene_01_04",
+      "background": "lixin_library",
+      "bgm": "peaceful",
+      "characters": [
+        {
+          "characterId": "suwan",
+          "position": "right",
+          "expression": "smile"
+        }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "dialogue_01_04_01",
+          "speaker": "旁白",
+          "text": "此后的日子里，苏晚成了他最忠实的观众。"
+        },
+        {
+          "dialogueId": "dialogue_01_04_02",
+          "speaker": "旁白",
+          "text": "场边永远放着一瓶冰镇矿泉水，那是她悄悄放的。"
+        },
+        {
+          "dialogueId": "dialogue_01_04_03",
+          "speaker": "唐鑫",
+          "text": "这水...是你放的？"
+        },
+        {
+          "dialogueId": "dialogue_01_04_04",
+          "speaker": "苏晚",
+          "text": "嗯，天热嘛。你打球那么努力，总要补充点水分。"
+        },
+        {
+          "dialogueId": "dialogue_01_04_05",
+          "speaker": "旁白",
+          "text": "就这样，两人渐渐熟悉起来。"
+        },
+        {
+          "dialogueId": "dialogue_01_04_06",
+          "speaker": "苏晚",
+          "text": "唐鑫，你毕业后有什么打算？"
+        },
+        {
+          "dialogueId": "dialogue_01_04_07",
+          "speaker": "唐鑫",
+          "text": "我想...考上好专科，然后...有个好的未来。"
+        },
+        {
+          "dialogueId": "dialogue_01_04_08",
+          "speaker": "苏晚",
+          "text": "你一定可以的。我相信你。"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": "photo_002",
+      "bondChanges": null
+    },
+    {
+      "sceneId": "scene_01_05",
+      "background": "chongqing_station",
+      "bgm": "bittersweet",
+      "characters": [
+        {
+          "characterId": "suwan",
+          "position": "right",
+          "expression": "sad"
+        }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "dialogue_01_05_01",
+          "speaker": "旁白",
+          "text": "毕业季终究还是来临了。"
+        },
+        {
+          "dialogueId": "dialogue_01_05_02",
+          "speaker": "旁白",
+          "text": "苏晚考上了重庆师范大学，唐鑫去了重庆电子职业科技学院。"
+        },
+        {
+          "dialogueId": "dialogue_01_05_03",
+          "speaker": "旁白",
+          "text": "火车站的月台上，两人相对而立。"
+        },
+        {
+          "dialogueId": "dialogue_01_05_04",
+          "speaker": "苏晚",
+          "text": "唐鑫，你要加油啊。"
+        },
+        {
+          "dialogueId": "dialogue_01_05_05",
+          "speaker": "唐鑫",
+          "text": "嗯，我会的。你也是。"
+        },
+        {
+          "dialogueId": "dialogue_01_05_06",
+          "speaker": "苏晚",
+          "text": "给你。"
+        },
+        {
+          "dialogueId": "dialogue_01_05_07",
+          "speaker": "旁白",
+          "text": "苏晚从包里掏出一个笔记本，塞进唐鑫手里。"
+        },
+        {
+          "dialogueId": "dialogue_01_05_08",
+          "speaker": "苏晚",
+          "text": "\"你一定要成为更好的人。\""
+        },
+        {
+          "dialogueId": "dialogue_01_05_09",
+          "speaker": "旁白",
+          "text": "火车缓缓驶出站台，唐鑫握着那本笔记本，决心开始改变自己的命运。"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": "photo_003",
+      "bondChanges": { "suwan": 5 }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary - 陈曦·桂花暖阳 -->
+    <color name="primary">#FF8C42</color>
+    <color name="onPrimary">#FFFFFF</color>
+    <color name="primaryContainer">#FFE0B2</color>
+
+    <!-- Secondary - 林溪·图书馆灯光 -->
+    <color name="secondary">#4A90E2</color>
+    <color name="onSecondary">#FFFFFF</color>
+    <color name="secondaryContainer">#E3F2FD</color>
+
+    <!-- Tertiary - 江晚·星空紫 -->
+    <color name="tertiary">#7B4397</color>
+    <color name="onTertiary">#FFFFFF</color>
+    <color name="tertiaryContainer">#EDE7F6</color>
+
+    <!-- Background - 山城暖木色 -->
+    <color name="background">#FAF3E0</color>
+    <color name="onBackground">#1A1A1A</color>
+
+    <!-- Surface -->
+    <color name="surface">#FFFFFF</color>
+    <color name="onSurface">#1A1A1A</color>
+    <color name="surfaceVariant">#F5F5F5</color>
+    <color name="onSurfaceVariant">#666666</color>
+
+    <!-- Other -->
+    <color name="outline">#E0E0E0</color>
+    <color name="error">#B00020</color>
+
+    <!-- Character Colors -->
+    <color name="tangxin_color">#8B4513</color>
+    <color name="suwan_color">#00BFFF</color>
+    <color name="linxi_color">#4A90E2</color>
+    <color name="jiangwan_color">#7B4397</color>
+    <color name="chenxi_color">#FF8C42</color>
+</resources>

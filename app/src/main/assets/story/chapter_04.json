@@ -1,0 +1,72 @@
+{
+  "chapterId": "chapter_04",
+  "title": "三十二中的爬山虎与酱肉包",
+  "volume": 2,
+  "number": 4,
+  "unlockCondition": "chapter_03",
+  "scenes": [
+    {
+      "sceneId": "scene_04_01",
+      "background": "school_entrance",
+      "bgm": "peaceful",
+      "characters": [],
+      "dialogues": [
+        {
+          "dialogueId": "dialogue_04_01_01",
+          "speaker": "旁白",
+          "text": "唐鑫考上重庆三十二中行政文员岗位。"
+        },
+        {
+          "dialogueId": "dialogue_04_01_02",
+          "speaker": "旁白",
+          "text": "走进爬满爬山虎的老教学楼的那一刻，他心里终于踏实了。"
+        },
+        {
+          "dialogueId": "dialogue_04_01_03",
+          "speaker": "旁白",
+          "text": "入职第一天，他收到了苏晚的微信：\"欢迎回来，晚上请你吃火锅。\""
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": null
+    },
+    {
+      "sceneId": "scene_04_02",
+      "background": "hotpot_restaurant",
+      "bgm": "warm",
+      "characters": [
+        {
+          "characterId": "suwan",
+          "position": "right",
+          "expression": "smile"
+        }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "dialogue_04_02_01",
+          "speaker": "旁白",
+          "text": "还是当年那家老巷火锅店，苏晚褪去青涩，温柔依旧。"
+        },
+        {
+          "dialogueId": "dialogue_04_02_02",
+          "speaker": "苏晚",
+          "text": "欢迎回来，唐鑫。"
+        },
+        {
+          "dialogueId": "dialogue_04_02_03",
+          "speaker": "旁白",
+          "text": "她从未忘记唐鑫，一直关注着他的动态。"
+        },
+        {
+          "dialogueId": "dialogue_04_02_04",
+          "speaker": "旁白",
+          "text": "离三十二中只有三站地铁的距离，成了他生活里最特别的存在。"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": "photo_hotpot_01",
+      "bondChanges": { "suwan": 3 }
+    }
+  ]
+}

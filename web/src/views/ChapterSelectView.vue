@@ -1,0 +1,146 @@
+<template>
+  <div class="chapter-select">
+    <header class="header">
+      <button class="back-btn" @click="router.back()">←</button>
+      <h1>章节选择</h1>
+    </header>
+
+    <main class="content">
+      <div class="chapters-grid">
+        <button
+          v-for="chapter in chapters"
+          :key="chapter.id"
+          class="chapter-card"
+          :class="{ locked: !chapter.unlocked }"
+          :disabled="!chapter.unlocked"
+          @click="selectChapter(chapter.id)"
+        >
+          <span class="chapter-number">{{ chapter.number }}</span>
+          <span class="chapter-title">{{ chapter.title }}</span>
+          <span v-if="!chapter.unlocked" class="lock-icon">🔒</span>
+        </button>
+      </div>
+    </main>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useGameStore } from '@/stores/game'
+
+const router = useRouter()
+const gameStore = useGameStore()
+
+interface ChapterInfo {
+  id: string
+  number: number
+  title: string
+  unlocked: boolean
+}
+
+const chapters = ref<ChapterInfo[]>([])
+
+onMounted(() => {
+  gameStore.loadFromStorage()
+  chapters.value = [
+    { id: 'chapter_01', number: 1, title: '立信的蝉鸣与羽毛球拍', unlocked: true },
+    { id: 'chapter_02', number: 2, title: '图书馆的灯与金佛山的云', unlocked: gameStore.isChapterUnlocked('chapter_02') },
+    { id: 'chapter_03', number: 3, title: '中核的围墙与腾格里的星', unlocked: gameStore.isChapterUnlocked('chapter_03') },
+    { id: 'chapter_04', number: 4, title: '三十二中的爬山虎与酱肉包', unlocked: gameStore.isChapterUnlocked('chapter_04') },
+    { id: 'chapter_05', number: 5, title: '主席台上的重逢与徒步攻略', unlocked: gameStore.isChapterUnlocked('chapter_05') },
+    { id: 'chapter_06', number: 6, title: '突然出现的背包与麦理浩径', unlocked: gameStore.isChapterUnlocked('chapter_06') },
+    { id: 'chapter_07', number: 7, title: '新来的语文老师与菊花茶', unlocked: gameStore.isChapterUnlocked('chapter_07') },
+    { id: 'chapter_08', number: 8, title: '四份生日礼与校门口的相遇', unlocked: gameStore.isChapterUnlocked('chapter_08') },
+    { id: 'chapter_09', number: 9, title: '红汤翻滚的暗流与歌乐山的映山红', unlocked: gameStore.isChapterUnlocked('chapter_09') },
+    { id: 'chapter_10', number: 10, title: '腾格里的银河与许愿瓶', unlocked: gameStore.isChapterUnlocked('chapter_10') },
+    { id: 'chapter_11', number: 11, title: '南山的烟火与四份新年愿', unlocked: gameStore.isChapterUnlocked('chapter_11') },
+    { id: 'chapter_12', number: 12, title: '长白山的雪与温泉边的约定', unlocked: gameStore.isChapterUnlocked('chapter_12') },
+    { id: 'chapter_13', number: 13, title: '喀纳斯的金色秋天', unlocked: gameStore.isChapterUnlocked('chapter_13') },
+    { id: 'chapter_14', number: 14, title: '校园里的春日日常', unlocked: gameStore.isChapterUnlocked('chapter_14') },
+    { id: 'chapter_15', number: 15, title: '山与城的回响', unlocked: gameStore.isChapterUnlocked('chapter_15') },
+  ]
+})
+
+function selectChapter(chapterId: string) {
+  router.push(`/story/${chapterId}`)
+}
+</script>
+
+<style scoped>
+.chapter-select {
+  width: 100%;
+  height: 100%;
+  background: var(--color-background);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  gap: 1rem;
+}
+
+.back-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(232, 232, 232, 0.1);
+  color: var(--color-on-background);
+  font-size: 1.2rem;
+}
+
+h1 {
+  font-size: 1.25rem;
+  color: var(--color-on-background);
+}
+
+.content {
+  padding: 1rem;
+}
+
+.chapters-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.chapter-card {
+  background: rgba(232, 232, 232, 0.05);
+  border: 1px solid rgba(232, 232, 232, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.chapter-card:not(.locked):hover {
+  border-color: var(--color-primary);
+  background: rgba(124, 111, 205, 0.1);
+}
+
+.chapter-card.locked {
+  opacity: 0.5;
+}
+
+.chapter-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.chapter-title {
+  font-size: 1rem;
+  color: var(--color-on-background);
+}
+
+.lock-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.2rem;
+}
+</style>

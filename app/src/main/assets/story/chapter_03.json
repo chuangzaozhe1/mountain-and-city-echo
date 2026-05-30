@@ -1,0 +1,104 @@
+{
+  "chapterId": "chapter_03",
+  "title": "中核的围墙与腾格里的星",
+  "volume": 1,
+  "number": 3,
+  "unlockCondition": "chapter_02",
+  "scenes": [
+    {
+      "sceneId": "scene_03_01",
+      "background": "office",
+      "bgm": "work",
+      "characters": [],
+      "dialogues": [
+        {
+          "dialogueId": "dialogue_03_01_01",
+          "speaker": "旁白",
+          "text": "2024年，唐鑫入职中核集团，离开重庆去了外地。严谨枯燥的工作让他倍感孤独，只能把精力投入工作，周末独自去周边徒步。"
+        },
+        {
+          "dialogueId": "dialogue_03_01_02",
+          "speaker": "旁白",
+          "text": "一次公司徒步群的腾格里沙漠招募，让他认识了设计部的江晚。"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": null
+    },
+    {
+      "sceneId": "scene_03_02",
+      "background": "desert_night",
+      "bgm": "adventure",
+      "characters": [
+        {
+          "characterId": "jiangwan",
+          "position": "right",
+          "expression": "normal"
+        }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "dialogue_03_02_01",
+          "speaker": "旁白",
+          "text": "沙漠里，他们一起顶着烈日行走，在星空下露营喝啤酒。"
+        },
+        {
+          "dialogueId": "dialogue_03_02_02",
+          "speaker": "江晚",
+          "text": "徒步是我对抗平庸的方式。"
+        },
+        {
+          "dialogueId": "dialogue_03_02_03",
+          "speaker": "唐鑫",
+          "text": "徒步时我可以什么都不想，只专注脚下的路。"
+        },
+        {
+          "dialogueId": "dialogue_03_02_04",
+          "speaker": "江晚",
+          "text": "那我们做一辈子的徒步搭档吧。"
+        },
+        {
+          "dialogueId": "dialogue_03_02_05",
+          "speaker": "旁白",
+          "text": "璀璨的银河横跨天空，唐鑫握着那本苏晚送的笔记本，心里却多了一个同行者的名字。"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": "photo_desert_01",
+      "bondChanges": { "jiangwan": 5 }
+    },
+    {
+      "sceneId": "scene_03_03",
+      "background": "station",
+      "bgm": "bittersweet",
+      "characters": [
+        {
+          "characterId": "jiangwan",
+          "position": "right",
+          "expression": "smile"
+        }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "dialogue_03_03_01",
+          "speaker": "旁白",
+          "text": "2025年初，唐鑫辞职离开中核，江晚去送他。"
+        },
+        {
+          "dialogueId": "dialogue_03_03_02",
+          "speaker": "江晚",
+          "text": "记得把麦理浩径走完，拍照片给我。"
+        },
+        {
+          "dialogueId": "dialogue_03_03_03",
+          "speaker": "旁白",
+          "text": "回到重庆，那个他魂牵梦绕的城市。"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": "photo_tengger_01",
+      "bondChanges": { "jiangwan": 3 }
+    }
+  ]
+}

@@ -1,0 +1,701 @@
+<template>
+  <div
+    class="story-screen"
+    @click="handleClick"
+  >
+    <!-- 背景 -->
+    <div
+      class="bg-layer"
+      :style="{ background: storyStore.currentBackground ? getBackgroundStyle(storyStore.currentBackground) : defaultBg }"
+    ></div>
+
+    <!-- 角色层 -->
+    <div class="characters">
+      <div
+        v-for="(char, idx) in storyStore.currentCharacters"
+        :key="char.characterId"
+        class="character-slot"
+        :class="[`pos-${char.position}`, `enter-${idx}`]"
+      >
+        <div class="char-frame" :class="`theme-${char.characterId}`">
+          <img class="char-avatar-img" :src="`${base}data/avatars/${char.characterId}_avatar.png`" :alt="getCharName(char.characterId)" @error="($event.target as HTMLImageElement).style.display='none'" />
+          <div class="char-avatar-emoji" :style="{ display: 'none' }">{{ getAvatar(char.characterId) }}</div>
+          <div class="char-label">{{ getCharName(char.characterId) }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 加载 -->
+    <div v-if="storyStore.state.isLoading" class="overlay loading">
+      <div class="loader">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <span>加载中</span>
+    </div>
+
+    <!-- 错误 -->
+    <div v-else-if="storyStore.state.error" class="overlay error">
+      <div class="err-box">
+        <span class="err-icon">✕</span>
+        <p>{{ storyStore.state.error }}</p>
+        <button class="btn" @click="router.back()">返回</button>
+      </div>
+    </div>
+
+    <!-- 章节结束 -->
+    <div v-else-if="storyStore.state.isChapterComplete" class="overlay chapter-end">
+      <div class="end-box">
+        <div class="end-badge">COMPLETE</div>
+        <h2>{{ storyStore.state.currentChapterTitle }}</h2>
+        <div class="end-btns">
+          <button v-if="hasNextChapter" class="btn primary" @click.stop="goToNext">
+            继续下一章 →
+          </button>
+          <button class="btn ghost" @click.stop="router.back()">← 返回</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 对话框 -->
+    <div v-else class="dialogue-area">
+      <!-- 选项 -->
+      <div v-if="storyStore.state.choices.length > 0" class="choice-wrap">
+        <div class="choice-label">— 请选择 —</div>
+        <div
+          v-for="c in storyStore.state.choices"
+          :key="c.choiceId"
+          class="choice-item"
+          @click.stop="storyStore.makeChoice(c.choiceId)"
+        >
+          {{ c.text }}
+        </div>
+      </div>
+
+      <!-- 对话 -->
+      <div v-else class="dialogue-wrap">
+        <div class="dialogue-box" :class="{ 'typing': !storyStore.state.isTextComplete }">
+          <!-- 说话人 -->
+          <div class="speaker" :class="{ 'narrator': storyStore.currentSpeaker === '旁白' }">
+            <span class="speaker-txt">{{ storyStore.currentSpeaker }}</span>
+          </div>
+          <!-- 正文 -->
+          <div class="text-body">
+            {{ storyStore.state.displayedText }}<span v-if="!storyStore.state.isTextComplete" class="blinker">▐</span>
+          </div>
+        </div>
+        <!-- 底部提示 -->
+        <div class="tap-hint">
+          <span class="tap-icon">▼</span>
+          <span>点击继续</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 顶部栏 -->
+    <div class="top-bar">
+      <button class="bar-btn" @click.stop="handleBack">✕</button>
+      <div class="bar-title">{{ storyStore.state.currentChapterTitle }}</div>
+      <button class="bar-btn" :class="{ on: storyStore.state.isAutoPlay }" @click.stop="storyStore.toggleAutoPlay">
+        {{ storyStore.state.isAutoPlay ? '⏸' : '▶' }}
+      </button>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useStoryStore } from '@/stores/story'
+
+const route = useRoute()
+const router = useRouter()
+const storyStore = useStoryStore()
+const base = import.meta.env.BASE_URL
+
+const chapterId = computed(() => route.params.chapterId as string)
+const hasNextChapter = computed(() => !!storyStore.state.nextChapterId)
+
+onMounted(() => storyStore.loadChapter(chapterId.value))
+
+function handleClick() { storyStore.nextDialogue() }
+function handleBack() { router.back() }
+
+function goToNext() {
+  const n = storyStore.state.nextChapterId
+  if (n) storyStore.loadChapter(n)
+}
+
+function getAvatar(id: string) {
+  return { tangxin: '♂', suqingyan: '♀', linwanxing: '✿', xuzhinan: '◆' }[id] || '?'
+}
+function getCharName(id: string) {
+  return { tangxin: '唐鑫', suqingyan: '苏清颜', linwanxing: '林晚星', xuzhinan: '许知楠' }[id] || id
+}
+
+// 背景色
+const bgMap: Record<string, string> = {
+  lixin_schoolyard_summer: 'linear-gradient(135deg, #74b9ff 0%, #a29bfe 50%, #81ecec 100%)',
+  lixin_library: 'linear-gradient(135deg, #2d3436 0%, #636e72 100%)',
+  chongqing_station: 'linear-gradient(135deg, #636e72 0%, #2d3436 100%)',
+  library: 'linear-gradient(135deg, #2d3436 0%, #b2bec3 100%)',
+  jinfoshan: 'linear-gradient(135deg, #dfe6e9 0%, #74b9ff 40%, #00b894 100%)',
+  station: 'linear-gradient(135deg, #636e72 0%, #2d3436 100%)',
+  office: 'linear-gradient(135deg, #dfe6e9 0%, #b2bec3 100%)',
+  desert_night: 'linear-gradient(180deg, #0c0c1e 0%, #1a1a3e 50%, #2d2d6b 100%)',
+  school_entrance: 'linear-gradient(135deg, #00b894 0%, #81ecec 100%)',
+  hotpot_restaurant: 'linear-gradient(135deg, #d63031 0%, #e17055 50%, #fab1a0 100%)',
+  meeting_hall: 'linear-gradient(135deg, #636e72 0%, #b2bec3 100%)',
+  restaurant: 'linear-gradient(135deg, #fdcb6e 0%, #f39c12 100%)',
+  school_office: 'linear-gradient(135deg, #dfe6e9 0%, #b2bec3 100%)',
+  mountain_trail: 'linear-gradient(135deg, #00b894 0%, #55efc4 50%, #81ecec 100%)',
+  wugongshan: 'linear-gradient(135deg, #74b9ff 0%, #a29bfe 50%, #dfe6e9 100%)',
+  classroom: 'linear-gradient(135deg, #dfe6e9 0%, #b2bec3 100%)',
+  geluoshan: 'linear-gradient(135deg, #e17055 0%, #fdcb6e 50%, #55efc4 100%)',
+  desert: 'linear-gradient(135deg, #fdcb6e 0%, #e17055 100%)',
+  romantic: 'linear-gradient(180deg, #2d3436 0%, #6c5ce7 50%, #a29bfe 100%)',
+  nanshan: 'linear-gradient(180deg, #2d3436 0%, #e17055 100%)',
+  minsu: 'linear-gradient(135deg, #fab1a0 0%, #ffeaa7 100%)',
+  changbaishan: 'linear-gradient(180deg, #dfe6e9 0%, #74b9ff 100%)',
+  hotspring: 'linear-gradient(180deg, #74b9ff 0%, #00b894 100%)',
+  kanasi: 'linear-gradient(135deg, #fdcb6e 0%, #00b894 50%, #74b9ff 100%)',
+  hemu_village: 'linear-gradient(135deg, #e17055 0%, #fdcb6e 100%)',
+  school_campus: 'linear-gradient(135deg, #55efc4 0%, #81ecec 50%, #dfe6e9 100%)',
+  nanshan_summit: 'linear-gradient(180deg, #74b9ff 0%, #fdcb6e 50%, #e17055 100%)',
+  // 小说新场景背景
+  mountain_night: 'linear-gradient(180deg, #0a1628 0%, #1a2a4a 50%, #2d4a6a 100%)',
+  dai_lake_picnic: 'linear-gradient(135deg, #a8e6cf 0%, #88d8b0 50%, #56c596 100%)',
+  cafe_interior: 'linear-gradient(135deg, #f5e6d3 0%, #e8d5c4 50%, #d4c4b0 100%)',
+  night_market: 'linear-gradient(180deg, #1a1a2e 0%, #e74c3c 50%, #f39c12 100%)',
+  home_night: 'linear-gradient(180deg, #2d3436 0%, #1e272e 100%)',
+  chongqing_night: 'linear-gradient(180deg, #0c0c1e 0%, #1a1a3e 50%, #2d2d6b 100%)',
+  mountain_path: 'linear-gradient(135deg, #00b894 0%, #55efc4 50%, #81ecec 100%)',
+  mountain_viewpoint: 'linear-gradient(180deg, #74b9ff 0%, #a29bfe 50%, #81ecec 100%)',
+  jinyun_summit: 'linear-gradient(180deg, #74b9ff 0%, #fdcb6e 100%)',
+  jinyun_mountain_trail: 'linear-gradient(135deg, #00b894 0%, #55efc4 50%, #dfe6e9 100%)',
+}
+const defaultBg = 'linear-gradient(180deg, #1e1e2e 0%, #2d2d44 100%)'
+function getBackgroundStyle(id: string) { return bgMap[id] || defaultBg }
+</script>
+
+<style scoped>
+.story-screen {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* 背景 */
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+/* 角色 */
+.characters {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.character-slot {
+  position: absolute;
+  bottom: 25%;
+}
+
+.pos-left { left: 5%; }
+.pos-center { left: 50%; transform: translateX(-50%); }
+.pos-right { right: 5%; }
+
+.enter-0 { animation: char-enter 0.4s ease-out; }
+.enter-1 { animation: char-enter 0.5s ease-out; }
+
+@keyframes char-enter {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pos-center.enter-1 { animation-name: char-enter-c; }
+@keyframes char-enter-c {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.char-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  animation: char-idle 3s ease-in-out infinite;
+}
+
+@keyframes char-idle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.pos-left .char-frame { animation-name: char-idle-left; }
+@keyframes char-idle-left {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.pos-right .char-frame { animation-name: char-idle-right; }
+@keyframes char-idle-right {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.char-avatar-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.char-avatar-emoji {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: white;
+}
+
+.theme-tangxin { background: linear-gradient(135deg, #0984e3, #74b9ff); }
+.theme-suqingyan { background: linear-gradient(135deg, #fd79a8, #e84393); }
+.theme-linwanxing { background: linear-gradient(135deg, #00b894, #55efc4); }
+.theme-xuzhinan { background: linear-gradient(135deg, #636e72, #2d3436); }
+.theme-tangxin .char-avatar-img,
+.theme-tangxin .char-avatar-emoji { border: 2px solid #0984e3; }
+.theme-suqingyan .char-avatar-img,
+.theme-suqingyan .char-avatar-emoji { border: 2px solid #fd79a8; }
+.theme-linwanxing .char-avatar-img,
+.theme-linwanxing .char-avatar-emoji { border: 2px solid #00b894; }
+.theme-xuzhinan .char-avatar-img,
+.theme-xuzhinan .char-avatar-emoji { border: 2px solid #636e72; }
+
+.char-label {
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 2px 10px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+}
+
+/* 顶部栏 */
+.top-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  z-index: 50;
+}
+
+.bar-btn {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.4);
+  color: white;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s;
+}
+.bar-btn:hover { background: rgba(124,111,205,0.7); }
+.bar-btn.on { background: var(--color-primary); }
+
+.bar-title {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.85);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+/* 加载/错误 */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.75);
+  z-index: 100;
+}
+
+.loader {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  animation: dot-bounce 0.6s ease-in-out infinite;
+}
+.dot:nth-child(2) { animation-delay: 0.1s; }
+.dot:nth-child(3) { animation-delay: 0.2s; }
+
+@keyframes dot-bounce {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.3); opacity: 1; }
+}
+
+.loading span {
+  margin-top: 16px;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+}
+
+.err-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 32px 48px;
+  background: rgba(30,30,46,0.95);
+  border-radius: 16px;
+  border: 1px solid rgba(255,100,100,0.3);
+}
+
+.err-icon {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: rgba(255,100,100,0.2);
+  color: #ff6b6b;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.err-box p { color: white; margin: 0; }
+
+/* 章节结束 */
+.chapter-end { background: rgba(10,10,20,0.9); backdrop-filter: blur(10px); }
+
+.end-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 40px 60px;
+  background: linear-gradient(135deg, rgba(124,111,205,0.15) 0%, rgba(20,20,35,0.95) 100%);
+  border-radius: 24px;
+  border: 1px solid rgba(124,111,205,0.3);
+}
+
+.end-badge {
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  color: var(--color-primary);
+  background: rgba(124,111,205,0.2);
+  padding: 4px 16px;
+  border-radius: 20px;
+}
+
+.end-box h2 {
+  color: white;
+  font-size: 1.4rem;
+  font-weight: normal;
+  margin: 0;
+}
+
+.end-btns {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.btn {
+  padding: 12px 28px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.25s;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #5a4fb8 100%);
+  color: white;
+}
+.btn.primary:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(124,111,205,0.5); }
+
+.btn.ghost {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.btn.ghost:hover { background: rgba(255,255,255,0.15); }
+
+/* 对话区域 */
+.dialogue-area {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 16px 24px;
+}
+
+/* 对话框 */
+.dialogue-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.dialogue-box {
+  width: 100%;
+  max-width: 680px;
+  background: rgba(12,12,24,0.88);
+  border-radius: 16px;
+  padding: 20px 24px;
+  border: 1px solid rgba(124,111,205,0.25);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.dialogue-box.typing {
+  border-color: rgba(124,111,205,0.4);
+}
+
+.speaker {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 4px 14px;
+  background: linear-gradient(135deg, var(--color-primary), #9b59b6);
+  border-radius: 0 12px 12px 0;
+  margin-left: -24px;
+  padding-left: 28px;
+  position: relative;
+}
+
+.speaker-txt {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.speaker.narrator {
+  background: rgba(255,255,255,0.1);
+}
+
+.text-body {
+  color: white;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  padding-left: 4px;
+}
+
+.blinker {
+  color: var(--color-primary);
+  animation: blink 0.7s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.tap-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: rgba(255,255,255,0.35);
+  font-size: 0.75rem;
+  animation: fade-hint 2s ease-in-out infinite;
+}
+
+@keyframes fade-hint {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.65; }
+}
+
+.tap-icon {
+  animation: bounce-icon 1s ease-in-out infinite;
+}
+
+@keyframes bounce-icon {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+}
+
+/* 选项 */
+.choice-wrap {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: linear-gradient(0deg, rgba(10,10,22,0.95) 0%, rgba(10,10,22,0.7) 100%);
+  padding: 20px 16px;
+  border-radius: 16px 16px 0 0;
+}
+
+.choice-label {
+  text-align: center;
+  color: rgba(255,255,255,0.4);
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  margin-bottom: 4px;
+}
+
+.choice-item {
+  padding: 14px 20px;
+  background: rgba(124,111,205,0.12);
+  border: 1px solid rgba(124,111,205,0.3);
+  border-radius: 12px;
+  color: white;
+  font-size: 0.95rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.choice-item:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateX(4px);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .top-bar {
+    padding: 12px 16px;
+  }
+
+  .bar-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 0.9rem;
+  }
+
+  .bar-title {
+    font-size: 0.8rem;
+  }
+
+  .dialogue-area {
+    padding: 0 12px 20px;
+  }
+
+  .dialogue-box {
+    padding: 16px 18px;
+    border-radius: 14px;
+  }
+
+  .speaker {
+    margin-bottom: 8px;
+    padding: 3px 12px;
+    margin-left: -18px;
+    padding-left: 22px;
+  }
+
+  .speaker-txt {
+    font-size: 0.85rem;
+  }
+
+  .text-body {
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .char-avatar-img {
+    width: 64px;
+    height: 64px;
+  }
+
+  .char-avatar-emoji {
+    width: 52px;
+    height: 52px;
+    font-size: 1.5rem;
+  }
+
+  .char-label {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+  }
+
+  .choice-wrap {
+    padding: 16px 12px;
+  }
+
+  .choice-item {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+  }
+
+  .end-box {
+    padding: 30px 40px;
+  }
+
+  .end-box h2 {
+    font-size: 1.2rem;
+  }
+
+  .btn {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+  }
+}
+
+/* 小屏手机适配 */
+@media (max-width: 375px) {
+  .dialogue-box {
+    padding: 14px 16px;
+  }
+
+  .text-body {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .char-avatar-img {
+    width: 56px;
+    height: 56px;
+  }
+
+  .char-avatar-emoji {
+    width: 46px;
+    height: 46px;
+    font-size: 1.3rem;
+  }
+
+  .choice-item {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+  }
+}
+
+/* 安全区域适配（刘海屏、底部导航栏） */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .dialogue-area {
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
+  }
+
+  .top-bar {
+    padding-top: calc(12px + env(safe-area-inset-top));
+  }
+}
+</style>

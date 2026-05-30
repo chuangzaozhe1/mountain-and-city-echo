@@ -1,0 +1,130 @@
+{
+  "chapterId": "chapter_02",
+  "title": "图书馆的灯与金佛山的云",
+  "volume": 1,
+  "number": 2,
+  "unlockCondition": "chapter_01",
+  "scenes": [
+    {
+      "sceneId": "scene_02_01",
+      "background": "library",
+      "bgm": "peaceful",
+      "characters": [
+        {
+          "characterId": "linxi",
+          "position": "right",
+          "expression": "normal"
+        }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "dialogue_02_01_01",
+          "speaker": "旁白",
+          "text": "专科三年转瞬即逝。唐鑫把所有精力投入学习，同时担任宿舍管理员、参与勤工助学。"
+        },
+        {
+          "dialogueId": "dialogue_02_01_02",
+          "speaker": "旁白",
+          "text": "专升本考试前的冬天，他在图书馆遇到了同样备考的林溪。"
+        },
+        {
+          "dialogueId": "dialogue_02_01_03",
+          "speaker": "林溪",
+          "text": "这道题你会吗？"
+        },
+        {
+          "dialogueId": "dialogue_02_01_04",
+          "speaker": "唐鑫",
+          "text": "让我看看...嗯，这道题要用代入法。"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": null
+    },
+    {
+      "sceneId": "scene_02_02",
+      "background": "jinfoshan",
+      "bgm": "nature",
+      "characters": [
+        {
+          "characterId": "linxi",
+          "position": "right",
+          "expression": "smile"
+        }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "dialogue_02_02_01",
+          "speaker": "旁白",
+          "text": "两人双双考上移通学院。在林溪的影响下，唐鑫爱上了徒步。"
+        },
+        {
+          "dialogueId": "dialogue_02_02_02",
+          "speaker": "旁白",
+          "text": "第一次爬金佛山时，站在山顶看云海翻涌，唐鑫突然明白了——人生就像爬山，一步一个脚印总能到达顶峰。"
+        },
+        {
+          "dialogueId": "dialogue_02_02_03",
+          "speaker": "林溪",
+          "text": "唐鑫，你看这云海，多美啊。"
+        },
+        {
+          "dialogueId": "dialogue_02_02_04",
+          "speaker": "唐鑫",
+          "text": "是啊，谢谢你带我来。"
+        },
+        {
+          "dialogueId": "dialogue_02_02_05",
+          "speaker": "林溪",
+          "text": "一起去更多地方吧。"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": "photo_jinfoshan_01",
+      "bondChanges": { "linxi": 3 }
+    },
+    {
+      "sceneId": "scene_02_03",
+      "background": "station",
+      "bgm": "bittersweet",
+      "characters": [
+        {
+          "characterId": "linxi",
+          "position": "right",
+          "expression": "sad"
+        }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "dialogue_02_03_01",
+          "speaker": "旁白",
+          "text": "本科毕业前夕，林溪收到乡村支教offer。"
+        },
+        {
+          "dialogueId": "dialogue_02_03_02",
+          "speaker": "林溪",
+          "text": "唐鑫，我要去支教了。"
+        },
+        {
+          "dialogueId": "dialogue_02_03_03",
+          "speaker": "唐鑫",
+          "text": "我支持你。"
+        },
+        {
+          "dialogueId": "dialogue_02_03_04",
+          "speaker": "旁白",
+          "text": "送别时，林溪紧紧抱住唐鑫。"
+        },
+        {
+          "dialogueId": "dialogue_02_03_05",
+          "speaker": "林溪",
+          "text": "谢谢你陪我走过这段路。"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": "photo_library",
+      "bondChanges": { "linxi": 5 }
+    }
+  ]
+}
