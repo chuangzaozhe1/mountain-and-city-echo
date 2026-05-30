@@ -238,8 +238,6 @@ function getBackgroundStyle(id: string) {
   // 备用渐变背景
   return bgColors[id] || defaultBg
 }
-const defaultBg = 'linear-gradient(180deg, #1e1e2e 0%, #2d2d44 100%)'
-function getBackgroundStyle(id: string) { return bgMap[id] || defaultBg }
 </script>
 
 <style scoped>

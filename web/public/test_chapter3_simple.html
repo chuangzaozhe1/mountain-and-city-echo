@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chapter 3 Test</title>
+</head>
+<body style="font-family: Arial; padding: 20px; background: #1e1e2e; color: #e0e0e0;">
+  <h1>第三章加载测试</h1>
+  <div id="log"></div>
+  <script>
+    const logDiv = document.getElementById('log');
+    function log(msg) {
+      const p = document.createElement('p');
+      p.textContent = new Date().toLocaleTimeString() + ': ' + msg;
+      logDiv.appendChild(p);
+    }
+    
+    async function test() {
+      log('开始测试...');
+      
+      const chapters = ['chapter_01', 'chapter_02', 'chapter_03'];
+      
+      for (const ch of chapters) {
+        const url = `/mountain-and-city-echo/data/chapters/${ch}.json`;
+        log(`加载 ${ch}...`);
+        
+        const start = performance.now();
+        try {
+          const resp = await fetch(url);
+          if (!resp.ok) {
+            log(`❌ ${ch}: HTTP ${resp.status}`);
+            continue;
+          }
+          const text = await resp.text();
+          const data = JSON.parse(text);
+          const time = performance.now() - start;
+          log(`✓ ${ch}: ${time.toFixed(0)}ms, ${data.lines?.length || 0}行`);
+        } catch (e) {
+          log(`❌ ${ch}: ${e.message}`);
+        }
+      }
+      
+      log('测试完成!');
+    }
+    
+    test();
+  </script>
+</body>
+</html>
