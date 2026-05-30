@@ -134,51 +134,51 @@ function getCharName(id: string) {
   return { tangxin: '唐鑫', suqingyan: '苏清颜', linwanxing: '林晚星', xuzhinan: '许知楠' }[id] || id
 }
 
-// 背景图片 - 使用免费图片服务
+// 背景图片 - 使用本地图片（Unsplash 免费图片）
 const bgImages: Record<string, string> = {
   // 城市场景
-  office: 'https://picsum.photos/id/119/800/600',
-  home_night: 'https://picsum.photos/id/164/800/600',
-  chongqing_night: 'https://picsum.photos/id/274/800/600',
-  chongqing_station: 'https://picsum.photos/id/274/800/600',
-  station: 'https://picsum.photos/id/274/800/600',
-  metro_station: 'https://picsum.photos/id/274/800/600',
+  office: `${baseUrl}data/images/city_1.jpg`,
+  home_night: `${baseUrl}data/images/night_1.jpg`,
+  chongqing_night: `${baseUrl}data/images/night_2.jpg`,
+  chongqing_station: `${baseUrl}data/images/night_2.jpg`,
+  station: `${baseUrl}data/images/night_2.jpg`,
+  metro_station: `${baseUrl}data/images/night_2.jpg`,
 
   // 咖啡店/餐厅场景
-  cafe_interior: 'https://picsum.photos/id/425/800/600',
-  cafe: 'https://picsum.photos/id/425/800/600',
-  restaurant: 'https://picsum.photos/id/425/800/600',
-  hotpot_restaurant: 'https://picsum.photos/id/425/800/600',
+  cafe_interior: `${baseUrl}data/images/cafe_1.jpg`,
+  cafe: `${baseUrl}data/images/cafe_1.jpg`,
+  restaurant: `${baseUrl}data/images/cafe_1.jpg`,
+  hotpot_restaurant: `${baseUrl}data/images/cafe_1.jpg`,
 
   // 夜市/夜景场景
-  night_market: 'https://picsum.photos/id/274/800/600',
-  night_street: 'https://picsum.photos/id/274/800/600',
+  night_market: `${baseUrl}data/images/night_2.jpg`,
+  night_street: `${baseUrl}data/images/night_2.jpg`,
 
   // 山野场景
-  jinyun_mountain_trail: 'https://picsum.photos/id/15/800/600',
-  jinyun_summit: 'https://picsum.photos/id/29/800/600',
-  mountain_trail: 'https://picsum.photos/id/15/800/600',
-  mountain_path: 'https://picsum.photos/id/15/800/600',
-  mountain_viewpoint: 'https://picsum.photos/id/29/800/600',
-  mountain_night: 'https://picsum.photos/id/164/800/600',
-  mountain_rain: 'https://picsum.photos/id/164/800/600',
+  jinyun_mountain_trail: `${baseUrl}data/images/mountain_1.jpg`,
+  jinyun_summit: `${baseUrl}data/images/mountain_2.jpg`,
+  mountain_trail: `${baseUrl}data/images/mountain_1.jpg`,
+  mountain_path: `${baseUrl}data/images/mountain_1.jpg`,
+  mountain_viewpoint: `${baseUrl}data/images/mountain_2.jpg`,
+  mountain_night: `${baseUrl}data/images/night_1.jpg`,
+  mountain_rain: `${baseUrl}data/images/night_1.jpg`,
 
   // 湖边/野餐场景
-  dai_lake_picnic: 'https://picsum.photos/id/15/800/600',
-  minsu: 'https://picsum.photos/id/164/800/600',
+  dai_lake_picnic: `${baseUrl}data/images/mountain_1.jpg`,
+  minsu: `${baseUrl}data/images/night_1.jpg`,
 
   // 浪漫场景
-  romantic: 'https://picsum.photos/id/1025/800/600',
+  romantic: `${baseUrl}data/images/romantic_1.jpg`,
 
   // 沙漠场景
-  desert: 'https://picsum.photos/id/274/800/600',
-  desert_night: 'https://picsum.photos/id/164/800/600',
+  desert: `${baseUrl}data/images/night_2.jpg`,
+  desert_night: `${baseUrl}data/images/night_1.jpg`,
 
   // 其他场景
-  school_entrance: 'https://picsum.photos/id/119/800/600',
-  meeting_hall: 'https://picsum.photos/id/119/800/600',
-  school_office: 'https://picsum.photos/id/119/800/600',
-  classroom: 'https://picsum.photos/id/119/800/600',
+  school_entrance: `${baseUrl}data/images/city_1.jpg`,
+  meeting_hall: `${baseUrl}data/images/city_1.jpg`,
+  school_office: `${baseUrl}data/images/city_1.jpg`,
+  classroom: `${baseUrl}data/images/city_1.jpg`,
 }
 
 // 背景色（作为备用）
