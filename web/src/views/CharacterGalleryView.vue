@@ -29,11 +29,12 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
+const baseUrl = import.meta.env.BASE_URL
 const characters = [
-  { id: 'tangxin', name: '唐鑫', desc: '故事的男主角', image: '/data/avatars/tangxin_1.jpg' },
-  { id: 'suqingyan', name: '苏清颜', desc: '明媚飒爽的群主', image: '/data/avatars/suqingyan.png' },
-  { id: 'linwanxing', name: '林晚星', desc: '温柔腼腆的小学老师', image: '/data/avatars/linwanxing.png' },
-  { id: 'xuzhinan', name: '许知楠', desc: '成熟克制的国企行政', image: '/data/avatars/xuzhinan.png' }
+  { id: 'tangxin', name: '唐鑫', desc: '故事的男主角', image: `${baseUrl}data/avatars/tangxin_1.jpg` },
+  { id: 'suqingyan', name: '苏清颜', desc: '明媚飒爽的群主', image: `${baseUrl}data/avatars/suqingyan.png` },
+  { id: 'linwanxing', name: '林晚星', desc: '温柔腼腆的小学老师', image: `${baseUrl}data/avatars/linwanxing.png` },
+  { id: 'xuzhinan', name: '许知楠', desc: '成熟克制的国企行政', image: `${baseUrl}data/avatars/xuzhinan.png` }
 ]
 </script>
 

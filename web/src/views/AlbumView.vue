@@ -12,7 +12,7 @@
 
       <div v-else class="photos-grid">
         <div v-for="photo in gameStore.state.photos" :key="photo" class="photo-item">
-          <img :src="`/images/photos/${photo}.jpg`" :alt="photo" />
+          <img :src="`${baseUrl}images/photos/${photo}.jpg`" :alt="photo" />
         </div>
       </div>
     </main>
@@ -25,6 +25,7 @@ import { useGameStore } from '@/stores/game'
 
 const router = useRouter()
 const gameStore = useGameStore()
+const baseUrl = import.meta.env.BASE_URL
 </script>
 
 <style scoped>
