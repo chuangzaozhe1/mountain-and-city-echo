@@ -107,7 +107,12 @@ export const useStoryStore = defineStore('story', () => {
         // 触发场景 BGM
         if (chapter.scenes[0]?.background) {
           bgmStore.playForScene(chapter.scenes[0].background)
+          // 预加载背景图片
+          preloadBackgroundImage(chapter.scenes[0].background)
         }
+
+        // 预加载下一章
+        preloadNextChapter(chapter.chapterId)
 
         nextDialogue()
       } else {
@@ -254,6 +259,8 @@ export const useStoryStore = defineStore('story', () => {
       // 触发场景 BGM
       if (nextScene.background) {
         bgmStore.playForScene(nextScene.background)
+        // 预加载背景图片
+        preloadBackgroundImage(nextScene.background)
       }
 
       nextDialogue()
@@ -340,12 +347,22 @@ export const useStoryStore = defineStore('story', () => {
     toggleAutoPlay,
     setTextSpeed,
     setAutoPlayInterval,
-    saveProgress
+    saveProgress,
+    preloadNextChapter,
+    preloadBackgroundImage
   }
 })
 
 // 动态加载章节数据
 async function loadChapterData(chapterId: string): Promise<ChapterData | null> {
+  // 检查预加载缓存
+  if (preloadCache.has(chapterId)) {
+    console.log(`Loading chapter ${chapterId} from preload cache`)
+    const cached = preloadCache.get(chapterId)!
+    preloadCache.delete(chapterId)
+    return cached
+  }
+
   try {
     // 优先从 public 目录加载
     const response = await fetch(`${import.meta.env.BASE_URL}data/chapters/${chapterId}.json`)
@@ -368,4 +385,71 @@ async function loadChapterData(chapterId: string): Promise<ChapterData | null> {
 function getEmbeddedChapter(_chapterId: string): ChapterData | null {
   // 目前所有章节都从 public/data/chapters 目录加载
   return null
+}
+
+// 预加载缓存
+const preloadCache = new Map<string, ChapterData>()
+
+// 预加载下一章
+async function preloadNextChapter(chapterId: string): Promise<void> {
+  const chapterNum = parseInt(chapterId.replace('chapter_', ''))
+  const nextChapterId = `chapter_${String(chapterNum + 1).padStart(2, '0')}`
+
+  if (preloadCache.has(nextChapterId)) {
+    console.log(`Chapter ${nextChapterId} already preloaded`)
+    return
+  }
+
+  try {
+    console.log(`Preloading chapter ${nextChapterId}...`)
+    const response = await fetch(`${import.meta.env.BASE_URL}data/chapters/${nextChapterId}.json`)
+    if (response.ok) {
+      const data = await response.json()
+      preloadCache.set(nextChapterId, data)
+      console.log(`Chapter ${nextChapterId} preloaded successfully`)
+    }
+  } catch (e) {
+    console.warn(`Failed to preload chapter ${nextChapterId}:`, e)
+  }
+}
+
+// 预加载背景图片
+function preloadBackgroundImage(background: string): void {
+  const baseUrl = import.meta.env.BASE_URL
+  const bgImages: Record<string, string> = {
+    office: `${baseUrl}data/images/city_1.jpg`,
+    home_night: `${baseUrl}data/images/night_1.jpg`,
+    chongqing_night: `${baseUrl}data/images/night_2.jpg`,
+    chongqing_station: `${baseUrl}data/images/night_2.jpg`,
+    station: `${baseUrl}data/images/night_2.jpg`,
+    metro_station: `${baseUrl}data/images/night_2.jpg`,
+    cafe_interior: `${baseUrl}data/images/cafe_1.jpg`,
+    cafe: `${baseUrl}data/images/cafe_1.jpg`,
+    restaurant: `${baseUrl}data/images/cafe_1.jpg`,
+    hotpot_restaurant: `${baseUrl}data/images/cafe_1.jpg`,
+    night_market: `${baseUrl}data/images/night_2.jpg`,
+    night_street: `${baseUrl}data/images/night_2.jpg`,
+    jinyun_mountain_trail: `${baseUrl}data/images/mountain_1.jpg`,
+    jinyun_summit: `${baseUrl}data/images/mountain_2.jpg`,
+    mountain_trail: `${baseUrl}data/images/mountain_1.jpg`,
+    mountain_path: `${baseUrl}data/images/mountain_1.jpg`,
+    mountain_viewpoint: `${baseUrl}data/images/mountain_2.jpg`,
+    mountain_night: `${baseUrl}data/images/night_1.jpg`,
+    mountain_rain: `${baseUrl}data/images/night_1.jpg`,
+    dai_lake_picnic: `${baseUrl}data/images/mountain_1.jpg`,
+    minsu: `${baseUrl}data/images/night_1.jpg`,
+    romantic: `${baseUrl}data/images/romantic_1.jpg`,
+    desert: `${baseUrl}data/images/night_2.jpg`,
+    desert_night: `${baseUrl}data/images/night_1.jpg`,
+    school_entrance: `${baseUrl}data/images/city_1.jpg`,
+    meeting_hall: `${baseUrl}data/images/city_1.jpg`,
+    school_office: `${baseUrl}data/images/city_1.jpg`,
+    classroom: `${baseUrl}data/images/city_1.jpg`,
+  }
+
+  const url = bgImages[background]
+  if (url) {
+    const img = new Image()
+    img.src = url
+  }
 }
