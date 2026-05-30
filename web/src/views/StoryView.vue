@@ -406,7 +406,8 @@ function getBackgroundStyle(id: string) {
   justify-content: space-between;
   padding: 12px 16px;
   z-index: 50;
-  gap: 12px;
+  gap: 16px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 100%);
 }
 
 .bar-btn {
