@@ -1,35 +1,35 @@
 {
   "chapterId": "chapter_01",
-  "title": "第一章：缙云山初见，风里藏着心动的味道",
+  "title": "第一章：山城内耗与山野契机",
   "volume": 1,
   "number": 1,
   "unlockCondition": null,
   "scenes": [
     {
       "sceneId": "scene_01_01",
-      "background": "jinyun_mountain_trail",
-      "bgm": "mountain_morning",
+      "background": "office",
+      "bgm": "city",
       "characters": [],
       "dialogues": [
         {
           "dialogueId": "d_01_01_01",
           "speaker": "旁白",
-          "text": "清晨的缙云山，薄雾还未散去，山间的空气带着露水的清甜。"
+          "text": "唐鑫，26岁，重庆本地人。毕业之后就业顺遂，先入职中核集团担任外包岗位，踏实工作大半年，积累了扎实的职场经验。"
         },
         {
           "dialogueId": "d_01_01_02",
           "speaker": "旁白",
-          "text": "唐鑫跟着徒步队伍，沿着蜿蜒的山路缓缓前行。阳光透过树叶的缝隙洒下，在地面上投下斑驳的光影。"
+          "text": "后续主动离职返回重庆本地，入职重庆32中学，从事校内资料整理外包工作。岗位作息规律，严格执行五天八小时工作制，不加班、不内卷、极其安稳，但薪资微薄，税后月薪仅3000元。"
         },
         {
           "dialogueId": "d_01_01_03",
           "speaker": "唐鑫",
-          "text": "（内心）好久没有这种感觉了。工作之后，每天都是家和公司两点一线，差点忘了山野是什么样子。"
+          "text": "（内心）工作极度安稳、毫无失业风险，但薪资难以支撑生活、看不到上升空间。内心极度不甘平庸，迫切想跳槽换高薪、有前景的新工作……"
         },
         {
           "dialogueId": "d_01_01_04",
-          "speaker": "苏清颜",
-          "text": "大家注意安全！前面就是黛湖了，我们在那里野餐休息！"
+          "speaker": "旁白",
+          "text": "性格谨慎求稳，畏惧跳槽失败、害怕贸然裸辞或换岗导致失业，陷入想闯不敢闯、想留不甘心的深度精神内耗，终日焦虑迷茫。"
         }
       ],
       "choices": null,
@@ -38,41 +38,70 @@
     },
     {
       "sceneId": "scene_01_02",
-      "background": "dai_lake_picnic",
-      "bgm": "peaceful_mountain",
-      "characters": [
-        { "characterId": "suqingyan", "position": "center", "expression": "happy" }
-      ],
+      "background": "home_night",
+      "bgm": "city",
+      "characters": [],
       "dialogues": [
         {
           "dialogueId": "d_01_02_01",
           "speaker": "旁白",
-          "text": "黛湖畔，野餐垫铺开，各种食物摆满了草地。苏清颜正在给众人分发她早起做的三明治。"
+          "text": "盛夏的重庆，闷热难耐。唐鑫下班回到出租屋，躺在床上刷着手机，看着招聘网站上那些高薪岗位，心里既向往又害怕。"
         },
         {
           "dialogueId": "d_01_02_02",
-          "speaker": "苏清颜",
-          "text": "唐鑫，这是我特意给你留的火腿鸡蛋三明治。清晨特意早起做的，手艺不及门店精致，你且尝尝、多多包涵。"
+          "speaker": "安子龙",
+          "text": "鑫哥！你又在发呆了？走走走，我带你去个好地方！"
         },
         {
           "dialogueId": "d_01_02_03",
-          "speaker": "旁白",
-          "text": "纸质餐盒拆开的瞬间，淡淡的麦香混着火腿的咸香漫开，松软的吐司烤得恰到好处，边缘微焦不糊，内里绵软温润，是用心拿捏的火候。"
+          "speaker": "唐鑫",
+          "text": "去哪啊？我这周又没找到合适的工作……"
         },
         {
           "dialogueId": "d_01_02_04",
-          "speaker": "唐鑫",
-          "text": "太用心了，谢谢，看着就很好吃。"
+          "speaker": "安子龙",
+          "text": "别想那些了！我推荐你加个徒步社群，周末一起去爬山散心。我跟你说，群主是个超级好看的小姐姐，叫苏清颜，人特别好！"
         },
         {
           "dialogueId": "d_01_02_05",
-          "speaker": "苏清颜",
-          "text": "快吃吧，徒步耗体力，别饿着。"
+          "speaker": "旁白",
+          "text": "唐鑫犹豫了一下，最终还是扫码入了群。他确实需要散散心，连日来的职场焦虑让他喘不过气来。"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": null
+    },
+    {
+      "sceneId": "scene_01_03",
+      "background": "home_night",
+      "bgm": "cafe",
+      "characters": [],
+      "dialogues": [
+        {
+          "dialogueId": "d_01_03_01",
+          "speaker": "旁白",
+          "text": "入群后，唐鑫发现群里氛围很好，大家经常分享徒步照片和路线攻略。他偶然提到自己走过武功山、麦理浩径，立刻引起了群主苏清颜的注意。"
         },
         {
-          "dialogueId": "d_01_02_06",
+          "dialogueId": "d_01_03_02",
+          "speaker": "苏清颜",
+          "text": "哇！你也走过麦理浩径？我超爱那条线路的！海岸线绝美！"
+        },
+        {
+          "dialogueId": "d_01_03_03",
+          "speaker": "唐鑫",
+          "text": "是啊，那次重装走了三天，晚上在帐篷里看星星，特别治愈。"
+        },
+        {
+          "dialogueId": "d_01_03_04",
+          "speaker": "苏清颜",
+          "text": "太厉害了！我下次也想走长线，能不能请教一下装备清单？"
+        },
+        {
+          "dialogueId": "d_01_03_05",
           "speaker": "旁白",
-          "text": "苏清颜眉眼弯弯，侧身挨着他坐下，姿态松弛自然，全然没有刻意的疏离，眼底的偏爱坦荡直白，毫不掩饰。"
+          "text": "两人因徒步经历同频共鸣，阅历契合、三观相近，快速拉近距离。唐鑫发现和苏清颜聊天特别轻松，她的热情和直白让他原本紧绷的心情渐渐松弛下来。"
         }
       ],
       "choices": null,
@@ -80,189 +109,55 @@
       "bondChanges": { "suqingyan": 5 }
     },
     {
-      "sceneId": "scene_01_03",
-      "background": "dai_lake_picnic",
-      "bgm": "peaceful_mountain",
-      "characters": [
-        { "characterId": "linwanxing", "position": "left", "expression": "shy" }
-      ],
-      "dialogues": [
-        {
-          "dialogueId": "d_01_03_01",
-          "speaker": "旁白",
-          "text": "就在这时，一个娇小的身影怯生生地走近。"
-        },
-        {
-          "dialogueId": "d_01_03_02",
-          "speaker": "林晚星",
-          "text": "唐、唐鑫哥，刚刚谢谢你救了我……这是我自己烤的曲奇饼干，味道一般，你不要嫌弃。"
-        },
-        {
-          "dialogueId": "d_01_03_03",
-          "speaker": "旁白",
-          "text": "林晚星双手捧着白色磨砂玻璃罐，罐口系着浅粉色丝带，小巧精致、少女感十足。阳光透过枝叶落在玻璃罐上，折射出细碎温柔的光斑。"
-        },
-        {
-          "dialogueId": "d_01_03_04",
-          "speaker": "唐鑫",
-          "text": "怎么会，亲手做的最珍贵，谢谢你，晚星。"
-        },
-        {
-          "dialogueId": "d_01_03_05",
-          "speaker": "旁白",
-          "text": "指尖接过罐子的瞬间，林晚星的心跳骤然加速，飞快垂首退后，默默坐回原位，双手轻轻攥着裙摆，悄悄抬眼瞥向他的方向，眼底藏不住懵懂又热烈的心动。"
-        }
-      ],
-      "choices": null,
-      "unlockPhoto": null,
-      "bondChanges": { "linwanxing": 5 }
-    },
-    {
       "sceneId": "scene_01_04",
-      "background": "dai_lake_picnic",
-      "bgm": "peaceful_mountain",
-      "characters": [
-        { "characterId": "xuzhinan", "position": "right", "expression": "calm" }
-      ],
+      "background": "chongqing_night",
+      "bgm": "healing",
+      "characters": [],
       "dialogues": [
         {
           "dialogueId": "d_01_04_01",
           "speaker": "旁白",
-          "text": "就在这时，一道清冽温柔、沉稳克制的女声自旁侧传来。"
+          "text": "一个暴雨的傍晚，唐鑫加完班走出地铁站，被突如其来的大雨困在了站口。他看着手机里苏清颜发来的消息，心里暖暖的。"
         },
         {
           "dialogueId": "d_01_04_02",
-          "speaker": "许知楠",
-          "text": "小唐是第一次来咱们社群徒步？看着体力很好，山路全程走下来，气息都没乱。"
+          "speaker": "苏清颜",
+          "text": "唐鑫！你在哪？我刚从店里出来，给你带了杯热奶茶！"
         },
         {
           "dialogueId": "d_01_04_03",
           "speaker": "旁白",
-          "text": "唐鑫抬眸，视线越过错落的人群，落在不远处缓步走来的女人身上。这是他今日见过的第三种极致惊艳的气质——不同于苏清颜的山野明媚、林晚星的书卷软糯，眼前的女人是沉淀岁月与职场历练后的成熟清冷，端庄自持、分寸绝佳。"
+          "text": "苏清颜冒着雨跑来，手里举着一杯热气腾腾的奶茶，头发被雨水打湿，却笑得灿烂明媚。"
         },
         {
           "dialogueId": "d_01_04_04",
-          "speaker": "许知楠",
-          "text": "我是许知楠，经常在群里潜水。在国企做行政，平时工作久坐压抑，周末就跟着清颜进山放空。"
+          "speaker": "苏清颜",
+          "text": "我看天气预报说今晚有暴雨，想着你可能没带伞。快喝点热的，别感冒了。"
         },
         {
           "dialogueId": "d_01_04_05",
           "speaker": "唐鑫",
-          "text": "楠姐好，我是唐鑫，今天第一次参加活动。"
+          "text": "谢谢你……这么大的雨，你还特意跑一趟。"
         },
         {
           "dialogueId": "d_01_04_06",
-          "speaker": "许知楠",
-          "text": "没做复杂的东西，带了些自己晒的桂花乌龙茶点，解腻爽口，大家一起尝尝。"
-        }
-      ],
-      "choices": null,
-      "unlockPhoto": null,
-      "bondChanges": { "xuzhinan": 5 }
-    },
-    {
-      "sceneId": "scene_01_05",
-      "background": "dai_lake_picnic",
-      "bgm": "peaceful_mountain",
-      "characters": [
-        { "characterId": "xuzhinan", "position": "right", "expression": "calm" }
-      ],
-      "dialogues": [
-        {
-          "dialogueId": "d_01_05_01",
-          "speaker": "旁白",
-          "text": "许知楠目光淡淡扫过他手中的三明治与饼干罐，眼底掠过一丝了然的浅笑意。"
-        },
-        {
-          "dialogueId": "d_01_05_02",
-          "speaker": "许知楠",
-          "text": "看你走路节奏很稳，登山落脚很规范，不是新手。应该是常年徒步的老玩家吧？"
-        },
-        {
-          "dialogueId": "d_01_05_03",
-          "speaker": "唐鑫",
-          "text": "算是，平时闲暇喜欢走长线，武功山、麦理浩径那些线路都走过，习惯了山野放空。"
-        },
-        {
-          "dialogueId": "d_01_05_04",
-          "speaker": "许知楠",
-          "text": "难怪沉稳，长线徒步最磨心性，也最能看出一个人的自律踏实。现在年轻人愿意吃苦、耐心走完长线的，不多了。"
-        },
-        {
-          "dialogueId": "d_01_05_05",
           "speaker": "苏清颜",
-          "text": "知楠姐眼光太准了！唐鑫可是深藏不露的大神，反穿武功山、重装露营样样精通，还会专业咖啡手艺，明日我可是专属预约了他的私人咖啡特调！"
-        }
-      ],
-      "choices": null,
-      "unlockPhoto": null,
-      "bondChanges": null
-    },
-    {
-      "sceneId": "scene_01_06",
-      "background": "dai_lake_picnic",
-      "bgm": "peaceful_mountain",
-      "characters": [
-        { "characterId": "xuzhinan", "position": "center", "expression": "calm" }
-      ],
-      "dialogues": [
-        {
-          "dialogueId": "d_01_06_01",
-          "speaker": "许知楠",
-          "text": "看着你性子很稳，应该平时压力也不小吧？越是自律踏实的人，越容易跟自己较劲，容易内耗。"
+          "text": "客气什么！咱们是朋友嘛！对了，我看你最近心情不太好，是不是工作上有什么烦心事？"
         },
         {
-          "dialogueId": "d_01_06_02",
+          "dialogueId": "d_01_04_07",
           "speaker": "旁白",
-          "text": "简简单单一句话，精准戳中了唐鑫心底最深的困顿。"
+          "text": "唐鑫沉默了片刻，终于把积压在心底的职场焦虑和内耗倾诉了出来。苏清颜认真听完，没有说教，只是温柔地拍了拍他的肩膀。"
         },
         {
-          "dialogueId": "d_01_06_03",
-          "speaker": "唐鑫",
-          "text": "确实，工作太稳太闲，薪资太低，想突破又怕出错，一直卡在原地纠结。"
-        },
-        {
-          "dialogueId": "d_01_06_04",
-          "speaker": "许知楠",
-          "text": "安稳是围城，平庸最磨人。慢慢来，稳得住当下，才能抓得住未来，不用急于一时。"
-        },
-        {
-          "dialogueId": "d_01_06_05",
-          "speaker": "旁白",
-          "text": "短短几句开导，不鸡汤、不空洞，贴合职场成年人的困顿与抉择，比所有安慰都管用。唐鑫紧绷多日的心弦，又松弛了几分。"
-        }
-      ],
-      "choices": null,
-      "unlockPhoto": null,
-      "bondChanges": { "xuzhinan": 5 }
-    },
-    {
-      "sceneId": "scene_01_07",
-      "background": "jinyun_summit",
-      "bgm": "triumphant",
-      "characters": [
-        { "characterId": "suqingyan", "position": "left", "expression": "happy" }
-      ],
-      "dialogues": [
-        {
-          "dialogueId": "d_01_07_01",
-          "speaker": "旁白",
-          "text": "下午四点左右，队伍顺利登顶缙云山狮子峰。登顶瞬间，晚风浩荡、肆意拂面，整座北碚城的风光铺展在眼底，远山含黛、江波迢迢，云海微风、山河辽阔。"
-        },
-        {
-          "dialogueId": "d_01_07_02",
-          "speaker": "旁白",
-          "text": "连日压在唐鑫心底的职场焦虑、内耗纠结，在这一刻被山野的辽阔彻底抚平，心底只剩松弛与坦然。"
-        },
-        {
-          "dialogueId": "d_01_07_03",
+          "dialogueId": "d_01_04_08",
           "speaker": "苏清颜",
-          "text": "唐鑫，明天的咖啡约会，不许反悔。我准时等你，专属你的私人特调。"
+          "text": "唐鑫，你已经很厉害了。能吃苦、有技术、还这么踏实，只是暂时没遇到合适的机会而已。别急，慢慢来，总会好起来的。"
         },
         {
-          "dialogueId": "d_01_07_04",
-          "speaker": "唐鑫",
-          "text": "绝不反悔，明天准时赴约。"
+          "dialogueId": "d_01_04_09",
+          "speaker": "旁白",
+          "text": "山城暴雨被困，苏清颜主动送热饮，给予深陷内耗的唐鑫温暖与认可，抚平他的职场焦虑。那一刻，唐鑫觉得心里的阴霾散去了不少。"
         }
       ],
       "choices": null,
@@ -270,117 +165,76 @@
       "bondChanges": { "suqingyan": 10 }
     },
     {
-      "sceneId": "scene_01_08",
-      "background": "jinyun_summit",
-      "bgm": "triumphant",
-      "characters": [
-        { "characterId": "linwanxing", "position": "right", "expression": "shy" }
-      ],
-      "dialogues": [
-        {
-          "dialogueId": "d_01_08_01",
-          "speaker": "林晚星",
-          "text": "唐鑫哥，以后徒步……我还能跟你一起吗？"
-        },
-        {
-          "dialogueId": "d_01_08_02",
-          "speaker": "旁白",
-          "text": "林晚星鼓起勇气小声开口，心头微微失落，却依旧满心期许。"
-        },
-        {
-          "dialogueId": "d_01_08_03",
-          "speaker": "唐鑫",
-          "text": "当然可以，随时欢迎。"
-        },
-        {
-          "dialogueId": "d_01_08_04",
-          "speaker": "旁白",
-          "text": "林晚星瞬间眉眼弯弯、满心欢喜，所有的失落尽数消散，心底悸动不止。"
-        }
-      ],
-      "choices": null,
-      "unlockPhoto": null,
-      "bondChanges": { "linwanxing": 10 }
-    },
-    {
-      "sceneId": "scene_01_09",
-      "background": "jinyun_summit",
-      "bgm": "triumphant",
-      "characters": [
-        { "characterId": "xuzhinan", "position": "right", "expression": "calm" }
-      ],
-      "dialogues": [
-        {
-          "dialogueId": "d_01_09_01",
-          "speaker": "许知楠",
-          "text": "以后社群有徒步活动，也欢迎你常来。山野治愈人心，多出来走走，很多心结都会慢慢解开。若是职场上有困惑，也可以随时找我聊聊。"
-        },
-        {
-          "dialogueId": "d_01_09_02",
-          "speaker": "旁白",
-          "text": "这是成年人最体面温柔的示好，不越界、不热烈，却足够温暖、足够有分量。"
-        },
-        {
-          "dialogueId": "d_01_09_03",
-          "speaker": "唐鑫",
-          "text": "谢谢楠姐，麻烦你了。"
-        }
-      ],
-      "choices": null,
-      "unlockPhoto": null,
-      "bondChanges": { "xuzhinan": 5 }
-    },
-    {
-      "sceneId": "scene_01_10",
-      "background": "chongqing_night",
-      "bgm": "night_city",
+      "sceneId": "scene_01_05",
+      "background": "cafe",
+      "bgm": "cafe",
       "characters": [],
       "dialogues": [
         {
-          "dialogueId": "d_01_10_01",
-          "speaker": "旁白",
-          "text": "傍晚五点，全员开始下山返程。抵达山脚停车场时，天色已经渐暗，山城灯火次第亮起，万家灯火璀璨，温柔包裹着整座城市，烟火气十足。"
-        },
-        {
-          "dialogueId": "d_01_10_02",
-          "speaker": "旁白",
-          "text": "解散前夕，众人纷纷互加微信，方便后续社群联动、日常闲聊。"
-        },
-        {
-          "dialogueId": "d_01_10_03",
-          "speaker": "旁白",
-          "text": "林晚星通过好友的瞬间，紧张得指尖都在轻颤，悄悄把他的聊天框置顶；许知楠添加好友后，礼貌性发了一句「以后常交流」，简洁克制、体面温柔。"
-        },
-        {
-          "dialogueId": "d_01_10_04",
+          "dialogueId": "d_01_05_01",
           "speaker": "苏清颜",
-          "text": "明天下午三点，我店里等你，专属咖啡师就位，期待你的手艺～"
+          "text": "对了唐鑫，你说你以前在瑞幸实习过？会做咖啡？"
         },
         {
-          "dialogueId": "d_01_10_05",
+          "dialogueId": "d_01_05_02",
           "speaker": "唐鑫",
-          "text": "准时到。"
+          "text": "嗯，学过一点拉花和萃取，不过很久没做了。"
+        },
+        {
+          "dialogueId": "d_01_05_03",
+          "speaker": "苏清颜",
+          "text": "真的吗？那你能不能给我做一杯？我超想喝手工咖啡的！"
+        },
+        {
+          "dialogueId": "d_01_05_04",
+          "speaker": "唐鑫",
+          "text": "好啊，等下次见面，我亲手给你做一杯专属特调。"
+        },
+        {
+          "dialogueId": "d_01_05_05",
+          "speaker": "苏清颜",
+          "text": "一言为定！不许反悔！"
+        },
+        {
+          "dialogueId": "d_01_05_06",
+          "speaker": "旁白",
+          "text": "唐鑫许诺亲手为苏清颜做专属咖啡，敲定线下赴约。这是他们第一次约定见面，两人都隐隐期待着。"
         }
       ],
       "choices": null,
       "unlockPhoto": null,
-      "bondChanges": null
+      "bondChanges": { "suqingyan": 5 }
     },
     {
       "sceneId": "scene_01_end",
       "background": "chongqing_night",
-      "bgm": "night_city",
+      "bgm": "healing",
       "characters": [],
       "dialogues": [
         {
           "dialogueId": "d_01_end_01",
           "speaker": "旁白",
-          "text": "返程的地铁上，晚风透过车窗缝隙涌入，温柔松弛、治愈人心。唐鑫靠在车窗边，看着窗外流动的山城夜景，心底的内耗与迷茫尽数消散，多了几分笃定与期许。"
+          "text": "几天后，苏清颜在群里发布了周末缙云山徒步活动的通知。唐鑫看到消息，毫不犹豫地报了名。"
         },
         {
           "dialogueId": "d_01_end_02",
+          "speaker": "安子龙",
+          "text": "鑫哥！你终于要线下见面了！我跟你说，清颜姐本人比照片还好看！"
+        },
+        {
+          "dialogueId": "d_01_end_03",
+          "speaker": "唐鑫",
+          "text": "别瞎说，我就是去爬山散心。"
+        },
+        {
+          "dialogueId": "d_01_end_04",
+          "speaker": "安子龙",
+          "text": "嘿嘿，我懂我懂～对了，我也报名了，到时候给你助攻！"
+        },
+        {
+          "dialogueId": "d_01_end_05",
           "speaker": "旁白",
-          "text": "手机微信界面，三个头像静静陈列，三条截然不同的温柔羁绊悄然生根。明日的咖啡约会即将开启，多线暧昧拉扯正式上线，职场的迷茫困顿渐渐松动，属于他的自愈与成长、心动与抉择，才刚刚拉开序幕。"
+          "text": "唐鑫靠在窗边，看着窗外的山城夜景，心底的焦虑似乎轻了一些。他知道，明天的缙云山之行，或许会是他人生的一个转折点。"
         }
       ],
       "choices": [
@@ -391,7 +245,7 @@
           "bondChanges": null
         }
       ],
-      "unlockPhoto": "photo_jinyun_summit",
+      "unlockPhoto": null,
       "bondChanges": null
     }
   ]
