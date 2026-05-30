@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 
 // BGM 音乐库 - 使用免费的 ambient 音乐 CDN
 const BGM_LIBRARY: Record<string, { url: string; name: string }[]> = {
@@ -101,8 +101,6 @@ export const useBgmStore = defineStore('bgm', () => {
 
   // 音频相关
   let audioContext: AudioContext | null = null
-  let audioBuffer: AudioBuffer | null = null
-  let sourceNode: AudioBufferSourceNode | null = null
   let gainNode: GainNode | null = null
   let currentAudio: HTMLAudioElement | null = null
   let fadeTimer: number | null = null
