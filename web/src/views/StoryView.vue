@@ -516,8 +516,8 @@ function getBackgroundStyle(id: string) {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 0 16px 24px;
-  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+  padding: 0 16px 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
   pointer-events: none;
 }
 
@@ -530,22 +530,23 @@ function getBackgroundStyle(id: string) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .dialogue-box {
   width: 100%;
-  max-width: 680px;
-  max-height: 35vh;
-  background: linear-gradient(135deg, rgba(15,15,30,0.92) 0%, rgba(25,20,45,0.88) 100%);
+  max-width: 720px;
+  min-height: 180px;
+  max-height: 45vh;
+  background: linear-gradient(135deg, rgba(10,10,25,0.95) 0%, rgba(20,15,40,0.92) 100%);
   border-radius: 20px;
-  padding: 22px 28px 20px;
-  border: 1px solid rgba(180,160,255,0.2);
-  backdrop-filter: blur(16px);
+  padding: 24px 28px 22px;
+  border: 1px solid rgba(180,160,255,0.25);
+  backdrop-filter: blur(20px);
   box-shadow:
-    0 8px 32px rgba(0,0,0,0.5),
-    0 0 0 1px rgba(255,255,255,0.05) inset,
-    0 2px 8px rgba(124,111,205,0.15) inset;
+    0 8px 32px rgba(0,0,0,0.6),
+    0 0 0 1px rgba(255,255,255,0.08) inset,
+    0 2px 12px rgba(124,111,205,0.2) inset;
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
@@ -611,13 +612,13 @@ function getBackgroundStyle(id: string) {
 
 .speaker-txt {
   color: white;
-  font-size: 0.88rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .speaker.narrator {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.1);
   box-shadow: none;
 }
 
@@ -626,11 +627,12 @@ function getBackgroundStyle(id: string) {
 }
 
 .text-body {
-  color: rgba(255,255,255,0.95);
-  font-size: 1.05rem;
-  line-height: 1.9;
+  color: rgba(255,255,255,1);
+  font-size: 1.15rem;
+  line-height: 2;
   padding-left: 4px;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  font-weight: 500;
 }
 
 .blinker {
@@ -745,28 +747,30 @@ function getBackgroundStyle(id: string) {
   }
 
   .dialogue-area {
-    padding: 0 12px 20px;
+    padding: 0 12px 16px;
   }
 
   .dialogue-box {
-    padding: 16px 18px;
-    border-radius: 14px;
+    padding: 18px 20px;
+    border-radius: 16px;
+    min-height: 160px;
+    max-height: 42vh;
   }
 
   .speaker {
-    margin-bottom: 8px;
-    padding: 3px 12px;
-    margin-left: -18px;
-    padding-left: 22px;
+    margin-bottom: 10px;
+    padding: 4px 14px;
+    margin-left: -20px;
+    padding-left: 24px;
   }
 
   .speaker-txt {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
 
   .text-body {
-    font-size: 1rem;
-    line-height: 1.75;
+    font-size: 1.1rem;
+    line-height: 1.9;
   }
 
   .char-avatar-img {
@@ -811,12 +815,13 @@ function getBackgroundStyle(id: string) {
 /* 小屏手机适配 */
 @media (max-width: 375px) {
   .dialogue-box {
-    padding: 14px 16px;
+    padding: 16px 18px;
+    min-height: 140px;
   }
 
   .text-body {
-    font-size: 0.95rem;
-    line-height: 1.7;
+    font-size: 1rem;
+    line-height: 1.8;
   }
 
   .char-avatar-img {
