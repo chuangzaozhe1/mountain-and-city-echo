@@ -4,12 +4,10 @@
       <component :is="Component" />
     </transition>
   </router-view>
-  <BgmPlayer />
 </template>
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import BgmPlayer from '@/components/BgmPlayer.vue'
 import { useBgmStore } from '@/stores/bgm'
 import { useGameStore } from '@/stores/game'
 
