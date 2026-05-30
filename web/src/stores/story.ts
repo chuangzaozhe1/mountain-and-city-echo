@@ -330,8 +330,7 @@ export const useStoryStore = defineStore('story', () => {
 async function loadChapterData(chapterId: string): Promise<ChapterData | null> {
   try {
     // 优先从 public 目录加载
-    const base = import.meta.env.BASE_URL
-    const response = await fetch(`${base}data/chapters/${chapterId}.json`)
+    const response = await fetch(`data/chapters/${chapterId}.json`)
     if (response.ok) {
       const data = await response.json()
       console.log(`Loaded chapter ${chapterId} from external file`, data)

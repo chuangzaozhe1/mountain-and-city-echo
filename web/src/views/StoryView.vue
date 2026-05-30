@@ -18,7 +18,7 @@
         :class="[`pos-${char.position}`, `enter-${idx}`]"
       >
         <div class="char-frame" :class="`theme-${char.characterId}`">
-          <img class="char-avatar-img" :src="`${base}data/avatars/${char.characterId}_avatar.png`" :alt="getCharName(char.characterId)" @error="($event.target as HTMLImageElement).style.display='none'" />
+          <img class="char-avatar-img" :src="`data/avatars/${char.characterId}_avatar.png`" :alt="getCharName(char.characterId)" @error="($event.target as HTMLImageElement).style.display='none'" />
           <div class="char-avatar-emoji" :style="{ display: 'none' }">{{ getAvatar(char.characterId) }}</div>
           <div class="char-label">{{ getCharName(char.characterId) }}</div>
         </div>
@@ -112,7 +112,6 @@ import { useStoryStore } from '@/stores/story'
 const route = useRoute()
 const router = useRouter()
 const storyStore = useStoryStore()
-const base = import.meta.env.BASE_URL
 
 const chapterId = computed(() => route.params.chapterId as string)
 const hasNextChapter = computed(() => !!storyStore.state.nextChapterId)

@@ -4,7 +4,7 @@ import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
   plugins: [vue()],
-  base: '/mountain-and-city-echo/',  // GitHub Pages 仓库名
+  base: './',  // 相对路径，兼容任意部署位置
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
