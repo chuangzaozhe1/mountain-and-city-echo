@@ -188,6 +188,8 @@ function getBackgroundStyle(id: string) { return bgMap[id] || defaultBg }
   overflow: hidden;
   cursor: pointer;
   user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* 背景 */
