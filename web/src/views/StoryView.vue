@@ -419,7 +419,6 @@ function getBackgroundStyle(id: string) {
   z-index: 50;
   gap: 16px;
   background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 100%);
-  pointer-events: auto;
 }
 
 .bar-btn {
