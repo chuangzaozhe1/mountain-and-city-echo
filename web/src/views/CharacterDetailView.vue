@@ -23,10 +23,10 @@
         <h2>照片</h2>
         <div class="expressions-grid">
           <img
-            v-for="expr in ['normal', 'hiking', 'sports']"
-            :key="expr"
-            :src="`${baseUrl}data/avatars/${route.params.id}_${expr}.jpg`"
-            :alt="expr"
+            v-for="photo in characterPhotos"
+            :key="photo"
+            :src="`${baseUrl}data/avatars/${photo}.jpg`"
+            :alt="photo"
             @error="($event.target as HTMLImageElement).style.display='none'"
           />
         </div>
@@ -45,14 +45,15 @@ const router = useRouter()
 const gameStore = useGameStore()
 
 const baseUrl = import.meta.env.BASE_URL
-const characterData: Record<string, { name: string; desc: string; image: string }> = {
-  tangxin: { name: '唐鑫', desc: '故事的男主角', image: `${baseUrl}data/avatars/tangxin_1.jpg` },
-  suqingyan: { name: '苏清颜', desc: '明媚飒爽的群主', image: `${baseUrl}data/avatars/suqingyan.jpg` },
-  linwanxing: { name: '林晚星', desc: '温柔腼腆的小学老师', image: `${baseUrl}data/avatars/linwanxing.jpg` },
-  xuzhinan: { name: '许知楠', desc: '成熟克制的国企行政', image: `${baseUrl}data/avatars/xuzhinan.jpg` }
+const characterData: Record<string, { name: string; desc: string; image: string; photos: string[] }> = {
+  tangxin: { name: '唐鑫', desc: '故事的男主角', image: `${baseUrl}data/avatars/tangxin_hiking.jpg`, photos: ['tangxin_hiking', 'tangxin_maiwan'] },
+  suqingyan: { name: '苏清颜', desc: '明媚飒爽的群主', image: `${baseUrl}data/avatars/suqingyan_avatar.jpg`, photos: ['suqingyan_normal', 'suqingyan_sport'] },
+  linwanxing: { name: '林晚星', desc: '温柔腼腆的小学老师', image: `${baseUrl}data/avatars/linwanxing_avatar.jpg`, photos: ['linwanxing_avatar'] },
+  xuzhinan: { name: '许知楠', desc: '成熟克制的国企行政', image: `${baseUrl}data/avatars/xuzhinan_avatar.jpg`, photos: ['xuzhinan_avatar', 'xuzhinan_hiking'] }
 }
 
 const character = computed(() => characterData[route.params.id as string])
+const characterPhotos = computed(() => character.value?.photos || [])
 const bondPoints = computed(() => gameStore.state.bondPoints[route.params.id as string] || 0)
 const bondPercent = computed(() => Math.min(100, bondPoints.value))
 </script>
