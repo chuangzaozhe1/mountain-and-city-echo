@@ -610,8 +610,7 @@
         }
       })
 
-      // 自动导出测试报告
-      exportTestReport()
+      // 测试完成，不自动导出（避免手机端自动下载）
     }, 2000)
   }
 
@@ -630,9 +629,11 @@
     runAutoTest: runAutoTest
   }
 
-  // 页面加载后自动运行测试
+  // 只在 test.html 页面自动运行测试
   window.addEventListener('load', function () {
-    setTimeout(runAutoTest, 1000)
+    if (window.location.pathname.endsWith('test.html')) {
+      setTimeout(runAutoTest, 1000)
+    }
   })
 
   originalConsole.log('[Logger] All systems initialized, logs will persist to localStorage')
