@@ -1,87 +1,60 @@
 {
   "chapterId": "chapter_06",
-  "title": "第六章：雨夜山径与开放式结局",
+  "title": "第六章：山野落幕",
   "volume": 1,
   "number": 6,
   "unlockCondition": null,
   "scenes": [
     {
       "sceneId": "scene_06_01",
-      "background": "mountain_night",
-      "bgm": "night_city",
+      "background": "office",
+      "bgm": "city",
       "characters": [
-        { "characterId": "suqingyan", "position": "center", "expression": "happy" }
+        { "characterId": "tangxin", "position": "center", "expression": "normal" }
       ],
       "dialogues": [
         {
           "dialogueId": "d_06_01_01",
           "speaker": "旁白",
-          "text": "面试结束后的第二天，苏清颜在群里发了一条通知：「临时加开歌乐山夜爬活动！今晚八点歌乐山森林公园门口集合，看山城夜景，有没有人来？」"
+          "text": "整场国企面试落幕，走出写字楼的那一刻，山城午后的风褪去了连日的燥热，多了几分清爽松弛。没有预想中的紧张忐忑，只剩卸下重担的坦然。连日熬夜打磨简历、梳理面试话术、钻研岗位知识的全力以赴，早已彻底改写了唐鑫的心境。"
         },
         {
           "dialogueId": "d_06_01_02",
           "speaker": "旁白",
-          "text": "群里立刻热闹起来，很多人都报名参加。唐鑫也报了名，他面试感觉还不错，心情很好，正好想去山里放松一下。"
-        },
-        {
-          "dialogueId": "d_06_01_03",
-          "speaker": "安子龙",
-          "text": "鑫哥！机会来了！夜爬最适合增进感情了！你趁机跟清颜姐表白啊！"
-        },
-        {
-          "dialogueId": "d_06_01_04",
-          "speaker": "旁白",
-          "text": "唐鑫笑了笑，没有回复。他已经做好了决定，等今晚夜爬结束，就跟苏清颜表白。"
+          "text": "他不再是那个困在方寸工位、患得患失、深陷内耗的迷茫少年。哪怕最终结果尚未公示，他已然完成了自我突破——敢于跳出安稳围城，敢于对抗平庸焦虑，敢于为前路奋力一搏。"
         }
       ],
       "choices": null,
       "unlockPhoto": null,
-      "bondChanges": null
+      "bondChanges": { "tangxin": 10 }
     },
     {
       "sceneId": "scene_06_02",
-      "background": "mountain_night",
-      "bgm": "night_city",
+      "background": "home_night",
+      "bgm": "healing",
       "characters": [
-        { "characterId": "suqingyan", "position": "left", "expression": "happy" },
-        { "characterId": "linwanxing", "position": "center", "expression": "shy" },
-        { "characterId": "xuzhinan", "position": "right", "expression": "calm" }
+        { "characterId": "tangxin", "position": "center", "expression": "happy" }
       ],
       "dialogues": [
         {
           "dialogueId": "d_06_02_01",
           "speaker": "旁白",
-          "text": "晚上七点半，唐鑫抵达歌乐山森林公园门口。苏清颜、林晚星和许知楠已经到了。苏清颜穿了一身运动装，背着一个登山包，手里拿着手电筒，活力满满；林晚星穿了一件白色的运动服，手里拿着一个小小的手电筒，有些紧张又有些期待；许知楠穿了一身黑色的运动装，背着一个轻便的登山包，气质沉稳。"
+          "text": "正当他静心等候面试结果、沉淀自我之时，山野社群的一条临时动态，再次搅动了心底的一池春水。"
         },
         {
           "dialogueId": "d_06_02_02",
-          "speaker": "林晚星",
-          "text": "唐鑫哥！"
+          "speaker": "旁白",
+          "text": "是苏清颜发布的活动通知，字句松弛随性，藏着独属于山城山野的浪漫：「临时加开歌乐山夜爬！晚风纳凉、夜观山城灯火，八点山门随心集结，不问归途，只为吹风。」"
         },
         {
           "dialogueId": "d_06_02_03",
-          "speaker": "苏清颜",
-          "text": "唐鑫，面试怎么样？"
+          "speaker": "唐鑫",
+          "text": "（夜爬治愈心绪，更藏着他前日敲定的、未曾说出口的告白。）"
         },
         {
           "dialogueId": "d_06_02_04",
-          "speaker": "唐鑫",
-          "text": "感觉还不错，应该能过。"
-        },
-        {
-          "dialogueId": "d_06_02_05",
-          "speaker": "苏清颜",
-          "text": "太好了！等结果出来了，我们一定要好好庆祝一下！"
-        },
-        {
-          "dialogueId": "d_06_02_06",
-          "speaker": "许知楠",
-          "text": "我就知道你没问题。"
-        },
-        {
-          "dialogueId": "d_06_02_07",
           "speaker": "旁白",
-          "text": "没过多久，安子龙和其他几个群友也到了。八点整，众人准时出发，开始夜爬歌乐山。夜晚的歌乐山格外清幽，只有手电筒的光束在黑暗中晃动，还有虫鸣和鸟叫的声音。山路有些陡峭，众人互相搀扶着，慢慢向上爬。"
+          "text": "唐鑫没有半分迟疑，一键报名赴约。"
         }
       ],
       "choices": null,
@@ -90,101 +63,62 @@
     },
     {
       "sceneId": "scene_06_03",
-      "background": "mountain_rain",
-      "bgm": "night_city",
+      "background": "home_night",
+      "bgm": "healing",
       "characters": [
-        { "characterId": "suqingyan", "position": "center", "expression": "calm" },
-        { "characterId": "linwanxing", "position": "left", "expression": "shy" }
+        { "characterId": "tangxin", "position": "center", "expression": "happy" }
       ],
       "dialogues": [
         {
           "dialogueId": "d_06_03_01",
-          "speaker": "旁白",
-          "text": "爬到半山腰的时候，天空突然下起了小雨。雨点越来越大，很快就变成了倾盆大雨。山路变得湿滑难行，众人只好找了一个避雨的亭子，暂时躲雨。"
+          "speaker": "安子龙",
+          "text": "「鑫哥！天赐良机！夜色、晚风、山野独处氛围，今晚正好兑现你前夜的心意，直接拿下清颜姐！」"
         },
         {
           "dialogueId": "d_06_03_02",
-          "speaker": "安子龙",
-          "text": "怎么突然下这么大的雨啊？早知道就看天气预报了。"
-        },
-        {
-          "dialogueId": "d_06_03_03",
-          "speaker": "苏清颜",
-          "text": "重庆的天气就是这样，说变就变。没关系，我们在这里等一会儿，雨停了再走。"
-        },
-        {
-          "dialogueId": "d_06_03_04",
           "speaker": "旁白",
-          "text": "雨越下越大，丝毫没有要停的意思。亭子很小，只能容下几个人，大家挤在一起，有些局促。"
-        },
-        {
-          "dialogueId": "d_06_03_05",
-          "speaker": "旁白",
-          "text": "就在这时，林晚星突然打了一个喷嚏。她穿得比较薄，被雨水打湿了衣服，有些冷。"
-        },
-        {
-          "dialogueId": "d_06_03_06",
-          "speaker": "唐鑫",
-          "text": "（看到林晚星发抖，立刻脱下自己的外套披在她身上）别感冒了。"
-        },
-        {
-          "dialogueId": "d_06_03_07",
-          "speaker": "林晚星",
-          "text": "谢谢唐鑫哥……"
-        },
-        {
-          "dialogueId": "d_06_03_08",
-          "speaker": "旁白",
-          "text": "林晚星小声道谢，脸颊泛红，心底暖暖的。苏清颜看着这一幕，眼底掠过一丝不易察觉的失落，但很快就掩饰过去了。她笑着说：「晚星体质比较弱，确实要注意保暖。」许知楠也从包里拿出一条毛巾，递给林晚星：「擦擦头发吧，别着凉了。」"
+          "text": "唐鑫看着屏幕浅笑，眼底藏着笃定温柔。他早已做好决定，这场山野落幕，便坦诚心意，奔赴那场从雨天相识、咖啡缔约、山海期许的热烈偏爱。"
         }
       ],
       "choices": null,
       "unlockPhoto": null,
-      "bondChanges": { "linwanxing": 10 }
+      "bondChanges": null
     },
     {
       "sceneId": "scene_06_04",
-      "background": "mountain_rain",
-      "bgm": "night_city",
+      "background": "mountain_trail",
+      "bgm": "romantic",
       "characters": [
-        { "characterId": "suqingyan", "position": "center", "expression": "calm" },
-        { "characterId": "xuzhinan", "position": "right", "expression": "calm" }
+        { "characterId": "suqingyan", "position": "left", "expression": "happy" },
+        { "characterId": "tangxin", "position": "center", "expression": "happy" },
+        { "characterId": "linwanxing", "position": "right", "expression": "shy" },
+        { "characterId": "xuzhinan", "position": "right", "expression": "normal" }
       ],
       "dialogues": [
         {
           "dialogueId": "d_06_04_01",
           "speaker": "旁白",
-          "text": "雨还在下着，众人在亭子里闲聊着，打发时间。安子龙讲着鬼故事，吓得林晚星紧紧抓住唐鑫的胳膊；苏清颜和许知楠聊着天，时不时看向唐鑫；唐鑫则一边安慰着林晚星，一边时不时看向苏清颜，眼神里满是温柔。"
+          "text": "晚间八点，歌乐山森林公园山门准时集结完毕。夜色浓稠温柔，晚风裹挟着山间草木的清冽气息，吹散了白日的喧嚣浮躁。"
         },
         {
           "dialogueId": "d_06_04_02",
           "speaker": "旁白",
-          "text": "过了一个多小时，雨终于停了。但山路变得更加湿滑难行，而且时间也不早了，苏清颜提议下山。众人纷纷同意，开始下山。下山的路比上山的路更加难走，大家小心翼翼地走着，互相搀扶着。"
+          "text": "三位身影次第伫立，各有风情，依旧是刻在他心底的三种温柔。"
         },
         {
           "dialogueId": "d_06_04_03",
           "speaker": "旁白",
-          "text": "走到一个陡峭的路段时，林晚星脚下一滑，差点摔倒。唐鑫眼疾手快，一把扶住了她。「小心点。」唐鑫说。「谢谢唐鑫哥。」林晚星惊魂未定，紧紧抓着唐鑫的胳膊。"
+          "text": "苏清颜一身简约运动套装，利落轻便，手持强光手电，眉眼明媚鲜活，眼底藏着浅浅期许；林晚星身着浅白运动服，身姿娇小乖巧，长发束成低马尾，干净纯粹；许知楠依旧是极简黑色穿搭，气质清冷沉稳，从容有度。"
         },
         {
           "dialogueId": "d_06_04_04",
-          "speaker": "旁白",
-          "text": "就在这时，苏清颜也脚下一滑，向后倒去。「清颜！」唐鑫大喊一声，想要去扶她，但林晚星还抓着他的胳膊，他一时脱不开身。就在这千钧一发之际，许知楠一把拉住了苏清颜的胳膊，将她扶稳了。"
+          "speaker": "苏清颜",
+          "text": "「面试辛苦啦，今晚好好放松，不用紧绷着。」"
         },
         {
           "dialogueId": "d_06_04_05",
-          "speaker": "许知楠",
-          "text": "没事吧？"
-        },
-        {
-          "dialogueId": "d_06_04_06",
-          "speaker": "苏清颜",
-          "text": "没事，谢谢你，知楠姐。"
-        },
-        {
-          "dialogueId": "d_06_04_07",
-          "speaker": "旁白",
-          "text": "唐鑫看着苏清颜，眼底满是担忧：「你没事吧？有没有伤到哪里？」苏清颜拍了拍胸口，有些后怕：「我没事，就是吓了一跳。山路太滑了，大家都小心点。」接下来的路，大家走得更加小心了。"
+          "speaker": "唐鑫",
+          "text": "「一切顺利，静待结果便好。」"
         }
       ],
       "choices": null,
@@ -193,34 +127,29 @@
     },
     {
       "sceneId": "scene_06_05",
-      "background": "mountain_night",
-      "bgm": "night_city",
-      "characters": [],
+      "background": "mountain_trail",
+      "bgm": "romantic",
+      "characters": [
+        { "characterId": "suqingyan", "position": "left", "expression": "happy" },
+        { "characterId": "tangxin", "position": "center", "expression": "happy" },
+        { "characterId": "linwanxing", "position": "right", "expression": "shy" },
+        { "characterId": "xuzhinan", "position": "right", "expression": "normal" }
+      ],
       "dialogues": [
         {
           "dialogueId": "d_06_05_01",
           "speaker": "旁白",
-          "text": "终于，众人安全抵达山脚。此时已经是深夜十一点多了，雨也停了，空气格外清新。大家互相道别，各自回家。"
+          "text": "队伍准时启程夜爬，手电光束划破浓稠夜色，在蜿蜒山径上铺开细碎光亮。山间虫鸣阵阵，风声簌簌，枝叶轻晃作响，构成山野独有的静谧韵律。"
         },
         {
           "dialogueId": "d_06_05_02",
           "speaker": "旁白",
-          "text": "唐鑫看着苏清颜的背影，想要叫住她，跟她表白，但话到嘴边又咽了回去。他看了看身边的林晚星，她还披着他的外套，眼神里满是依赖。他又看了看许知楠，她正对着他微笑，眼神里满是温柔。"
+          "text": "苏清颜主动领跑开路，步伐轻快稳妥；唐鑫紧随身侧，二人低声闲谈，聊面试的细碎过往、聊山野的四季风光、聊秋日麦理浩径的未了之约，氛围缱绻温柔。"
         },
         {
           "dialogueId": "d_06_05_03",
           "speaker": "旁白",
-          "text": "唐鑫站在原地，看着三个女生的背影渐渐消失在夜色中，心底充满了复杂的情绪。他原本以为自己已经做好了决定，但刚才的雨夜山径，让他再次动摇了。"
-        },
-        {
-          "dialogueId": "d_06_05_04",
-          "speaker": "旁白",
-          "text": "他看到了林晚星的依赖和信任，看到了许知楠的沉稳和可靠，也看到了苏清颜的坚强和温柔。他拿出手机，看到许知楠发来的微信：「面试结果明天就会出来，祝你好运。」紧接着，林晚星也发来微信：「唐鑫哥，谢谢你今天照顾我。外套我洗干净了还给你。」最后，苏清颜也发来微信：「到家了吗？今天谢谢你。早点休息。」"
-        },
-        {
-          "dialogueId": "d_06_05_05",
-          "speaker": "旁白",
-          "text": "唐鑫看着三条微信，指尖停在屏幕上，迟迟没有回复。明天，面试结果就会出来。他会得到一份新的工作，开启新的生活。而他的感情，也将迎来最终的抉择。"
+          "text": "林晚星紧紧跟在队伍中段，步步紧随、不敢掉队，目光始终悄悄追随着前方的身影，满心安稳依赖。许知楠自觉殿后收尾，沉静观察全员状态，细致照料体力偏弱的队友，沉稳靠谱、润物无声。"
         }
       ],
       "choices": null,
@@ -228,56 +157,575 @@
       "bondChanges": null
     },
     {
-      "sceneId": "scene_06_end",
-      "background": "chongqing_night",
-      "bgm": "night_city",
-      "characters": [],
+      "sceneId": "scene_06_06",
+      "background": "mountain_rain",
+      "bgm": "healing",
+      "characters": [
+        { "characterId": "suqingyan", "position": "left", "expression": "worried" },
+        { "characterId": "tangxin", "position": "center", "expression": "worried" },
+        { "characterId": "linwanxing", "position": "right", "expression": "worried" },
+        { "characterId": "xuzhinan", "position": "right", "expression": "normal" }
+      ],
       "dialogues": [
         {
-          "dialogueId": "d_06_end_01",
+          "dialogueId": "d_06_06_01",
           "speaker": "旁白",
-          "text": "山城的雨夜，温柔又朦胧。他会选择热烈明媚的苏清颜，一起奔赴山海之约？还是会选择温柔纯情的林晚星，守护她的懵懂心动？亦或是会选择成熟通透的许知楠，共度安稳人生？"
+          "text": "行至半山腰平缓路段，原本澄澈无云的夜空骤然变脸。前一秒还晚风温柔，下一秒便狂风过境，细碎雨丝骤然坠落，转瞬便铺展成倾盆大雨。"
         },
         {
-          "dialogueId": "d_06_end_02",
+          "dialogueId": "d_06_06_02",
           "speaker": "旁白",
-          "text": "没有人知道答案。所有的故事，都还未完待续。"
+          "text": "豆大的雨点狠狠砸落，山路瞬间被雨水浸透，变得湿滑泥泞，视线被雨幕阻隔，模糊不清，继续登顶已然凶险不妥。众人无奈，只得就近躲入山间老旧凉亭，暂避风雨。"
+        },
+        {
+          "dialogueId": "d_06_06_03",
+          "speaker": "旁白",
+          "text": "凉亭狭小局促，堪堪容纳全员。晚风裹挟着冰冷雨丝灌入亭中，带着深秋山间的凉意，瞬间浸透衣衫。"
+        },
+        {
+          "dialogueId": "d_06_06_04",
+          "speaker": "旁白",
+          "text": "林晚星本就衣衫单薄，忍不住轻轻打了个寒颤，肩头微微蜷缩，眼底掠过一丝怯意。"
+        },
+        {
+          "dialogueId": "d_06_06_05",
+          "speaker": "旁白",
+          "text": "唐鑫看在眼里，没有半分迟疑，当即脱下身上的薄外套，快步上前轻轻披在她单薄的肩头。"
+        },
+        {
+          "dialogueId": "d_06_06_06",
+          "speaker": "唐鑫",
+          "text": "「裹紧些，别着凉。」"
+        },
+        {
+          "dialogueId": "d_06_06_07",
+          "speaker": "旁白",
+          "text": "林晚星浑身一僵，耳根瞬间红透，垂首攥紧衣摆，小声细若蚊蚋地道谢，心底的依赖与安稳肆意蔓延。"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": { "linwanxing": 10 }
+    },
+    {
+      "sceneId": "scene_06_07",
+      "background": "mountain_rain",
+      "bgm": "healing",
+      "characters": [
+        { "characterId": "suqingyan", "position": "left", "expression": "sad" },
+        { "characterId": "tangxin", "position": "center", "expression": "normal" },
+        { "characterId": "linwanxing", "position": "right", "expression": "shy" },
+        { "characterId": "xuzhinan", "position": "right", "expression": "normal" }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "d_06_07_01",
+          "speaker": "旁白",
+          "text": "这一幕落在苏清颜眼底，她明媚的眼眸微微黯淡，掠过一丝浅浅的失落。那是坦荡偏爱里，转瞬即逝的酸涩，可她素来通透温柔，转瞬便释然。"
+        },
+        {
+          "dialogueId": "d_06_07_02",
+          "speaker": "苏清颜",
+          "text": "「晚星，把衣服拢好，别着凉了。」"
+        },
+        {
+          "dialogueId": "d_06_07_03",
+          "speaker": "旁白",
+          "text": "许知楠始终静默观察，从容从背包中取出干净毛巾递予林晚星，不动声色兜底照料所有人的情绪与状态，分寸绝佳、温柔有度。"
+        },
+        {
+          "dialogueId": "d_06_07_04",
+          "speaker": "旁白",
+          "text": "滂沱大雨迟迟未歇，安子龙刻意讲着搞笑趣事，尽力冲淡雨夜的沉闷。唐鑫一边留意林晚星的状态，一边频频侧目望向不远处的苏清颜，心底翻涌着复杂的情绪。"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": { "suqingyan": 5, "xuzhinan": 5 }
+    },
+    {
+      "sceneId": "scene_06_08",
+      "background": "mountain_trail",
+      "bgm": "romantic",
+      "characters": [
+        { "characterId": "suqingyan", "position": "left", "expression": "normal" },
+        { "characterId": "tangxin", "position": "center", "expression": "normal" },
+        { "characterId": "linwanxing", "position": "right", "expression": "normal" },
+        { "characterId": "xuzhinan", "position": "right", "expression": "normal" }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "d_06_08_01",
+          "speaker": "旁白",
+          "text": "整整一小时后，大雨终于渐歇。夜色深沉、山路湿滑，登顶计划只能作罢。"
+        },
+        {
+          "dialogueId": "d_06_08_02",
+          "speaker": "苏清颜",
+          "text": "「大家注意安全，我们下山吧，山顶的灯火留着下次再看。」"
+        },
+        {
+          "dialogueId": "d_06_08_03",
+          "speaker": "旁白",
+          "text": "下山的路远比上山时更为艰险，湿滑的石阶极易打滑，众人相互搀扶、步步谨慎。"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": null
+    },
+    {
+      "sceneId": "scene_06_09",
+      "background": "mountain_trail",
+      "bgm": "romantic",
+      "characters": [
+        { "characterId": "suqingyan", "position": "left", "expression": "scared" },
+        { "characterId": "tangxin", "position": "center", "expression": "worried" },
+        { "characterId": "linwanxing", "position": "right", "expression": "scared" },
+        { "characterId": "xuzhinan", "position": "right", "expression": "normal" }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "d_06_09_01",
+          "speaker": "旁白",
+          "text": "途经一处陡峭悬空石阶，林晚星脚下骤然一滑，身形剧烈踉跄，整个人不受控制地向前倾，险些直接滚落石阶。"
+        },
+        {
+          "dialogueId": "d_06_09_02",
+          "speaker": "旁白",
+          "text": "唐鑫眼疾手快，跨步上前稳稳攥住她的手臂，力道温柔却坚定。"
+        },
+        {
+          "dialogueId": "d_06_09_03",
+          "speaker": "唐鑫",
+          "text": "「慢点落脚，这里太滑。」"
+        },
+        {
+          "dialogueId": "d_06_09_04",
+          "speaker": "旁白",
+          "text": "惊魂未定的林晚星下意识紧紧攥住他的衣袖，满心的慌乱与全然的信任尽数寄托在这一处牵绊之上。"
+        },
+        {
+          "dialogueId": "d_06_09_05",
+          "speaker": "旁白",
+          "text": "偏偏此刻，苏清颜也脚下一滑，身形猛地向后倾倒，悬空的险境转瞬即至，岌岌可危。"
+        },
+        {
+          "dialogueId": "d_06_09_06",
+          "speaker": "旁白",
+          "text": "唐鑫心头骤然一紧，本能地想要抽身奔赴，可衣袖被林晚星紧紧攥住，两难之间，瞬间分身乏术。"
+        },
+        {
+          "dialogueId": "d_06_09_07",
+          "speaker": "旁白",
+          "text": "千钧一发之际，许知楠精准出手，稳稳扣住苏清颜的手腕，瞬间化解了这场突如其来的险境。"
+        },
+        {
+          "dialogueId": "d_06_09_08",
+          "speaker": "许知楠",
+          "text": "「没事吧？站稳些。」"
+        },
+        {
+          "dialogueId": "d_06_09_09",
+          "speaker": "苏清颜",
+          "text": "「没事，太谢谢你了，知楠姐。」"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": { "linwanxing": 10, "xuzhinan": 15 }
+    },
+    {
+      "sceneId": "scene_06_10",
+      "background": "mountain_trail",
+      "bgm": "romantic",
+      "characters": [
+        { "characterId": "suqingyan", "position": "left", "expression": "normal" },
+        { "characterId": "tangxin", "position": "center", "expression": "worried" },
+        { "characterId": "linwanxing", "position": "right", "expression": "shy" },
+        { "characterId": "xuzhinan", "position": "right", "expression": "normal" }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "d_06_10_01",
+          "speaker": "旁白",
+          "text": "一场雨夜险情，将三位女生最动人的特质毫无保留地铺展在唐鑫眼前。"
+        },
+        {
+          "dialogueId": "d_06_10_02",
+          "speaker": "旁白",
+          "text": "林晚星的爱是全然交付的依赖，懵懂纯粹、满心赤诚；苏清颜的爱是坦荡热烈的奔赴，明媚勇敢、温柔坦荡；许知楠的爱是不动声色的兜底，成熟通透、冷静靠谱。"
+        },
+        {
+          "dialogueId": "d_06_10_03",
+          "speaker": "旁白",
+          "text": "前夜深思熟虑、已然笃定的抉择，在这一刻彻底松动。人心从来复杂，温柔最难抉择，世间从无两全其美的圆满。"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": null
+    },
+    {
+      "sceneId": "scene_06_11",
+      "background": "night_street",
+      "bgm": "city",
+      "characters": [
+        { "characterId": "tangxin", "position": "center", "expression": "normal" }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "d_06_11_01",
+          "speaker": "旁白",
+          "text": "众人终于全员安稳抵达山脚。夜色深沉，雨后的晚风微凉澄澈，三道截然不同的身影渐次消失在山城的夜色深处。"
+        },
+        {
+          "dialogueId": "d_06_11_02",
+          "speaker": "旁白",
+          "text": "手机屏幕接连亮起，三条温柔消息接踵而至。"
+        },
+        {
+          "dialogueId": "d_06_11_03",
+          "speaker": "许知楠",
+          "text": "「面试结果明日公示，不必焦虑放平心态，你的努力与踏实，终有回响。」"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": null
+    },
+    {
+      "sceneId": "scene_06_12",
+      "background": "home_night",
+      "bgm": "healing",
+      "characters": [
+        { "characterId": "tangxin", "position": "center", "expression": "normal" }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "d_06_12_01",
+          "speaker": "旁白",
+          "text": "唐鑫望着屏幕，心底翻涌着复杂的情绪。他向往苏清颜的山海自由，舍不得辜负林晚星纯粹无瑕的依赖，更放不下许知楠通透温柔的默契。"
+        },
+        {
+          "dialogueId": "d_06_12_02",
+          "speaker": "旁白",
+          "text": "此刻，他必须做出最终的抉择——"
         }
       ],
       "choices": [
         {
-          "choiceId": "c_06_choice_01",
-          "text": "追上去叫住苏清颜：当场向她表白，开启主线甜蜜结局",
-          "nextSceneId": null,
-          "bondChanges": { "suqingyan": 30 }
+          "choiceId": "choice_suqingyan",
+          "text": "遵从初心，兑现前夜告白，坚定奔赴苏清颜（苏清颜偏爱 +25）",
+          "nextSceneId": "scene_06_suqingyan",
+          "bondChanges": { "suqingyan": 25 }
         },
         {
-          "choiceId": "c_06_choice_02",
-          "text": "送林晚星回家：在路上向她表明心意，开启支线纯情结局",
-          "nextSceneId": null,
-          "bondChanges": { "linwanxing": 30 }
+          "choiceId": "choice_linwanxing",
+          "text": "心软动容，回应纯情暗恋，温柔偏爱林晚星（林晚星温柔 +25）",
+          "nextSceneId": "scene_06_linwanxing",
+          "bondChanges": { "linwanxing": 25 }
         },
         {
-          "choiceId": "c_06_choice_03",
-          "text": "联系许知楠：感谢她今晚的帮助，暗示自己的心意，开启御姐成熟结局",
-          "nextSceneId": null,
-          "bondChanges": { "xuzhinan": 30 }
+          "choiceId": "choice_xuzhinan",
+          "text": "感念兜底温柔，偏向成熟默契，倾心许知楠（许知楠克制 +25）",
+          "nextSceneId": "scene_06_xuzhinan",
+          "bondChanges": { "xuzhinan": 25 }
         },
         {
-          "choiceId": "c_06_choice_04",
-          "text": "谁都不联系：专注于等待面试结果，暂时搁置感情，开启事业优先结局",
-          "nextSceneId": null,
-          "bondChanges": { "tangxin": 35 }
-        },
-        {
-          "choiceId": "c_06_choice_05",
-          "text": "保持现状：继续维持多线暧昧，等待后续剧情发展",
-          "nextSceneId": null,
-          "bondChanges": null
+          "choiceId": "choice_tangxin",
+          "text": "暂缓所有情愫，专注事业结果，沉淀自我（唐鑫自我 +30）",
+          "nextSceneId": "scene_06_tangxin",
+          "bondChanges": { "tangxin": 30 }
         }
       ],
-      "unlockPhoto": "photo_rainy_night",
+      "unlockPhoto": null,
       "bondChanges": null
+    },
+    {
+      "sceneId": "scene_06_suqingyan",
+      "background": "jinyun_summit",
+      "bgm": "romantic",
+      "characters": [
+        { "characterId": "suqingyan", "position": "center", "expression": "happy" },
+        { "characterId": "tangxin", "position": "center", "expression": "happy" }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "d_06_s_01",
+          "speaker": "旁白",
+          "text": "【山海奔赴主线结局】"
+        },
+        {
+          "dialogueId": "d_06_s_02",
+          "speaker": "旁白",
+          "text": "唐鑫深吸一口气，拨通了苏清颜的电话。"
+        },
+        {
+          "dialogueId": "d_06_s_03",
+          "speaker": "唐鑫",
+          "text": "「清颜，我想见你。有些话，我想当面跟你说。」"
+        },
+        {
+          "dialogueId": "d_06_s_04",
+          "speaker": "旁白",
+          "text": "半小时后，缙云山观景台。山城的万家灯火铺展在脚下，夜风温柔，星光璀璨。"
+        },
+        {
+          "dialogueId": "d_06_s_05",
+          "speaker": "唐鑫",
+          "text": "「清颜，从雨天初遇，到咖啡缔约，到山海期许，我一直在犹豫。但今晚，我不想再犹豫了。」"
+        },
+        {
+          "dialogueId": "d_06_s_06",
+          "speaker": "唐鑫",
+          "text": "「我喜欢你。不是朋友之间的喜欢，是想和你一起看遍山海、走遍四季的那种喜欢。」"
+        },
+        {
+          "dialogueId": "d_06_s_07",
+          "speaker": "旁白",
+          "text": "苏清颜愣住了，眼眶微微泛红，嘴角却忍不住上扬。"
+        },
+        {
+          "dialogueId": "d_06_s_08",
+          "speaker": "苏清颜",
+          "text": "「唐鑫，你知道我等这句话，等了多久吗？」"
+        },
+        {
+          "dialogueId": "d_06_s_09",
+          "speaker": "旁白",
+          "text": "她轻轻靠在他肩头，山城的灯火在脚下铺展，像极了他们即将奔赴的未来——璀璨、辽阔、充满希望。"
+        },
+        {
+          "dialogueId": "d_06_s_10",
+          "speaker": "苏清颜",
+          "text": "「秋日的麦理浩径，我们一起走。」"
+        },
+        {
+          "dialogueId": "d_06_s_11",
+          "speaker": "唐鑫",
+          "text": "「好，一起走。山海为证，余生为期。」"
+        },
+        {
+          "dialogueId": "d_06_s_12",
+          "speaker": "旁白",
+          "text": "【恭喜解锁「山海奔赴」主线结局——愿所有奔赴，终有归途。】"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": { "suqingyan": 50 }
+    },
+    {
+      "sceneId": "scene_06_linwanxing",
+      "background": "minsu",
+      "bgm": "healing",
+      "characters": [
+        { "characterId": "linwanxing", "position": "center", "expression": "shy" },
+        { "characterId": "tangxin", "position": "center", "expression": "happy" }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "d_06_l_01",
+          "speaker": "旁白",
+          "text": "【纯白心动主线结局】"
+        },
+        {
+          "dialogueId": "d_06_l_02",
+          "speaker": "旁白",
+          "text": "第二天傍晚，林晚星的学校门口。夕阳西下，余晖洒在少女的发梢，镀上一层暖金色的光晕。"
+        },
+        {
+          "dialogueId": "d_06_l_03",
+          "speaker": "唐鑫",
+          "text": "「晚星，外套不急着还。」"
+        },
+        {
+          "dialogueId": "d_06_l_04",
+          "speaker": "林晚星",
+          "text": "「啊？可是我已经洗好了……」"
+        },
+        {
+          "dialogueId": "d_06_l_05",
+          "speaker": "唐鑫",
+          "text": "「我的意思是，以后冷的时候，你还可以穿。」"
+        },
+        {
+          "dialogueId": "d_06_l_06",
+          "speaker": "旁白",
+          "text": "林晚星愣住了，耳根瞬间红透，垂首攥紧衣摆。"
+        },
+        {
+          "dialogueId": "d_06_l_07",
+          "speaker": "唐鑫",
+          "text": "「晚星，我喜欢你。喜欢你的纯粹，喜欢你的小心翼翼，喜欢你满心满眼都是我的样子。」"
+        },
+        {
+          "dialogueId": "d_06_l_08",
+          "speaker": "旁白",
+          "text": "少女的眼眶瞬间泛红，泪水夺眶而出，却是笑着哭的。"
+        },
+        {
+          "dialogueId": "d_06_l_09",
+          "speaker": "林晚星",
+          "text": "「我也是……我也喜欢你，好久好久了……」"
+        },
+        {
+          "dialogueId": "d_06_l_10",
+          "speaker": "旁白",
+          "text": "夕阳下，两个身影紧紧相拥，像极了青春里最纯粹的心动——干净、美好、一尘不染。"
+        },
+        {
+          "dialogueId": "d_06_l_11",
+          "speaker": "旁白",
+          "text": "【恭喜解锁「纯白心动」主线结局——愿所有暗恋，终见天光。】"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": { "linwanxing": 50 }
+    },
+    {
+      "sceneId": "scene_06_xuzhinan",
+      "background": "cafe_interior",
+      "bgm": "cafe",
+      "characters": [
+        { "characterId": "xuzhinan", "position": "center", "expression": "happy" },
+        { "characterId": "tangxin", "position": "center", "expression": "happy" }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "d_06_x_01",
+          "speaker": "旁白",
+          "text": "【安稳余生主线结局】"
+        },
+        {
+          "dialogueId": "d_06_x_02",
+          "speaker": "旁白",
+          "text": "山野集咖啡店，苏清颜不在，唐鑫特意选了这个安静的时间。"
+        },
+        {
+          "dialogueId": "d_06_x_03",
+          "speaker": "唐鑫",
+          "text": "「知楠姐，从认识到现在，你一直在默默帮我。面试的时候帮我梳理思路，雨夜的时候帮我兜底，每次我迷茫的时候，你总是最清醒的那个。」"
+        },
+        {
+          "dialogueId": "d_06_x_04",
+          "speaker": "许知楠",
+          "text": "「这些都是朋友之间应该做的。」"
+        },
+        {
+          "dialogueId": "d_06_x_05",
+          "speaker": "唐鑫",
+          "text": "「可我不想只做朋友。」"
+        },
+        {
+          "dialogueId": "d_06_x_06",
+          "speaker": "旁白",
+          "text": "许知楠愣住了，眼底闪过一丝惊讶，随即恢复平静。"
+        },
+        {
+          "dialogueId": "d_06_x_07",
+          "speaker": "许知楠",
+          "text": "「唐鑫，你确定吗？我比你大，我们的生活节奏也不一样。」"
+        },
+        {
+          "dialogueId": "d_06_x_08",
+          "speaker": "唐鑫",
+          "text": "「我确定。我喜欢你的成熟，喜欢你的通透，喜欢你不动声色的温柔。和你在一起，我很安心。」"
+        },
+        {
+          "dialogueId": "d_06_x_09",
+          "speaker": "旁白",
+          "text": "许知楠的嘴角微微上扬，眼底泛起温柔的光。"
+        },
+        {
+          "dialogueId": "d_06_x_10",
+          "speaker": "许知楠",
+          "text": "「唐鑫，你让我很意外。不过，我很高兴。」"
+        },
+        {
+          "dialogueId": "d_06_x_11",
+          "speaker": "旁白",
+          "text": "咖啡的香气在空气中弥漫，两个成熟的人，选择了一种最舒服的方式，开始了一段最安稳的感情。"
+        },
+        {
+          "dialogueId": "d_06_x_12",
+          "speaker": "旁白",
+          "text": "【恭喜解锁「安稳余生」主线结局——愿所有默契，终成眷属。】"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": { "xuzhinan": 50 }
+    },
+    {
+      "sceneId": "scene_06_tangxin",
+      "background": "chongqing_night",
+      "bgm": "city",
+      "characters": [
+        { "characterId": "tangxin", "position": "center", "expression": "happy" }
+      ],
+      "dialogues": [
+        {
+          "dialogueId": "d_06_t_01",
+          "speaker": "旁白",
+          "text": "【独自成长开放式结局】"
+        },
+        {
+          "dialogueId": "d_06_t_02",
+          "speaker": "旁白",
+          "text": "唐鑫放下手机，望着窗外山城的夜色，心底做出了最后的决定。"
+        },
+        {
+          "dialogueId": "d_06_t_03",
+          "speaker": "唐鑫",
+          "text": "「这段时间，谢谢你们的陪伴。不管是雨天的初遇，还是山野的同行，都是我最珍贵的记忆。」"
+        },
+        {
+          "dialogueId": "d_06_t_04",
+          "speaker": "唐鑫",
+          "text": "「但我现在，想先把自己活明白。我想沉淀下来，专注事业，等我真正有能力给一个人未来的时候，再谈感情。」"
+        },
+        {
+          "dialogueId": "d_06_t_05",
+          "speaker": "旁白",
+          "text": "消息发出，群里沉默了片刻。"
+        },
+        {
+          "dialogueId": "d_06_t_06",
+          "speaker": "苏清颜",
+          "text": "「唐鑫，我支持你。山野随时等你回来。」"
+        },
+        {
+          "dialogueId": "d_06_t_07",
+          "speaker": "林晚星",
+          "text": "「唐鑫，加油……我会等你的。」"
+        },
+        {
+          "dialogueId": "d_06_t_08",
+          "speaker": "许知楠",
+          "text": "「成熟的选择。期待你的好消息。」"
+        },
+        {
+          "dialogueId": "d_06_t_09",
+          "speaker": "旁白",
+          "text": "山城的夜风从窗外吹来，带着自由与希望的气息。他不再迷茫，不再焦虑，因为他知道，真正的成长，从来都是一个人的修行。"
+        },
+        {
+          "dialogueId": "d_06_t_10",
+          "speaker": "旁白",
+          "text": "未来，或许他会回到山野，找到那个对的人；或许他会走向更远的地方，遇见更好的自己。但无论如何，他都不会再害怕。"
+        },
+        {
+          "dialogueId": "d_06_t_11",
+          "speaker": "旁白",
+          "text": "【恭喜解锁「独自成长」开放式结局——愿所有成长，终遇美好。】"
+        }
+      ],
+      "choices": null,
+      "unlockPhoto": null,
+      "bondChanges": { "tangxin": 50 }
     }
   ]
 }

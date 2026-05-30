@@ -49,7 +49,7 @@ onMounted(() => {
     { id: 'chapter_03', number: 3, title: '咖啡香里的三束温柔', unlocked: gameStore.isChapterUnlocked('chapter_03') },
     { id: 'chapter_04', number: 4, title: '夜市烟火与心动试探', unlocked: gameStore.isChapterUnlocked('chapter_04') },
     { id: 'chapter_05', number: 5, title: '面试前夜的抉择', unlocked: gameStore.isChapterUnlocked('chapter_05') },
-    { id: 'chapter_06', number: 6, title: '雨夜山径与开放式结局', unlocked: gameStore.isChapterUnlocked('chapter_06') },
+    { id: 'chapter_06', number: 6, title: '山野落幕', unlocked: gameStore.isChapterUnlocked('chapter_06') },
   ]
 })
 
