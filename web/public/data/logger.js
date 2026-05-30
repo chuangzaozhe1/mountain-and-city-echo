@@ -22,7 +22,7 @@
   }
 
   // 存储日志的数组
-  let logs: any[] = []
+  let logs = []
 
   // 日志ID计数器
   let logIdCounter = 0
@@ -40,7 +40,7 @@
   }
 
   // 从 localStorage 加载日志
-  function loadLogs(): void {
+  function loadLogs() {
     try {
       const stored = localStorage.getItem(LOG_KEY)
       if (stored) {
@@ -57,7 +57,7 @@
   }
 
   // 保存日志到 localStorage
-  function saveLogs(): void {
+  function saveLogs() {
     try {
       // 限制最大条数
       if (logs.length > MAX_LOGS) {
@@ -76,7 +76,7 @@
   }
 
   // 添加日志
-  function addLog(type: string, level: string, data: any): void {
+  function addLog(type, level, data) {
     const entry = {
       id: logIdCounter++,
       type,
@@ -89,7 +89,7 @@
   }
 
   // 导出日志
-  function exportLogs(): void {
+  function exportLogs() {
     const exportData = {
       envInfo,
       logs,
@@ -100,7 +100,7 @@
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `echo-logs-${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.json`
+    a.download = 'echo-logs-' + new Date().toISOString().slice(0, 19).replace(/:/g, '-') + '.json'
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
@@ -108,13 +108,13 @@
   }
 
   // 清理日志
-  function clearLogs(): void {
+  function clearLogs() {
     logs = []
     localStorage.removeItem(LOG_KEY)
   }
 
   // 记录环境信息
-  function initLogger(): void {
+  function initLogger() {
     if (initialized) return
     initialized = true
 
@@ -126,7 +126,7 @@
     })
 
     // 监听 beforeunload 确保保存
-    window.addEventListener('beforeunload', () => {
+    window.addEventListener('beforeunload', function () {
       saveLogs()
     })
 
@@ -134,7 +134,7 @@
     overrideConsole()
 
     // 设置快捷键导出
-    document.addEventListener('keydown', (e: KeyboardEvent) => {
+    document.addEventListener('keydown', function (e) {
       // Ctrl+Shift+L 导出日志
       if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'l') {
         e.preventDefault()
@@ -155,24 +155,25 @@
   }
 
   // 覆盖 console 方法
-  function overrideConsole(): void {
-    const consoleTypes = ['log', 'warn', 'error', 'info', 'debug', 'table']
+  function overrideConsole() {
+    var consoleTypes = ['log', 'warn', 'error', 'info', 'debug', 'table']
 
-    consoleTypes.forEach(type => {
-      const original = (console as any)[type].bind(console)
-      ;(console as any)[type] = function (...args: any[]) {
+    consoleTypes.forEach(function (type) {
+      var original = console[type].bind(console)
+      console[type] = function () {
+        var args = Array.prototype.slice.call(arguments)
         // 仍然调用原方法，保持控制台正常工作
-        original(...args)
+        original.apply(console, args)
         // 同时记录日志
         addLog('console', type, {
-          args: args.map(a => {
+          args: args.map(function (a) {
             if (a instanceof Error) {
               return { type: 'error', message: a.message, stack: a.stack }
             }
             if (typeof a === 'object') {
               try {
                 return JSON.parse(JSON.stringify(a))
-              } catch {
+              } catch (e) {
                 return String(a)
               }
             }
@@ -184,7 +185,7 @@
   }
 
   // 1. 捕获全局 JS 运行错误
-  window.addEventListener('error', (event: ErrorEvent) => {
+  window.addEventListener('error', function (event) {
     addLog('error', 'error', {
       message: event.message,
       filename: event.filename,
@@ -196,27 +197,27 @@
   })
 
   // 2. 捕获未处理的 Promise 异常
-  window.addEventListener('unhandledrejection', (event: PromiseRejectionEvent) => {
-    const error = event.reason
+  window.addEventListener('unhandledrejection', function (event) {
+    var error = event.reason
     addLog('error', 'error', {
-      message: error?.message || String(error),
-      stack: error?.stack || null,
+      message: error && error.message ? error.message : String(error),
+      stack: error && error.stack ? error.stack : null,
       type: 'unhandled promise rejection'
     })
     originalConsole.error('[Promise Error]', error)
   })
 
   // 3. 捕获资源加载错误
-  window.addEventListener('load', () => {
+  window.addEventListener('load', function () {
     // 使用 MutationObserver 监听新增的资源元素
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach(mutation => {
-        mutation.addedNodes.forEach(node => {
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        mutation.addedNodes.forEach(function (node) {
           if (node instanceof Element) {
             // 检查图片
             if (node.tagName === 'IMG') {
-              const img = node as HTMLImageElement
-              img.addEventListener('error', () => {
+              var img = node
+              img.addEventListener('error', function () {
                 addLog('error', 'error', {
                   type: 'resource load error',
                   resourceType: 'image',
@@ -235,9 +236,9 @@
     })
 
     // 同时监听已有的图片
-    document.querySelectorAll('img').forEach(img => {
+    document.querySelectorAll('img').forEach(function (img) {
       if (!img.complete || img.naturalWidth === 0) {
-        img.addEventListener('error', () => {
+        img.addEventListener('error', function () {
           addLog('error', 'error', {
             type: 'resource load error',
             resourceType: 'image',
@@ -251,95 +252,121 @@
   })
 
   // 4. 网络请求监听 - fetch
-  const originalFetch = window.fetch.bind(window)
-  window.fetch = async function (...args: any[]): Promise<Response> {
-    const startTime = Date.now()
-    const requestInfo = {
-      url: typeof args[0] === 'string' ? args[0] : (args[0] as Request).url,
-      method: (args[1] as RequestInit)?.method || 'GET',
-      headers: (args[1] as RequestInit)?.headers || null,
-      body: (args[1] as RequestInit)?.body || null
+  var originalFetch = window.fetch.bind(window)
+  window.fetch = function () {
+    var args = Array.prototype.slice.call(arguments)
+    var startTime = Date.now()
+    var requestInfo = {
+      url: typeof args[0] === 'string' ? args[0] : args[0].url,
+      method: (args[1] && args[1].method) || 'GET',
+      headers: (args[1] && args[1].headers) || null,
+      body: (args[1] && args[1].body) || null
     }
 
-    try {
-      const response = await originalFetch(...args)
-      const duration = Date.now() - startTime
-      const clonedResponse = response.clone()
+    return originalFetch.apply(window, args).then(function (response) {
+      var duration = Date.now() - startTime
+      var clonedResponse = response.clone()
 
-      let responseBody: any = null
+      var responseBody = null
       try {
-        const contentType = response.headers.get('content-type') || ''
+        var contentType = response.headers.get('content-type') || ''
         if (contentType.includes('application/json')) {
-          responseBody = await clonedResponse.json()
+          return clonedResponse.json().then(function (json) {
+            responseBody = json
+            addLog('network', response.ok ? 'info' : 'warn', {
+              type: 'fetch',
+              url: requestInfo.url,
+              method: requestInfo.method,
+              headers: requestInfo.headers,
+              body: requestInfo.body,
+              status: response.status,
+              statusText: response.statusText,
+              duration: duration,
+              response: responseBody,
+              success: response.ok
+            })
+            return response
+          })
         } else {
-          responseBody = await clonedResponse.text()
-          if (responseBody.length > 500) responseBody = responseBody.slice(0, 500) + '...'
+          return clonedResponse.text().then(function (text) {
+            responseBody = text.length > 500 ? text.slice(0, 500) + '...' : text
+            addLog('network', response.ok ? 'info' : 'warn', {
+              type: 'fetch',
+              url: requestInfo.url,
+              method: requestInfo.method,
+              headers: requestInfo.headers,
+              body: requestInfo.body,
+              status: response.status,
+              statusText: response.statusText,
+              duration: duration,
+              response: responseBody,
+              success: response.ok
+            })
+            return response
+          })
         }
-      } catch {
+      } catch (e) {
         responseBody = '[binary or unreadable]'
+        addLog('network', response.ok ? 'info' : 'warn', {
+          type: 'fetch',
+          url: requestInfo.url,
+          method: requestInfo.method,
+          headers: requestInfo.headers,
+          body: requestInfo.body,
+          status: response.status,
+          statusText: response.statusText,
+          duration: duration,
+          response: responseBody,
+          success: response.ok
+        })
+        return response
       }
-
-      addLog('network', response.ok ? 'info' : 'warn', {
-        type: 'fetch',
-        ...requestInfo,
-        status: response.status,
-        statusText: response.statusText,
-        duration,
-        response: responseBody,
-        success: response.ok
-      })
-
-      return response
-    } catch (error: any) {
-      const duration = Date.now() - startTime
+    }).catch(function (error) {
+      var duration = Date.now() - startTime
       addLog('network', 'error', {
         type: 'fetch',
-        ...requestInfo,
-        error: error?.message || String(error),
-        duration,
+        url: requestInfo.url,
+        method: requestInfo.method,
+        error: error.message || String(error),
+        duration: duration,
         success: false
       })
       throw error
-    }
+    })
   }
 
   // 5. 网络请求监听 - XMLHttpRequest
-  const originalXHROpen = XMLHttpRequest.prototype.open
-  const originalXHRSend = XMLHttpRequest.prototype.send
-  const originalXHRSetRequestHeader = XMLHttpRequest.prototype.setRequestHeader
+  var originalXHROpen = XMLHttpRequest.prototype.open
+  var originalXHRSend = XMLHttpRequest.prototype.send
+  var originalXHRSetRequestHeader = XMLHttpRequest.prototype.setRequestHeader
 
-  XMLHttpRequest.prototype.open = function (
-    method: string,
-    url: string,
-    ...rest: any[]
-  ): void {
-    ;(this as any)._xhrLog = {
-      method,
-      url,
+  XMLHttpRequest.prototype.open = function (method, url) {
+    var rest = Array.prototype.slice.call(arguments, 2)
+    this._xhrLog = {
+      method: method,
+      url: url,
       startTime: 0,
       headers: {}
     }
-    return originalXHROpen.apply(this, [method, url, ...rest])
+    return originalXHROpen.apply(this, [method, url].concat(rest))
   }
 
-  XMLHttpRequest.prototype.setRequestHeader = function (
-    name: string,
-    value: string
-  ): void {
-    if ((this as any)._xhrLog?.headers) {
-      (this as any)._xhrLog.headers[name] = value
+  XMLHttpRequest.prototype.setRequestHeader = function (name, value) {
+    if (this._xhrLog && this._xhrLog.headers) {
+      this._xhrLog.headers[name] = value
     }
     return originalXHRSetRequestHeader.apply(this, [name, value])
   }
 
-  XMLHttpRequest.prototype.send = function (...args: any[]): void {
-    const xhr = this as any
+  XMLHttpRequest.prototype.send = function () {
+    var args = Array.prototype.slice.call(arguments)
+    var xhr = this
     xhr._xhrLog.startTime = Date.now()
 
-    xhr.addEventListener('load', () => {
-      const duration = Date.now() - xhr._xhrLog.startTime
-      let response = xhr.responseText
-      if (response?.length > 500) response = response.slice(0, 500) + '...'
+    xhr.addEventListener('load', function () {
+      var duration = Date.now() - xhr._xhrLog.startTime
+      var response = xhr.responseText
+      if (response && response.length > 500) response = response.slice(0, 500) + '...'
 
       addLog('network', xhr.status >= 200 && xhr.status < 400 ? 'info' : 'warn', {
         type: 'xhr',
@@ -349,32 +376,32 @@
         body: args[0] || null,
         status: xhr.status,
         statusText: xhr.statusText,
-        duration,
-        response,
+        duration: duration,
+        response: response,
         success: xhr.status >= 200 && xhr.status < 400
       })
     })
 
-    xhr.addEventListener('error', () => {
-      const duration = Date.now() - xhr._xhrLog.startTime
+    xhr.addEventListener('error', function () {
+      var duration = Date.now() - xhr._xhrLog.startTime
       addLog('network', 'error', {
         type: 'xhr',
         method: xhr._xhrLog.method,
         url: xhr._xhrLog.url,
         error: 'Network error',
-        duration,
+        duration: duration,
         success: false
       })
     })
 
-    xhr.addEventListener('timeout', () => {
-      const duration = Date.now() - xhr._xhrLog.startTime
+    xhr.addEventListener('timeout', function () {
+      var duration = Date.now() - xhr._xhrLog.startTime
       addLog('network', 'error', {
         type: 'xhr',
         method: xhr._xhrLog.method,
         url: xhr._xhrLog.url,
         error: 'Request timeout',
-        duration,
+        duration: duration,
         success: false
       })
     })
@@ -383,50 +410,50 @@
   }
 
   // 6. 用户操作记录
-  let lastClickTime = 0
-  let lastKeyTime = 0
-  let lastScrollTime = 0
+  var lastClickTime = 0
+  var lastKeyTime = 0
+  var lastScrollTime = 0
 
-  document.addEventListener('click', (e: MouseEvent) => {
+  document.addEventListener('click', function (e) {
     // 节流：同元素100ms内不重复记录
-    const now = Date.now()
+    var now = Date.now()
     if (now - lastClickTime < 100) return
     lastClickTime = now
 
-    const target = e.target as HTMLElement
+    var target = e.target
     addLog('user_action', 'info', {
       action: 'click',
       target: target.tagName,
       id: target.id || null,
       className: target.className || null,
-      text: target.innerText?.slice(0, 50) || null,
-      href: (target as HTMLAnchorElement).href || null,
+      text: target.innerText ? target.innerText.slice(0, 50) : null,
+      href: target.href || null,
       x: e.clientX,
       y: e.clientY
     })
   })
 
-  document.addEventListener('keydown', (e: KeyboardEvent) => {
+  document.addEventListener('keydown', function (e) {
     // 只记录有实际内容的按键
-    if (e.key.length === 1 || ['Enter', 'Backspace', 'Delete'].includes(e.key)) {
-      const now = Date.now()
+    if (e.key.length === 1 || ['Enter', 'Backspace', 'Delete'].indexOf(e.key) !== -1) {
+      var now = Date.now()
       if (now - lastKeyTime < 500) return
       lastKeyTime = now
 
-      const target = e.target as HTMLElement
+      var target = e.target
       addLog('user_action', 'info', {
         action: 'keydown',
         key: e.key,
         target: target.tagName,
         id: target.id || null,
-        inputType: (target as HTMLInputElement).type || null,
-        valueLength: (target as HTMLInputElement).value?.length || null
+        inputType: target.type || null,
+        valueLength: target.value ? target.value.length : null
       })
     }
   })
 
-  document.addEventListener('scroll', () => {
-    const now = Date.now()
+  document.addEventListener('scroll', function () {
+    var now = Date.now()
     if (now - lastScrollTime < 2000) return
     lastScrollTime = now
 
@@ -440,7 +467,7 @@
   })
 
   // 7. Vue 路由变化记录
-  window.addEventListener('popstate', () => {
+  window.addEventListener('popstate', function () {
     addLog('user_action', 'info', {
       action: 'route_change',
       path: window.location.pathname,
@@ -452,12 +479,12 @@
   initLogger()
 
   // 暴露给全局
-  ;(window as any).__echoLogger = {
-    exportLogs,
-    clearLogs,
-    getLogs: () => logs,
-    getEnvInfo: () => envInfo,
-    getLogCount: () => logs.length
+  window.__echoLogger = {
+    exportLogs: exportLogs,
+    clearLogs: clearLogs,
+    getLogs: function () { return logs },
+    getEnvInfo: function () { return envInfo },
+    getLogCount: function () { return logs.length }
   }
 
   originalConsole.log('[Logger] All systems initialized, logs will persist to localStorage')
