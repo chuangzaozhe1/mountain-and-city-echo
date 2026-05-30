@@ -257,18 +257,30 @@
           });
       }},
       { name: 'JS 文件可访问', check: function() {
-        return fetch('./assets/index-BC6TTMgX.js')
-          .then(function(r) {
-            return { passed: r.ok, detail: 'JS 文件状态: ' + r.status + ', 大小: ' + (r.headers.get('content-length') || '未知') };
+        return fetch('./index.html')
+          .then(function(r) { return r.text(); })
+          .then(function(html) {
+            var match = html.match(/src="\.\/assets\/(index-[^"]+\.js)"/);
+            if (!match) return { passed: false, detail: '未找到 JS 文件引用' };
+            return fetch('./assets/' + match[1])
+              .then(function(r) {
+                return { passed: r.ok, detail: match[1] + ' 状态: ' + r.status };
+              });
           })
           .catch(function(e) {
             return { passed: false, detail: '加载失败: ' + e.message };
           });
       }},
       { name: 'CSS 文件可访问', check: function() {
-        return fetch('./assets/index-D7dYIGzJ.css')
-          .then(function(r) {
-            return { passed: r.ok, detail: 'CSS 文件状态: ' + r.status };
+        return fetch('./index.html')
+          .then(function(r) { return r.text(); })
+          .then(function(html) {
+            var match = html.match(/href="\.\/assets\/(index-[^"]+\.css)"/);
+            if (!match) return { passed: false, detail: '未找到 CSS 文件引用' };
+            return fetch('./assets/' + match[1])
+              .then(function(r) {
+                return { passed: r.ok, detail: match[1] + ' 状态: ' + r.status };
+              });
           })
           .catch(function(e) {
             return { passed: false, detail: '加载失败: ' + e.message };
