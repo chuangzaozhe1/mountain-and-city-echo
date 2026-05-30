@@ -62,44 +62,46 @@
     </div>
 
     <!-- 对话框 -->
-    <transition name="dialogue-slide" mode="out-in">
-      <div v-if="storyStore.state.choices.length > 0" key="choices" class="choice-wrap">
-        <div class="choice-label">— 请选择 —</div>
-        <div
-          v-for="c in storyStore.state.choices"
-          :key="c.choiceId"
-          class="choice-item"
-          @click.stop="sfxStore.play('choice'); storyStore.makeChoice(c.choiceId)"
-        >
-          {{ c.text }}
+    <div class="dialogue-area">
+      <transition name="dialogue-slide" mode="out-in">
+        <div v-if="storyStore.state.choices.length > 0" key="choices" class="choice-wrap">
+          <div class="choice-label">— 请选择 —</div>
+          <div
+            v-for="c in storyStore.state.choices"
+            :key="c.choiceId"
+            class="choice-item"
+            @click.stop="sfxStore.play('choice'); storyStore.makeChoice(c.choiceId)"
+          >
+            {{ c.text }}
+          </div>
         </div>
-      </div>
 
-      <div v-else key="dialogue" class="dialogue-wrap">
-        <div class="dialogue-box" :class="{ 'typing': !storyStore.state.isTextComplete }">
-          <!-- 说话人 -->
-          <div class="speaker" :class="{ 'narrator': storyStore.currentSpeaker === '旁白' }">
-            <span class="speaker-txt">{{ storyStore.currentSpeaker }}</span>
+        <div v-else key="dialogue" class="dialogue-wrap">
+          <div class="dialogue-box" :class="{ 'typing': !storyStore.state.isTextComplete }">
+            <!-- 说话人 -->
+            <div class="speaker" :class="{ 'narrator': storyStore.currentSpeaker === '旁白' }">
+              <span class="speaker-txt">{{ storyStore.currentSpeaker }}</span>
+            </div>
+            <!-- 正文 -->
+            <div class="text-body">
+              {{ storyStore.state.displayedText }}<span v-if="!storyStore.state.isTextComplete" class="blinker">▐</span>
+            </div>
           </div>
-          <!-- 正文 -->
-          <div class="text-body">
-            {{ storyStore.state.displayedText }}<span v-if="!storyStore.state.isTextComplete" class="blinker">▐</span>
+          <!-- BGM 控制器 -->
+          <div class="bgm-bar" v-if="bgmStore.isEnabled">
+            <span class="bgm-icon" :class="{ playing: bgmStore.isPlaying }">♪</span>
+            <span class="bgm-name" v-if="bgmStore.currentTrackName">{{ bgmStore.currentTrackName }}</span>
+            <button class="bgm-btn" @click.stop="bgmStore.toggleMute()">{{ bgmStore.isMuted ? '🔇' : '🔊' }}</button>
+            <button class="bgm-btn" @click.stop="bgmStore.refreshTrack()">🔄</button>
+          </div>
+          <!-- 底部提示 -->
+          <div class="tap-hint">
+            <span class="tap-icon">▼</span>
+            <span>点击继续</span>
           </div>
         </div>
-        <!-- BGM 控制器 -->
-        <div class="bgm-bar" v-if="bgmStore.isEnabled">
-          <span class="bgm-icon" :class="{ playing: bgmStore.isPlaying }">♪</span>
-          <span class="bgm-name" v-if="bgmStore.currentTrackName">{{ bgmStore.currentTrackName }}</span>
-          <button class="bgm-btn" @click.stop="bgmStore.toggleMute()">{{ bgmStore.isMuted ? '🔇' : '🔊' }}</button>
-          <button class="bgm-btn" @click.stop="bgmStore.refreshTrack()">🔄</button>
-        </div>
-        <!-- 底部提示 -->
-        <div class="tap-hint">
-          <span class="tap-icon">▼</span>
-          <span>点击继续</span>
-        </div>
-      </div>
-    </transition>
+      </transition>
+    </div>
 
     <!-- 顶部栏 -->
     <div class="top-bar">
@@ -420,8 +422,7 @@ function getBackgroundStyle(id: string) {
 /* 顶部栏 */
 .top-bar {
   position: absolute;
-  top: 50%; left: 0; right: 0;
-  transform: translateY(-50%);
+  top: 0; left: 0; right: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
