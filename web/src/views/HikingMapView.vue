@@ -61,21 +61,12 @@ const router = useRouter()
 const gameStore = useGameStore()
 
 const spots = [
-  { id: 'start', name: '立信操场', desc: '蝉鸣与羽毛球拍', icon: '🏫', x: 50, y: 550, unlocked: true, chapterId: 'chapter_01' },
-  { id: 'c2', name: '立信图书馆', desc: '图书馆的灯与金佛山的云', icon: '📚', x: 180, y: 480, unlocked: gameStore.isChapterUnlocked('chapter_02'), chapterId: 'chapter_02' },
-  { id: 'c3', name: '中核营地', desc: '中核的围墙与腾格里的星', icon: '⛺', x: 300, y: 420, unlocked: gameStore.isChapterUnlocked('chapter_03'), chapterId: 'chapter_03' },
-  { id: 'c4', name: '三十二中', desc: '三十二中的爬山虎与酱肉包', icon: '🏢', x: 150, y: 360, unlocked: gameStore.isChapterUnlocked('chapter_04'), chapterId: 'chapter_04' },
-  { id: 'c5', name: '主席台', desc: '主席台上的重逢', icon: '🎤', x: 280, y: 300, unlocked: gameStore.isChapterUnlocked('chapter_05'), chapterId: 'chapter_05' },
-  { id: 'c6', name: '便利店', desc: '突然出现的背包', icon: '🏪', x: 80, y: 250, unlocked: gameStore.isChapterUnlocked('chapter_06'), chapterId: 'chapter_06' },
-  { id: 'c7', name: '语文办公室', desc: '新来的语文老师', icon: '📖', x: 200, y: 200, unlocked: gameStore.isChapterUnlocked('chapter_07'), chapterId: 'chapter_07' },
-  { id: 'c8', name: '教室', desc: '四份生日礼', icon: '🎁', x: 320, y: 160, unlocked: gameStore.isChapterUnlocked('chapter_08'), chapterId: 'chapter_08' },
-  { id: 'c9', name: '火锅店', desc: '红汤翻滚', icon: '🍲', x: 140, y: 120, unlocked: gameStore.isChapterUnlocked('chapter_09'), chapterId: 'chapter_09' },
-  { id: 'c10', name: '沙漠营地', desc: '腾格里的银河', icon: '✨', x: 260, y: 80, unlocked: gameStore.isChapterUnlocked('chapter_10'), chapterId: 'chapter_10' },
-  { id: 'c11', name: '南山', desc: '南山的烟火', icon: '🎆', x: 100, y: 50, unlocked: gameStore.isChapterUnlocked('chapter_11'), chapterId: 'chapter_11' },
-  { id: 'c12', name: '长白山', desc: '长白山的雪', icon: '❄️', x: 220, y: 30, unlocked: gameStore.isChapterUnlocked('chapter_12'), chapterId: 'chapter_12' },
-  { id: 'c13', name: '喀纳斯', desc: '喀纳斯的金色秋天', icon: '🍂', x: 340, y: 55, unlocked: gameStore.isChapterUnlocked('chapter_13'), chapterId: 'chapter_13' },
-  { id: 'c14', name: '校园', desc: '校园里的春日日常', icon: '🌸', x: 180, y: 15, unlocked: gameStore.isChapterUnlocked('chapter_14'), chapterId: 'chapter_14' },
-  { id: 'c15', name: '南山之巅', desc: '山与城的回响', icon: '🏔️', x: 80, y: 10, unlocked: gameStore.isChapterUnlocked('chapter_15'), chapterId: 'chapter_15' }
+  { id: 'start', name: '重庆32中', desc: '山城内耗与山野契机', icon: '🏫', x: 50, y: 550, unlocked: true, chapterId: 'chapter_01' },
+  { id: 'c2', name: '缙云山', desc: '缙云山初见，风里藏着心动的味道', icon: '⛰️', x: 180, y: 480, unlocked: gameStore.isChapterUnlocked('chapter_02'), chapterId: 'chapter_02' },
+  { id: 'c3', name: '山野集咖啡', desc: '咖啡香里的三束温柔', icon: '☕', x: 300, y: 420, unlocked: gameStore.isChapterUnlocked('chapter_03'), chapterId: 'chapter_03' },
+  { id: 'c4', name: '观音桥夜市', desc: '夜市烟火与心动试探', icon: '🌃', x: 150, y: 360, unlocked: gameStore.isChapterUnlocked('chapter_04'), chapterId: 'chapter_04' },
+  { id: 'c5', name: '唐鑫出租屋', desc: '面试前夜的抉择', icon: '🏠', x: 280, y: 300, unlocked: gameStore.isChapterUnlocked('chapter_05'), chapterId: 'chapter_05' },
+  { id: 'c6', name: '歌乐山', desc: '雨夜山径与开放式结局', icon: '🌧️', x: 200, y: 200, unlocked: gameStore.isChapterUnlocked('chapter_06'), chapterId: 'chapter_06' }
 ]
 
 const selectedSpot = ref<typeof spots[0] | null>(null)

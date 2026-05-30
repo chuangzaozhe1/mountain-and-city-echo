@@ -44,21 +44,12 @@ const chapters = ref<ChapterInfo[]>([])
 onMounted(() => {
   gameStore.loadFromStorage()
   chapters.value = [
-    { id: 'chapter_01', number: 1, title: '立信的蝉鸣与羽毛球拍', unlocked: true },
-    { id: 'chapter_02', number: 2, title: '图书馆的灯与金佛山的云', unlocked: gameStore.isChapterUnlocked('chapter_02') },
-    { id: 'chapter_03', number: 3, title: '中核的围墙与腾格里的星', unlocked: gameStore.isChapterUnlocked('chapter_03') },
-    { id: 'chapter_04', number: 4, title: '三十二中的爬山虎与酱肉包', unlocked: gameStore.isChapterUnlocked('chapter_04') },
-    { id: 'chapter_05', number: 5, title: '主席台上的重逢与徒步攻略', unlocked: gameStore.isChapterUnlocked('chapter_05') },
-    { id: 'chapter_06', number: 6, title: '突然出现的背包与麦理浩径', unlocked: gameStore.isChapterUnlocked('chapter_06') },
-    { id: 'chapter_07', number: 7, title: '新来的语文老师与菊花茶', unlocked: gameStore.isChapterUnlocked('chapter_07') },
-    { id: 'chapter_08', number: 8, title: '四份生日礼与校门口的相遇', unlocked: gameStore.isChapterUnlocked('chapter_08') },
-    { id: 'chapter_09', number: 9, title: '红汤翻滚的暗流与歌乐山的映山红', unlocked: gameStore.isChapterUnlocked('chapter_09') },
-    { id: 'chapter_10', number: 10, title: '腾格里的银河与许愿瓶', unlocked: gameStore.isChapterUnlocked('chapter_10') },
-    { id: 'chapter_11', number: 11, title: '南山的烟火与四份新年愿', unlocked: gameStore.isChapterUnlocked('chapter_11') },
-    { id: 'chapter_12', number: 12, title: '长白山的雪与温泉边的约定', unlocked: gameStore.isChapterUnlocked('chapter_12') },
-    { id: 'chapter_13', number: 13, title: '喀纳斯的金色秋天', unlocked: gameStore.isChapterUnlocked('chapter_13') },
-    { id: 'chapter_14', number: 14, title: '校园里的春日日常', unlocked: gameStore.isChapterUnlocked('chapter_14') },
-    { id: 'chapter_15', number: 15, title: '山与城的回响', unlocked: gameStore.isChapterUnlocked('chapter_15') },
+    { id: 'chapter_01', number: 1, title: '山城内耗与山野契机', unlocked: true },
+    { id: 'chapter_02', number: 2, title: '缙云山初见，风里藏着心动的味道', unlocked: gameStore.isChapterUnlocked('chapter_02') },
+    { id: 'chapter_03', number: 3, title: '咖啡香里的三束温柔', unlocked: gameStore.isChapterUnlocked('chapter_03') },
+    { id: 'chapter_04', number: 4, title: '夜市烟火与心动试探', unlocked: gameStore.isChapterUnlocked('chapter_04') },
+    { id: 'chapter_05', number: 5, title: '面试前夜的抉择', unlocked: gameStore.isChapterUnlocked('chapter_05') },
+    { id: 'chapter_06', number: 6, title: '雨夜山径与开放式结局', unlocked: gameStore.isChapterUnlocked('chapter_06') },
   ]
 })
 
