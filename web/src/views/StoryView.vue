@@ -86,6 +86,13 @@
             {{ storyStore.state.displayedText }}<span v-if="!storyStore.state.isTextComplete" class="blinker">▐</span>
           </div>
         </div>
+        <!-- BGM 控制器 -->
+        <div class="bgm-bar" v-if="bgmStore.isEnabled">
+          <span class="bgm-icon" :class="{ playing: bgmStore.isPlaying }">♪</span>
+          <span class="bgm-name" v-if="bgmStore.currentTrackName">{{ bgmStore.currentTrackName }}</span>
+          <button class="bgm-btn" @click.stop="bgmStore.toggleMute()">{{ bgmStore.isMuted ? '🔇' : '🔊' }}</button>
+          <button class="bgm-btn" @click.stop="bgmStore.refreshTrack()">🔄</button>
+        </div>
         <!-- 底部提示 -->
         <div class="tap-hint">
           <span class="tap-icon">▼</span>
@@ -110,11 +117,13 @@ import { computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStoryStore } from '@/stores/story'
 import { useSfxStore } from '@/stores/sfx'
+import { useBgmStore } from '@/stores/bgm'
 
 const route = useRoute()
 const router = useRouter()
 const storyStore = useStoryStore()
 const sfxStore = useSfxStore()
+const bgmStore = useBgmStore()
 const baseUrl = import.meta.env.BASE_URL
 
 const chapterId = computed(() => route.params.chapterId as string)
@@ -699,6 +708,58 @@ function getBackgroundStyle(id: string) {
 @keyframes blink {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
+}
+
+/* BGM 控制条 */
+.bgm-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 6px;
+  pointer-events: auto;
+}
+.bgm-icon {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+}
+.bgm-icon.playing {
+  color: #8b5cf6;
+  animation: bounce 1s ease-in-out infinite;
+}
+.bgm-name {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.bgm-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  transition: all 0.2s;
+  color: white;
+}
+.bgm-btn:hover {
+  background: rgba(139, 92, 246, 0.5);
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
 }
 
 .tap-hint {
