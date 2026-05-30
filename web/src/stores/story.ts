@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { ChapterData, SceneData, DialogueData, ChoiceData } from '@/types/story'
 import { useGameStore } from './game'
+import { useBgmStore } from './bgm'
 
 export enum TextSpeed {
   FAST = 30,
@@ -36,6 +37,7 @@ interface StoryUiState {
 
 export const useStoryStore = defineStore('story', () => {
   const gameStore = useGameStore()
+  const bgmStore = useBgmStore()
 
   const state = ref<StoryUiState>({
     isLoading: false,
@@ -101,6 +103,12 @@ export const useStoryStore = defineStore('story', () => {
         }
 
         gameStore.unlockChapter(chapterId)
+
+        // 触发场景 BGM
+        if (chapter.scenes[0]?.background) {
+          bgmStore.playForScene(chapter.scenes[0].background)
+        }
+
         nextDialogue()
       } else {
         state.value.isLoading = false
@@ -165,6 +173,11 @@ export const useStoryStore = defineStore('story', () => {
 
       if (choice.bondChanges) {
         applyBondChanges(choice.bondChanges)
+      }
+
+      // 触发场景 BGM
+      if (nextScene.background) {
+        bgmStore.playForScene(nextScene.background)
       }
 
       nextDialogue()
@@ -237,6 +250,11 @@ export const useStoryStore = defineStore('story', () => {
       state.value.currentDialogueIndex = 0
       state.value.historyDialogues = []
       state.value.choices = []
+
+      // 触发场景 BGM
+      if (nextScene.background) {
+        bgmStore.playForScene(nextScene.background)
+      }
 
       nextDialogue()
     } else {

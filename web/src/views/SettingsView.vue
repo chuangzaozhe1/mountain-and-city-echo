@@ -39,8 +39,18 @@
       <section class="setting-group">
         <h2>音频</h2>
         <div class="setting-item">
+          <span>背景音乐</span>
+          <button class="toggle-btn" :class="{ active: bgmStore.isEnabled }" @click="bgmStore.toggleEnabled()">
+            {{ bgmStore.isEnabled ? '开启' : '关闭' }}
+          </button>
+        </div>
+        <div class="setting-item" v-if="bgmStore.isEnabled">
           <span>音乐音量</span>
-          <input type="range" v-model="bgmVolume" min="0" max="100" />
+          <input type="range" v-model="bgmVolume" min="0" max="100" @input="updateBgmVolume" />
+        </div>
+        <div class="setting-item" v-if="bgmStore.isEnabled">
+          <span>当前曲目</span>
+          <span class="track-name">{{ bgmStore.currentTrackName || '未播放' }}</span>
         </div>
         <div class="setting-item">
           <span>音效音量</span>
@@ -61,10 +71,12 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStoryStore } from '@/stores/story'
 import { useGameStore } from '@/stores/game'
+import { useBgmStore } from '@/stores/bgm'
 
 const router = useRouter()
 const storyStore = useStoryStore()
 const gameStore = useGameStore()
+const bgmStore = useBgmStore()
 
 const speedOptions = [
   { label: '快', value: 30 },
@@ -80,8 +92,12 @@ const intervalOptions = [
 
 const textSpeed = ref(storyStore.state.textSpeed)
 const autoInterval = ref(storyStore.state.autoPlayInterval)
-const bgmVolume = ref(80)
+const bgmVolume = ref(bgmStore.volume * 100)
 const sfxVolume = ref(80)
+
+function updateBgmVolume() {
+  bgmStore.setVolume(bgmVolume.value / 100)
+}
 
 function handleReset() {
   if (confirm('确定要重置游戏进度吗？所有数据将被清空。')) {
@@ -174,5 +190,27 @@ input[type="range"] {
   border-radius: 12px;
   color: #E57373;
   font-size: 1rem;
+}
+
+.toggle-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: rgba(232, 232, 232, 0.1);
+  color: var(--color-on-background);
+  font-size: 0.85rem;
+  min-width: 60px;
+}
+
+.toggle-btn.active {
+  background: var(--color-primary);
+}
+
+.track-name {
+  font-size: 0.85rem;
+  color: rgba(232, 232, 232, 0.6);
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

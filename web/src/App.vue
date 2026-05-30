@@ -4,7 +4,20 @@
       <component :is="Component" />
     </transition>
   </router-view>
+  <BgmPlayer />
 </template>
+
+<script setup lang="ts">
+import { onMounted } from 'vue'
+import BgmPlayer from '@/components/BgmPlayer.vue'
+import { useBgmStore } from '@/stores/bgm'
+
+const bgmStore = useBgmStore()
+
+onMounted(() => {
+  bgmStore.init()
+})
+</script>
 
 <style>
 * {
