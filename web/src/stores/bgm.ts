@@ -1,44 +1,44 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-// BGM 音乐库 - 使用免费的 ambient 音乐 CDN
-const BGM_LIBRARY: Record<string, { url: string; name: string }[]> = {
-  // 山野场景 - 治愈自然风
-  mountain: [
-    { url: 'https://cdn.pixabay.com/audio/2024/11/28/audio_a067818b34.mp3', name: '山间清晨' },
-    { url: 'https://cdn.pixabay.com/audio/2024/02/14/audio_8e35e04856.mp3', name: '森林漫步' },
-    { url: 'https://cdn.pixabay.com/audio/2023/10/30/audio_fdd6da3e0e.mp3', name: '自然之声' },
-  ],
-  // 咖啡店场景 - 温馨舒缓
-  cafe: [
-    { url: 'https://cdn.pixabay.com/audio/2024/11/04/audio_4426f74c3f.mp3', name: '咖啡时光' },
-    { url: 'https://cdn.pixabay.com/audio/2024/09/09/audio_6e4a67db41.mp3', name: '午后阳光' },
-    { url: 'https://cdn.pixabay.com/audio/2024/03/14/audio_c36432dea2.mp3', name: '温馨时刻' },
-  ],
-  // 夜市/城市场景 - 都市烟火
-  city: [
-    { url: 'https://cdn.pixabay.com/audio/2024/10/08/audio_6b43149799.mp3', name: '城市夜景' },
-    { url: 'https://cdn.pixabay.com/audio/2024/09/25/audio_6e1e0b029f.mp3', name: '都市节奏' },
-    { url: 'https://cdn.pixabay.com/audio/2024/06/18/audio_1393826522.mp3', name: '夜色温柔' },
-  ],
-  // 暧昧/心动场景 - 浪漫氛围
-  romantic: [
-    { url: 'https://cdn.pixabay.com/audio/2024/11/01/audio_aa21a749ab.mp3', name: '心动瞬间' },
-    { url: 'https://cdn.pixabay.com/audio/2024/08/06/audio_c953249648.mp3', name: '暧昧氛围' },
-    { url: 'https://cdn.pixabay.com/audio/2024/05/20/audio_4335268533.mp3', name: '温柔时光' },
-  ],
-  // 治愈/放松场景 - 轻柔舒缓
-  healing: [
-    { url: 'https://cdn.pixabay.com/audio/2024/10/14/audio_9527cf4515.mp3', name: '治愈时刻' },
-    { url: 'https://cdn.pixabay.com/audio/2024/07/22/audio_d520486741.mp3', name: '心灵栖息' },
-    { url: 'https://cdn.pixabay.com/audio/2024/04/15/audio_a9c186778c.mp3', name: '宁静致远' },
-  ],
-  // 通用/默认 - 轻音乐
-  default: [
-    { url: 'https://cdn.pixabay.com/audio/2024/11/18/audio_c0dff18d41.mp3', name: '轻音乐' },
-    { url: 'https://cdn.pixabay.com/audio/2024/08/30/audio_5f158f0a0f.mp3', name: '悠然自得' },
-    { url: 'https://cdn.pixabay.com/audio/2024/06/04/audio_bfa55958e0.mp3', name: '午后时光' },
-  ],
+// BGM 风格配置
+const BGM_STYLES: Record<string, { name: string; notes: number[]; tempo: number; mood: string }> = {
+  mountain: {
+    name: '山野清风',
+    notes: [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25], // C大调
+    tempo: 0.8,
+    mood: 'peaceful'
+  },
+  cafe: {
+    name: '咖啡时光',
+    notes: [220.00, 246.94, 261.63, 293.66, 329.63, 349.23, 392.00, 440.00], // A小调
+    tempo: 0.6,
+    mood: 'warm'
+  },
+  city: {
+    name: '城市夜景',
+    notes: [196.00, 220.00, 246.94, 261.63, 293.66, 329.63, 349.23, 392.00], // G小调
+    tempo: 0.7,
+    mood: 'urban'
+  },
+  romantic: {
+    name: '心动瞬间',
+    notes: [261.63, 293.66, 329.63, 392.00, 440.00, 493.88, 523.25, 587.33], // C大调高音
+    tempo: 0.5,
+    mood: 'romantic'
+  },
+  healing: {
+    name: '治愈时刻',
+    notes: [174.61, 196.00, 220.00, 246.94, 261.63, 293.66, 329.63, 349.23], // F大调
+    tempo: 0.4,
+    mood: 'healing'
+  },
+  default: {
+    name: '轻音乐',
+    notes: [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25],
+    tempo: 0.6,
+    mood: 'neutral'
+  }
 }
 
 // 场景到 BGM 类型的映射
@@ -80,14 +80,14 @@ const SCENE_TO_BGM: Record<string, string> = {
   minsu: 'healing',
 
   // 浪漫场景
-  romantic: 'romantic',
+  romantic: 'romantic'
 }
 
 // 角色专属 BGM 类型
 const CHARACTER_BGM: Record<string, string> = {
-  suqingyan: 'cafe',      // 苏清颜 - 温馨明媚
-  linwanxing: 'healing',   // 林晚星 - 温柔治愈
-  xuzhinan: 'city',        // 许知楠 - 沉稳都市
+  suqingyan: 'cafe',
+  linwanxing: 'healing',
+  xuzhinan: 'city'
 }
 
 export const useBgmStore = defineStore('bgm', () => {
@@ -102,8 +102,8 @@ export const useBgmStore = defineStore('bgm', () => {
   // 音频相关
   let audioContext: AudioContext | null = null
   let gainNode: GainNode | null = null
-  let currentAudio: HTMLAudioElement | null = null
-  let fadeTimer: number | null = null
+  let oscillators: OscillatorNode[] = []
+  let intervalId: number | null = null
 
   // 初始化音频上下文
   function initAudioContext() {
@@ -111,7 +111,7 @@ export const useBgmStore = defineStore('bgm', () => {
       audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
       gainNode = audioContext.createGain()
       gainNode.connect(audioContext.destination)
-      gainNode.gain.value = volume.value
+      gainNode.gain.value = isMuted.value ? 0 : volume.value
     }
   }
 
@@ -125,69 +125,85 @@ export const useBgmStore = defineStore('bgm', () => {
     return CHARACTER_BGM[characterId] || 'default'
   }
 
-  // 随机选择一个 BGM
-  function getRandomTrack(type: string): { url: string; name: string } {
-    const tracks = BGM_LIBRARY[type] || BGM_LIBRARY.default
-    const randomIndex = Math.floor(Math.random() * tracks.length)
-    return tracks[randomIndex]
-  }
-
-  // 淡出当前音乐
-  function fadeOut(duration: number = 1000): Promise<void> {
-    return new Promise((resolve) => {
-      if (!currentAudio) {
-        resolve()
-        return
-      }
-
-      const startVolume = currentAudio.volume
-      const startTime = Date.now()
-
-      if (fadeTimer) {
-        clearInterval(fadeTimer)
-      }
-
-      fadeTimer = window.setInterval(() => {
-        const elapsed = Date.now() - startTime
-        const progress = Math.min(elapsed / duration, 1)
-        currentAudio!.volume = startVolume * (1 - progress)
-
-        if (progress >= 1) {
-          if (fadeTimer) {
-            clearInterval(fadeTimer)
-            fadeTimer = null
-          }
-          currentAudio!.pause()
-          currentAudio = null
-          isPlaying.value = false
-          resolve()
+  // 停止当前播放
+  function stopCurrent() {
+    if (oscillators.length > 0) {
+      oscillators.forEach(osc => {
+        try {
+          osc.stop()
+        } catch (e) {
+          // 忽略已停止的振荡器
         }
-      }, 50)
-    })
-  }
-
-  // 淡入播放音乐
-  function fadeIn(audio: HTMLAudioElement, duration: number = 1000) {
-    audio.volume = 0
-    const targetVolume = isMuted.value ? 0 : volume.value
-    const startTime = Date.now()
-
-    if (fadeTimer) {
-      clearInterval(fadeTimer)
+      })
+      oscillators = []
     }
+    if (intervalId) {
+      clearInterval(intervalId)
+      intervalId = null
+    }
+  }
 
-    fadeTimer = window.setInterval(() => {
-      const elapsed = Date.now() - startTime
-      const progress = Math.min(elapsed / duration, 1)
-      audio.volume = targetVolume * progress
+  // 生成环境音
+  function generateAmbientSound(type: string) {
+    if (!audioContext || !gainNode) return
 
-      if (progress >= 1) {
-        if (fadeTimer) {
-          clearInterval(fadeTimer)
-          fadeTimer = null
-        }
-      }
-    }, 50)
+    const style = BGM_STYLES[type] || BGM_STYLES.default
+    const { notes, tempo } = style
+
+    // 停止当前播放
+    stopCurrent()
+
+    // 创建主音色
+    const mainOsc = audioContext.createOscillator()
+    const mainGain = audioContext.createGain()
+    mainOsc.type = 'sine'
+    mainOsc.frequency.value = notes[0]
+    mainGain.gain.value = 0.15
+    mainOsc.connect(mainGain)
+    mainGain.connect(gainNode)
+    mainOsc.start()
+    oscillators.push(mainOsc)
+
+    // 创建和弦音
+    const chordOsc = audioContext.createOscillator()
+    const chordGain = audioContext.createGain()
+    chordOsc.type = 'triangle'
+    chordOsc.frequency.value = notes[2] * 2
+    chordGain.gain.value = 0.08
+    chordOsc.connect(chordGain)
+    chordGain.connect(gainNode)
+    chordOsc.start()
+    oscillators.push(chordOsc)
+
+    // 创建低音
+    const bassOsc = audioContext.createOscillator()
+    const bassGain = audioContext.createGain()
+    bassOsc.type = 'sine'
+    bassOsc.frequency.value = notes[0] / 2
+    bassGain.gain.value = 0.1
+    bassOsc.connect(bassGain)
+    bassGain.connect(gainNode)
+    bassOsc.start()
+    oscillators.push(bassOsc)
+
+    // 随机变化音符
+    let noteIndex = 0
+    intervalId = window.setInterval(() => {
+      if (isMuted.value) return
+
+      noteIndex = (noteIndex + 1) % notes.length
+      const nextNote = notes[noteIndex]
+
+      // 平滑过渡
+      mainOsc.frequency.exponentialRampToValueAtTime(
+        nextNote,
+        audioContext!.currentTime + tempo
+      )
+      chordOsc.frequency.exponentialRampToValueAtTime(
+        nextNote * 1.5,
+        audioContext!.currentTime + tempo
+      )
+    }, tempo * 2000)
   }
 
   // 播放 BGM
@@ -198,39 +214,28 @@ export const useBgmStore = defineStore('bgm', () => {
     if (currentBgmType.value === type && isPlaying.value) return
 
     try {
-      // 淡出当前音乐
-      await fadeOut(500)
+      initAudioContext()
 
-      // 选择新音乐
-      const track = getRandomTrack(type)
+      if (audioContext?.state === 'suspended') {
+        await audioContext.resume()
+      }
+
+      // 停止当前播放
+      stopCurrent()
+
+      // 更新状态
       currentBgmType.value = type
-      currentTrackName.value = track.name
+      currentTrackName.value = BGM_STYLES[type]?.name || '轻音乐'
 
-      // 创建新的音频元素
-      currentAudio = new Audio(track.url)
-      currentAudio.loop = true
-      currentAudio.preload = 'auto'
-
-      // 等待加载
-      await new Promise((resolve, reject) => {
-        currentAudio!.addEventListener('canplaythrough', resolve, { once: true })
-        currentAudio!.addEventListener('error', reject, { once: true })
-        currentAudio!.load()
-      })
-
-      // 播放
-      await currentAudio.play()
+      // 生成新音乐
+      generateAmbientSound(type)
       isPlaying.value = true
-
-      // 淡入
-      fadeIn(currentAudio, 800)
 
       // 保存状态
       saveState()
 
     } catch (error) {
       console.warn('BGM 播放失败:', error)
-      // 静默失败，不影响游戏
     }
   }
 
@@ -247,38 +252,34 @@ export const useBgmStore = defineStore('bgm', () => {
   }
 
   // 暂停
-  async function pause() {
-    await fadeOut(300)
+  function pause() {
+    if (gainNode) {
+      gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext!.currentTime + 0.5)
+    }
+    setTimeout(() => {
+      stopCurrent()
+      isPlaying.value = false
+    }, 500)
   }
 
   // 恢复播放
   async function resume() {
-    if (currentAudio && !isPlaying.value) {
-      try {
-        await currentAudio.play()
-        isPlaying.value = true
-        fadeIn(currentAudio, 300)
-      } catch (error) {
-        console.warn('BGM 恢复失败:', error)
-      }
+    if (!isPlaying.value && currentBgmType.value) {
+      await play(currentBgmType.value)
     }
   }
 
   // 停止
   function stop() {
-    if (currentAudio) {
-      currentAudio.pause()
-      currentAudio.currentTime = 0
-      currentAudio = null
-      isPlaying.value = false
-    }
+    stopCurrent()
+    isPlaying.value = false
   }
 
   // 切换静音
   function toggleMute() {
     isMuted.value = !isMuted.value
-    if (currentAudio) {
-      currentAudio.volume = isMuted.value ? 0 : volume.value
+    if (gainNode) {
+      gainNode.gain.value = isMuted.value ? 0 : volume.value
     }
     saveState()
   }
@@ -286,8 +287,8 @@ export const useBgmStore = defineStore('bgm', () => {
   // 设置音量
   function setVolume(value: number) {
     volume.value = Math.max(0, Math.min(1, value))
-    if (currentAudio && !isMuted.value) {
-      currentAudio.volume = volume.value
+    if (gainNode && !isMuted.value) {
+      gainNode.gain.value = volume.value
     }
     saveState()
   }
@@ -313,7 +314,7 @@ export const useBgmStore = defineStore('bgm', () => {
         volume: volume.value,
         isMuted: isMuted.value,
         isEnabled: isEnabled.value,
-        currentBgmType: currentBgmType.value,
+        currentBgmType: currentBgmType.value
       }))
     } catch (e) {
       // 忽略存储错误
@@ -340,13 +341,13 @@ export const useBgmStore = defineStore('bgm', () => {
   function handleVisibilityChange() {
     if (document.hidden) {
       // 页面隐藏时降低音量
-      if (currentAudio) {
-        currentAudio.volume = volume.value * 0.3
+      if (gainNode) {
+        gainNode.gain.value = volume.value * 0.3
       }
     } else {
       // 页面显示时恢复音量
-      if (currentAudio && !isMuted.value) {
-        currentAudio.volume = volume.value
+      if (gainNode && !isMuted.value) {
+        gainNode.gain.value = volume.value
       }
     }
   }
@@ -359,8 +360,11 @@ export const useBgmStore = defineStore('bgm', () => {
     document.addEventListener('visibilitychange', handleVisibilityChange)
 
     // 监听用户交互以启用音频上下文
-    const enableAudio = () => {
+    const enableAudio = async () => {
       initAudioContext()
+      if (audioContext?.state === 'suspended') {
+        await audioContext.resume()
+      }
       document.removeEventListener('click', enableAudio)
       document.removeEventListener('touchstart', enableAudio)
     }
@@ -388,6 +392,6 @@ export const useBgmStore = defineStore('bgm', () => {
     toggleMute,
     setVolume,
     toggleEnabled,
-    refreshTrack,
+    refreshTrack
   }
 })
