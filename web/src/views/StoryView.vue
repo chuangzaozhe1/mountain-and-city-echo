@@ -134,8 +134,55 @@ function getCharName(id: string) {
   return { tangxin: '唐鑫', suqingyan: '苏清颜', linwanxing: '林晚星', xuzhinan: '许知楠' }[id] || id
 }
 
-// 背景色
-const bgMap: Record<string, string> = {
+// 背景图片 - 使用免费图片服务
+const bgImages: Record<string, string> = {
+  // 城市场景
+  office: 'https://picsum.photos/id/119/800/600',
+  home_night: 'https://picsum.photos/id/164/800/600',
+  chongqing_night: 'https://picsum.photos/id/274/800/600',
+  chongqing_station: 'https://picsum.photos/id/274/800/600',
+  station: 'https://picsum.photos/id/274/800/600',
+  metro_station: 'https://picsum.photos/id/274/800/600',
+
+  // 咖啡店/餐厅场景
+  cafe_interior: 'https://picsum.photos/id/425/800/600',
+  cafe: 'https://picsum.photos/id/425/800/600',
+  restaurant: 'https://picsum.photos/id/425/800/600',
+  hotpot_restaurant: 'https://picsum.photos/id/425/800/600',
+
+  // 夜市/夜景场景
+  night_market: 'https://picsum.photos/id/274/800/600',
+  night_street: 'https://picsum.photos/id/274/800/600',
+
+  // 山野场景
+  jinyun_mountain_trail: 'https://picsum.photos/id/15/800/600',
+  jinyun_summit: 'https://picsum.photos/id/29/800/600',
+  mountain_trail: 'https://picsum.photos/id/15/800/600',
+  mountain_path: 'https://picsum.photos/id/15/800/600',
+  mountain_viewpoint: 'https://picsum.photos/id/29/800/600',
+  mountain_night: 'https://picsum.photos/id/164/800/600',
+  mountain_rain: 'https://picsum.photos/id/164/800/600',
+
+  // 湖边/野餐场景
+  dai_lake_picnic: 'https://picsum.photos/id/15/800/600',
+  minsu: 'https://picsum.photos/id/164/800/600',
+
+  // 浪漫场景
+  romantic: 'https://picsum.photos/id/1025/800/600',
+
+  // 沙漠场景
+  desert: 'https://picsum.photos/id/274/800/600',
+  desert_night: 'https://picsum.photos/id/164/800/600',
+
+  // 其他场景
+  school_entrance: 'https://picsum.photos/id/119/800/600',
+  meeting_hall: 'https://picsum.photos/id/119/800/600',
+  school_office: 'https://picsum.photos/id/119/800/600',
+  classroom: 'https://picsum.photos/id/119/800/600',
+}
+
+// 背景色（作为备用）
+const bgColors: Record<string, string> = {
   // 城市场景
   office: 'linear-gradient(135deg, #dfe6e9 0%, #b2bec3 100%)',
   home_night: 'linear-gradient(180deg, #2d3436 0%, #1e272e 100%)',
@@ -179,6 +226,17 @@ const bgMap: Record<string, string> = {
   meeting_hall: 'linear-gradient(135deg, #636e72 0%, #b2bec3 100%)',
   school_office: 'linear-gradient(135deg, #dfe6e9 0%, #b2bec3 100%)',
   classroom: 'linear-gradient(135deg, #dfe6e9 0%, #b2bec3 100%)',
+}
+
+const defaultBg = 'linear-gradient(180deg, #1e1e2e 0%, #2d2d44 100%)'
+
+function getBackgroundStyle(id: string) {
+  // 优先使用图片背景
+  if (bgImages[id]) {
+    return `url(${bgImages[id]}) center/cover no-repeat, ${bgColors[id] || defaultBg}`
+  }
+  // 备用渐变背景
+  return bgColors[id] || defaultBg
 }
 const defaultBg = 'linear-gradient(180deg, #1e1e2e 0%, #2d2d44 100%)'
 function getBackgroundStyle(id: string) { return bgMap[id] || defaultBg }

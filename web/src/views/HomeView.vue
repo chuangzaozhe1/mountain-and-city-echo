@@ -311,14 +311,21 @@ function getParticleStyle(index: number) {
 /* 羁绊显示 */
 .bond-display {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
   margin-top: 10px;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
 }
 
 .bond-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  min-width: 80px;
 }
 
 .bond-icon {
