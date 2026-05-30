@@ -212,7 +212,7 @@ function getBackgroundStyle(id: string) { return bgMap[id] || defaultBg }
 
 .character-slot {
   position: absolute;
-  bottom: 25%;
+  bottom: 40%;
 }
 
 .pos-left { left: 5%; }
@@ -475,6 +475,7 @@ function getBackgroundStyle(id: string) { return bgMap[id] || defaultBg }
 .dialogue-box {
   width: 100%;
   max-width: 680px;
+  max-height: 35vh;
   background: linear-gradient(135deg, rgba(15,15,30,0.92) 0%, rgba(25,20,45,0.88) 100%);
   border-radius: 20px;
   padding: 22px 28px 20px;
@@ -485,7 +486,8 @@ function getBackgroundStyle(id: string) { return bgMap[id] || defaultBg }
     0 0 0 1px rgba(255,255,255,0.05) inset,
     0 2px 8px rgba(124,111,205,0.15) inset;
   position: relative;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .dialogue-box::before {
@@ -504,6 +506,23 @@ function getBackgroundStyle(id: string) { return bgMap[id] || defaultBg }
     0 8px 32px rgba(0,0,0,0.5),
     0 0 0 1px rgba(255,255,255,0.08) inset,
     0 2px 12px rgba(124,111,205,0.2) inset;
+}
+
+.dialogue-box::-webkit-scrollbar {
+  width: 4px;
+}
+
+.dialogue-box::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dialogue-box::-webkit-scrollbar-thumb {
+  background: rgba(180,160,255,0.3);
+  border-radius: 2px;
+}
+
+.dialogue-box::-webkit-scrollbar-thumb:hover {
+  background: rgba(180,160,255,0.5);
 }
 
 .speaker {
