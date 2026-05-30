@@ -419,6 +419,11 @@ function getBackgroundStyle(id: string) {
   backdrop-filter: blur(4px);
 }
 
+.theme-tangxin .char-label { background: rgba(9, 132, 227, 0.7); }
+.theme-suqingyan .char-label { background: rgba(253, 121, 168, 0.7); }
+.theme-linwanxing .char-label { background: rgba(0, 184, 148, 0.7); }
+.theme-xuzhinan .char-label { background: rgba(99, 110, 114, 0.7); }
+
 /* 顶部栏 */
 .top-bar {
   position: absolute;
