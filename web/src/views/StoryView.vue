@@ -456,6 +456,12 @@ function getBackgroundStyle(id: string) { return bgMap[id] || defaultBg }
   left: 0;
   right: 0;
   padding: 0 16px 24px;
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.dialogue-area > * {
+  pointer-events: auto;
 }
 
 /* 对话框 */
@@ -469,44 +475,82 @@ function getBackgroundStyle(id: string) { return bgMap[id] || defaultBg }
 .dialogue-box {
   width: 100%;
   max-width: 680px;
-  background: rgba(12,12,24,0.88);
-  border-radius: 16px;
-  padding: 20px 24px;
-  border: 1px solid rgba(124,111,205,0.25);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  background: linear-gradient(135deg, rgba(15,15,30,0.92) 0%, rgba(25,20,45,0.88) 100%);
+  border-radius: 20px;
+  padding: 22px 28px 20px;
+  border: 1px solid rgba(180,160,255,0.2);
+  backdrop-filter: blur(16px);
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(255,255,255,0.05) inset,
+    0 2px 8px rgba(124,111,205,0.15) inset;
+  position: relative;
+  overflow: hidden;
+}
+
+.dialogue-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(180,160,255,0.4) 50%, transparent 100%);
 }
 
 .dialogue-box.typing {
-  border-color: rgba(124,111,205,0.4);
+  border-color: rgba(180,160,255,0.35);
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(255,255,255,0.08) inset,
+    0 2px 12px rgba(124,111,205,0.2) inset;
 }
 
 .speaker {
   display: inline-block;
-  margin-bottom: 10px;
-  padding: 4px 14px;
-  background: linear-gradient(135deg, var(--color-primary), #9b59b6);
-  border-radius: 0 12px 12px 0;
-  margin-left: -24px;
-  padding-left: 28px;
+  margin-bottom: 12px;
+  padding: 5px 16px;
+  background: linear-gradient(135deg, rgba(124,111,205,0.9) 0%, rgba(155,89,182,0.8) 100%);
+  border-radius: 0 14px 14px 0;
+  margin-left: -28px;
+  padding-left: 32px;
   position: relative;
+  box-shadow: 0 2px 8px rgba(124,111,205,0.3);
+}
+
+.speaker::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 12px;
+  right: 4px;
+  height: 4px;
+  background: linear-gradient(90deg, rgba(124,111,205,0.3) 0%, transparent 100%);
+  border-radius: 0 0 4px 4px;
 }
 
 .speaker-txt {
   color: white;
-  font-size: 0.9rem;
-  font-weight: bold;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .speaker.narrator {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.08);
+  box-shadow: none;
+}
+
+.speaker.narrator::after {
+  display: none;
 }
 
 .text-body {
-  color: white;
+  color: rgba(255,255,255,0.95);
   font-size: 1.05rem;
-  line-height: 1.85;
+  line-height: 1.9;
   padding-left: 4px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
 .blinker {
@@ -551,35 +595,57 @@ function getBackgroundStyle(id: string) { return bgMap[id] || defaultBg }
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background: linear-gradient(0deg, rgba(10,10,22,0.95) 0%, rgba(10,10,22,0.7) 100%);
+  background: linear-gradient(135deg, rgba(15,15,30,0.95) 0%, rgba(25,20,45,0.92) 100%);
   padding: 20px 16px;
-  border-radius: 16px 16px 0 0;
+  border-radius: 20px 20px 0 0;
+  border: 1px solid rgba(180,160,255,0.15);
+  border-bottom: none;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.3);
 }
 
 .choice-label {
   text-align: center;
-  color: rgba(255,255,255,0.4);
+  color: rgba(180,160,255,0.5);
   font-size: 0.8rem;
-  letter-spacing: 3px;
-  margin-bottom: 4px;
+  letter-spacing: 4px;
+  margin-bottom: 6px;
 }
 
 .choice-item {
   padding: 14px 20px;
-  background: rgba(124,111,205,0.12);
-  border: 1px solid rgba(124,111,205,0.3);
-  border-radius: 12px;
-  color: white;
+  background: linear-gradient(135deg, rgba(124,111,205,0.1) 0%, rgba(155,89,182,0.08) 100%);
+  border: 1px solid rgba(124,111,205,0.25);
+  border-radius: 14px;
+  color: rgba(255,255,255,0.9);
   font-size: 0.95rem;
   text-align: center;
   cursor: pointer;
-  transition: all 0.25s;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.choice-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s ease;
 }
 
 .choice-item:hover {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  transform: translateX(4px);
+  background: linear-gradient(135deg, rgba(124,111,205,0.4) 0%, rgba(155,89,182,0.3) 100%);
+  border-color: rgba(180,160,255,0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(124,111,205,0.3);
+}
+
+.choice-item:hover::before {
+  left: 100%;
 }
 
 /* 移动端适配 */
