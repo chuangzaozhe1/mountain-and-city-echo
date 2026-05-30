@@ -18,7 +18,7 @@
         :class="[`pos-${char.position}`, `enter-${idx}`]"
       >
         <div class="char-frame" :class="`theme-${char.characterId}`">
-          <img class="char-avatar-img" :src="`${baseUrl}data/avatars/${char.characterId}_avatar.png`" :alt="getCharName(char.characterId)" @error="($event.target as HTMLImageElement).style.display='none'" />
+          <img class="char-avatar-img" :src="`${baseUrl}data/avatars/${char.characterId}_avatar.jpg`" :alt="getCharName(char.characterId)" @error="($event.target as HTMLImageElement).style.display='none'" />
           <div class="char-avatar-emoji" :style="{ display: 'none' }">{{ getAvatar(char.characterId) }}</div>
           <div class="char-label">{{ getCharName(char.characterId) }}</div>
         </div>
