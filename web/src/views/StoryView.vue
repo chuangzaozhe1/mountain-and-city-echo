@@ -412,7 +412,7 @@ function showToastMessage(message: string) {
 
 .character-slot {
   position: absolute;
-  bottom: 52%;
+  bottom: 55%;
 }
 
 .pos-left { left: 5%; }

@@ -515,4 +515,86 @@ function getParticleStyle(index: number) {
   border-radius: 10px;
   margin-left: auto;
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .content {
+    padding: 1.5rem;
+  }
+
+  .header {
+    margin-bottom: 2rem;
+  }
+
+  .logo-main {
+    font-size: 1.8rem;
+  }
+
+  .menu {
+    max-width: 100%;
+    gap: 10px;
+  }
+
+  .menu-btn {
+    height: 50px;
+    font-size: 0.95rem;
+  }
+
+  .menu-btn.tertiary {
+    height: 44px;
+  }
+
+  .bond-display {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .bond-item {
+    min-width: 70px;
+  }
+}
+
+@media (max-width: 375px) {
+  .content {
+    padding: 1rem;
+  }
+
+  .logo-main {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+  }
+
+  .logo-sub {
+    font-size: 0.6rem;
+    letter-spacing: 4px;
+  }
+
+  .quote {
+    font-size: 0.85rem;
+    padding: 12px 20px;
+  }
+
+  .menu {
+    gap: 8px;
+  }
+
+  .menu-btn {
+    height: 46px;
+    font-size: 0.9rem;
+    border-radius: 12px;
+  }
+
+  .bond-display {
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .bond-item {
+    min-width: 60px;
+  }
+
+  .bond-bar {
+    width: 50px;
+  }
+}
 </style>
