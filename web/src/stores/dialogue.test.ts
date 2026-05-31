@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useDialogueStore } from './dialogue'
+import type { DialogueData, ChoiceData } from '@/types/story'
 
 describe('useDialogueStore', () => {
   beforeEach(() => {

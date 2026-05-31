@@ -62,7 +62,7 @@ describe('useTypewriter', () => {
   })
 
   it('should skip to end', () => {
-    const { displayedText, isTextComplete, startTypewriter, skipToEnd } = useTypewriter()
+    const { isTextComplete, startTypewriter, skipToEnd } = useTypewriter()
 
     startTypewriter('Hello', 100)
     expect(isTextComplete.value).toBe(false)
