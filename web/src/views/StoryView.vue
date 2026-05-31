@@ -78,8 +78,12 @@
 
         <div v-else key="dialogue" class="dialogue-wrap">
           <div class="dialogue-box" :class="{ 'typing': !storyStore.state.isTextComplete }">
-            <!-- 说话人 -->
-            <div class="speaker" :class="{ 'narrator': storyStore.currentSpeaker === '旁白' }">
+            <!-- 说话人：只在旁白时显示 -->
+            <div v-if="storyStore.currentSpeaker === '旁白'" class="speaker narrator">
+              <span class="speaker-txt">旁白</span>
+            </div>
+            <!-- 女角色名字：显示在对话框右边 -->
+            <div v-else-if="isFemaleSpeaker" class="speaker female">
               <span class="speaker-txt">{{ storyStore.currentSpeaker }}</span>
             </div>
             <!-- 正文 -->
@@ -130,6 +134,9 @@ const baseUrl = import.meta.env.BASE_URL
 
 const chapterId = computed(() => route.params.chapterId as string)
 const hasNextChapter = computed(() => !!storyStore.state.nextChapterId)
+
+const femaleCharacters = ['苏清颜', '林晚星']
+const isFemaleSpeaker = computed(() => femaleCharacters.includes(storyStore.currentSpeaker))
 
 onMounted(() => {
   storyStore.loadChapter(chapterId.value)
@@ -318,7 +325,7 @@ function getBackgroundStyle(id: string) {
 
 .character-slot {
   position: absolute;
-  bottom: 40%;
+  bottom: 52%;
 }
 
 .pos-left { left: 5%; }
@@ -381,21 +388,21 @@ function getBackgroundStyle(id: string) {
 }
 
 .char-avatar-img {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 .char-avatar-emoji {
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.8rem;
+  font-size: 2rem;
   color: white;
 }
 
@@ -700,6 +707,23 @@ function getBackgroundStyle(id: string) {
   display: none;
 }
 
+.speaker.female {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: -28px;
+  padding-left: 16px;
+  padding-right: 32px;
+  border-radius: 14px 0 0 14px;
+  background: linear-gradient(135deg, rgba(253,121,168,0.8) 0%, rgba(232,67,147,0.9) 100%);
+  box-shadow: 0 2px 8px rgba(253,121,168,0.3);
+}
+
+.speaker.female::after {
+  left: 4px;
+  right: 12px;
+  background: linear-gradient(270deg, rgba(253,121,168,0.3) 0%, transparent 100%);
+}
+
 .text-body {
   color: rgba(255,255,255,1);
   font-size: 1.15rem;
@@ -901,14 +925,14 @@ function getBackgroundStyle(id: string) {
   }
 
   .char-avatar-img {
-    width: 64px;
-    height: 64px;
+    width: 80px;
+    height: 80px;
   }
 
   .char-avatar-emoji {
-    width: 52px;
-    height: 52px;
-    font-size: 1.5rem;
+    width: 64px;
+    height: 64px;
+    font-size: 1.6rem;
   }
 
   .char-label {
@@ -952,14 +976,14 @@ function getBackgroundStyle(id: string) {
   }
 
   .char-avatar-img {
-    width: 56px;
-    height: 56px;
+    width: 68px;
+    height: 68px;
   }
 
   .char-avatar-emoji {
-    width: 46px;
-    height: 46px;
-    font-size: 1.3rem;
+    width: 54px;
+    height: 54px;
+    font-size: 1.4rem;
   }
 
   .choice-item {
