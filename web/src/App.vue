@@ -1,7 +1,14 @@
 <template>
-  <router-view v-slot="{ Component }">
+  <router-view v-slot="{ Component, route }">
     <transition name="fade" mode="out-in">
-      <component :is="Component" />
+      <suspense>
+        <template #default>
+          <component :is="Component" :key="route.path" />
+        </template>
+        <template #fallback>
+          <LoadingScreen />
+        </template>
+      </suspense>
     </transition>
   </router-view>
   <ErrorNotification />
@@ -13,6 +20,7 @@ import { useBgmStore } from '@/stores/bgm'
 import { useGameStore } from '@/stores/game'
 import { useError } from '@/composables/useError'
 import ErrorNotification from '@/components/ErrorNotification.vue'
+import LoadingScreen from '@/components/LoadingScreen.vue'
 
 const bgmStore = useBgmStore()
 const gameStore = useGameStore()
