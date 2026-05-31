@@ -3,6 +3,8 @@ import { ref, computed } from 'vue'
 import type { ChapterData, SceneData, DialogueData, ChoiceData } from '@/types/story'
 import { useGameStore } from './game'
 import { useBgmStore } from './bgm'
+import { useAchievementStore } from './achievement'
+import { useCgStore } from './cg'
 
 export enum TextSpeed {
   FAST = 30,
@@ -170,6 +172,10 @@ export const useStoryStore = defineStore('story', () => {
     const chapter = state.value.chapterData
     if (!chapter) return
 
+    // 解锁选择成就
+    const achievementStore = useAchievementStore()
+    achievementStore.unlockByChoice()
+
     const nextScene = chapter.scenes.find(s => s.sceneId === choice.nextSceneId)
     if (nextScene) {
       state.value.currentScene = nextScene
@@ -281,6 +287,21 @@ export const useStoryStore = defineStore('story', () => {
 
     gameStore.unlockChapter(nextChapterId)
 
+    // 解锁成就
+    const achievementStore = useAchievementStore()
+    achievementStore.unlockByChapter(chapter.chapterId)
+
+    // 解锁 CG
+    const cgStore = useCgStore()
+    cgStore.unlockByChapter(chapter.chapterId)
+
+    // 检查特殊成就
+    if (state.value.textSpeed === 30) {
+      achievementStore.unlockSpecial('speed_reader')
+    } else if (state.value.textSpeed === 80) {
+      achievementStore.unlockSpecial('patient_reader')
+    }
+
     state.value.isChapterComplete = true
     state.value.nextChapterId = nextChapterId
     console.log(`Chapter ${chapter.chapterId} complete, next: ${nextChapterId}`)
@@ -291,6 +312,15 @@ export const useStoryStore = defineStore('story', () => {
       gameStore.addBondPoints(characterId, points)
       state.value.lastIncreasedCharacter = characterId
       state.value.lastIncreasedPoints = points
+
+      // 检查好感度成就
+      const achievementStore = useAchievementStore()
+      const currentBond = gameStore.state.bondPoints[characterId] || 0
+      achievementStore.unlockByBond(characterId, currentBond)
+
+      // 检查 CG 解锁
+      const cgStore = useCgStore()
+      cgStore.unlockByBond(characterId, currentBond)
     })
   }
 

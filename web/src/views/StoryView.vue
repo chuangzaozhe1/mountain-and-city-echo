@@ -107,10 +107,24 @@
       </transition>
     </div>
 
+    <!-- 对话历史 -->
+    <DialogueHistory
+      :visible="showHistory"
+      :history="storyStore.state.historyDialogues"
+      @close="showHistory = false"
+    />
+
+    <!-- 成就通知 -->
+    <AchievementNotification
+      :achievement="achievementStore.newAchievement"
+      @dismiss="achievementStore.clearNewAchievement()"
+    />
+
     <!-- 顶部栏 -->
     <div class="top-bar">
       <button class="bar-btn" @click.stop="handleBack">✕</button>
       <div class="bar-title">{{ storyStore.state.currentChapterTitle }}</div>
+      <button class="bar-btn" @click.stop="showHistory = !showHistory">📋</button>
       <button class="bar-btn" :class="{ on: storyStore.state.isAutoPlay }" @click.stop="storyStore.toggleAutoPlay">
         {{ storyStore.state.isAutoPlay ? '⏸' : '▶' }}
       </button>
@@ -119,17 +133,21 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStoryStore } from '@/stores/story'
 import { useSfxStore } from '@/stores/sfx'
 import { useBgmStore } from '@/stores/bgm'
+import { useAchievementStore } from '@/stores/achievement'
+import DialogueHistory from '@/components/DialogueHistory.vue'
+import AchievementNotification from '@/components/AchievementNotification.vue'
 
 const route = useRoute()
 const router = useRouter()
 const storyStore = useStoryStore()
 const sfxStore = useSfxStore()
 const bgmStore = useBgmStore()
+const achievementStore = useAchievementStore()
 const baseUrl = import.meta.env.BASE_URL
 
 const chapterId = computed(() => route.params.chapterId as string)
@@ -137,6 +155,8 @@ const hasNextChapter = computed(() => !!storyStore.state.nextChapterId)
 
 const femaleCharacters = ['苏清颜', '林晚星']
 const isFemaleSpeaker = computed(() => femaleCharacters.includes(storyStore.currentSpeaker))
+
+const showHistory = ref(false)
 
 onMounted(() => {
   storyStore.loadChapter(chapterId.value)
@@ -148,9 +168,34 @@ onUnmounted(() => {
 })
 
 function handleKeydown(e: KeyboardEvent) {
-  if (e.code === 'Space' || e.key === ' ') {
-    e.preventDefault()
-    handleClick()
+  // 如果历史面板打开，Escape 关闭
+  if (showHistory.value) {
+    if (e.key === 'Escape') {
+      showHistory.value = false
+    }
+    return
+  }
+
+  switch (e.key) {
+    case ' ':
+    case 'Enter':
+      e.preventDefault()
+      handleClick()
+      break
+    case 'Escape':
+      e.preventDefault()
+      handleBack()
+      break
+    case 'h':
+    case 'H':
+      e.preventDefault()
+      showHistory.value = !showHistory.value
+      break
+    case 'a':
+    case 'A':
+      e.preventDefault()
+      storyStore.toggleAutoPlay()
+      break
   }
 }
 
