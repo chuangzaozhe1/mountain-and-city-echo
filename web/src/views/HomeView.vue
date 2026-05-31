@@ -78,7 +78,7 @@
         </button>
 
         <button class="menu-btn secondary" @click="router.push('/scene-review')">
-          <span class="btn-icon">🎬</span>
+          <span class="btn-icon">🎞️</span>
           场景回顾
         </button>
 

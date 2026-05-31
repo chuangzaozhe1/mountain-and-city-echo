@@ -137,12 +137,10 @@
     <div class="top-bar">
       <button class="bar-btn" @click.stop="handleBack">✕</button>
       <div class="bar-title">{{ storyStore.state.currentChapterTitle }}</div>
-      <button class="bar-btn" @click.stop="showHistory = !showHistory">📋</button>
-      <button class="bar-btn" @click.stop="handleQuickSave" title="快速存档 (Q)">💾</button>
-      <button class="bar-btn" @click.stop="handleQuickLoad" title="快速读档 (W)">📂</button>
-      <button class="bar-btn" @click.stop="openSaveLoad('save')">💾</button>
-      <button class="bar-btn" @click.stop="openSaveLoad('load')">📂</button>
-      <button class="bar-btn" :class="{ on: storyStore.state.isAutoPlay }" @click.stop="storyStore.toggleAutoPlay">
+      <button class="bar-btn" @click.stop="showHistory = !showHistory" title="对话历史 (H)">📋</button>
+      <button class="bar-btn" @click.stop="openSaveLoad('save')" title="存档 (S)">💾</button>
+      <button class="bar-btn" @click.stop="openSaveLoad('load')" title="读档 (L)">📂</button>
+      <button class="bar-btn" :class="{ on: storyStore.state.isAutoPlay }" @click.stop="storyStore.toggleAutoPlay" title="自动播放 (A)">
         {{ storyStore.state.isAutoPlay ? '⏸' : '▶' }}
       </button>
     </div>
