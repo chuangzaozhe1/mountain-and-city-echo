@@ -80,6 +80,9 @@ export const useStoryStore = defineStore('story', () => {
   })
 
   async function loadChapter(chapterId: string) {
+    // 清除旧定时器，防止退出再进入时冲突
+    cleanup()
+
     state.value.isLoading = true
     state.value.error = null
 
@@ -335,6 +338,14 @@ export const useStoryStore = defineStore('story', () => {
     }
   }
 
+  function cleanup() {
+    if (typewriterInterval) {
+      clearInterval(typewriterInterval)
+      typewriterInterval = null
+    }
+    stopAutoPlay()
+  }
+
   return {
     state,
     currentBackground,
@@ -348,6 +359,7 @@ export const useStoryStore = defineStore('story', () => {
     setTextSpeed,
     setAutoPlayInterval,
     saveProgress,
+    cleanup,
     preloadNextChapter,
     preloadBackgroundImage
   }

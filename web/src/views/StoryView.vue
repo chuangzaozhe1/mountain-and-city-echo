@@ -135,7 +135,10 @@ onMounted(() => {
   storyStore.loadChapter(chapterId.value)
   window.addEventListener('keydown', handleKeydown)
 })
-onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeydown)
+  storyStore.cleanup()
+})
 
 function handleKeydown(e: KeyboardEvent) {
   if (e.code === 'Space' || e.key === ' ') {
