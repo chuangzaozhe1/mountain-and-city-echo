@@ -58,6 +58,11 @@ const router = createRouter({
       component: () => import('@/views/AchievementView.vue')
     },
     {
+      path: '/scene-review',
+      name: 'SceneReview',
+      component: () => import('@/views/SceneReviewView.vue')
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
       component: () => import('@/views/NotFoundView.vue')

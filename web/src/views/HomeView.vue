@@ -77,6 +77,11 @@
           <span class="achievement-badge">{{ achievementStore.unlockedCount }}/{{ achievementStore.totalCount }}</span>
         </button>
 
+        <button class="menu-btn secondary" @click="router.push('/scene-review')">
+          <span class="btn-icon">🎬</span>
+          场景回顾
+        </button>
+
         <div class="menu-row">
           <button class="menu-btn tertiary" @click="router.push('/settings')">
             <span class="btn-icon">⚙️</span>

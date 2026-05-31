@@ -41,6 +41,9 @@ export const useStoryStore = defineStore('story', () => {
   const gameStore = useGameStore()
   const bgmStore = useBgmStore()
 
+  // 已读对话记录（用于跳过功能）
+  const readDialogues = ref<Set<string>>(new Set())
+
   const state = ref<StoryUiState>({
     isLoading: false,
     error: null,
@@ -209,6 +212,10 @@ export const useStoryStore = defineStore('story', () => {
     if (dialogue) {
       state.value.displayedText = dialogue.text
       state.value.isTextComplete = true
+
+      // 标记为已读
+      const dialogueKey = `${state.value.currentChapterId}_${state.value.currentScene?.sceneId}_${state.value.currentDialogueIndex}`
+      markDialogueAsRead(dialogueKey)
     }
   }
 
@@ -217,8 +224,8 @@ export const useStoryStore = defineStore('story', () => {
 
     if (currentDialogue) {
       state.value.historyDialogues = [...state.value.historyDialogues, currentDialogue]
-      if (state.value.historyDialogues.length > 20) {
-        state.value.historyDialogues = state.value.historyDialogues.slice(-20)
+      if (state.value.historyDialogues.length > 50) {
+        state.value.historyDialogues = state.value.historyDialogues.slice(-50)
       }
     }
 
@@ -227,7 +234,62 @@ export const useStoryStore = defineStore('story', () => {
     state.value.displayedText = ''
     state.value.isTextComplete = false
 
-    startTypewriter(dialogue.text)
+    // 检查是否已读，如果已读则跳过打字机效果
+    const dialogueKey = `${state.value.currentChapterId}_${state.value.currentScene?.sceneId}_${index}`
+    if (readDialogues.value.has(dialogueKey)) {
+      state.value.displayedText = dialogue.text
+      state.value.isTextComplete = true
+    } else {
+      startTypewriter(dialogue.text)
+    }
+  }
+
+  // 标记对话为已读
+  function markDialogueAsRead(dialogueId: string) {
+    readDialogues.value.add(dialogueId)
+  }
+
+  // 跳过所有已读对话
+  function skipReadDialogues() {
+    const scene = state.value.currentScene
+    if (!scene) return
+
+    let skipped = false
+    while (state.value.currentDialogueIndex < scene.dialogues.length - 1) {
+      const nextIndex = state.value.currentDialogueIndex + 1
+      const dialogueKey = `${state.value.currentChapterId}_${scene.sceneId}_${nextIndex}`
+
+      if (readDialogues.value.has(dialogueKey)) {
+        const dialogue = scene.dialogues[nextIndex]
+        state.value.currentDialogue = dialogue
+        state.value.currentDialogueIndex = nextIndex
+        state.value.displayedText = dialogue.text
+        state.value.isTextComplete = true
+        skipped = true
+      } else {
+        break
+      }
+    }
+
+    if (skipped) {
+      // 如果跳过了对话，更新历史记录
+      const currentDialogue = state.value.currentDialogue
+      if (currentDialogue) {
+        state.value.historyDialogues = [...state.value.historyDialogues, currentDialogue]
+      }
+    }
+  }
+
+  // 检查是否可以跳过
+  function canSkip(): boolean {
+    const scene = state.value.currentScene
+    if (!scene) return false
+
+    const nextIndex = state.value.currentDialogueIndex + 1
+    if (nextIndex >= scene.dialogues.length) return false
+
+    const dialogueKey = `${state.value.currentChapterId}_${scene.sceneId}_${nextIndex}`
+    return readDialogues.value.has(dialogueKey)
   }
 
   function startTypewriter(text: string) {
@@ -385,6 +447,8 @@ export const useStoryStore = defineStore('story', () => {
     nextDialogue,
     makeChoice,
     completeText,
+    skipReadDialogues,
+    canSkip,
     toggleAutoPlay,
     setTextSpeed,
     setAutoPlayInterval,

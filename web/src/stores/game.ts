@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import type { GameState, SaveData } from '@/types/game'
 
 const STORAGE_KEY = 'echo_game_save'
-const SAVE_SLOTS = 3
+const SAVE_SLOTS = 10
 
 export const useGameStore = defineStore('game', () => {
   const state = ref<GameState>({

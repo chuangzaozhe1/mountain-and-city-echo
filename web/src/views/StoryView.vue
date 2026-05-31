@@ -77,7 +77,11 @@
         </div>
 
         <div v-else key="dialogue" class="dialogue-wrap">
-          <div class="dialogue-box" :class="{ 'typing': !storyStore.state.isTextComplete }">
+          <div
+            class="dialogue-box"
+            :class="{ 'typing': !storyStore.state.isTextComplete }"
+            :style="{ opacity: settingsStore.dialogueOpacity }"
+          >
             <!-- 说话人：只在旁白时显示 -->
             <div v-if="storyStore.currentSpeaker === '旁白'" class="speaker narrator">
               <span class="speaker-txt">旁白</span>
@@ -87,7 +91,7 @@
               <span class="speaker-txt">{{ storyStore.currentSpeaker }}</span>
             </div>
             <!-- 正文 -->
-            <div class="text-body">
+            <div class="text-body" :style="{ fontSize: `${settingsStore.textSize}rem` }">
               {{ storyStore.state.displayedText }}<span v-if="!storyStore.state.isTextComplete" class="blinker">▐</span>
             </div>
           </div>
@@ -134,6 +138,8 @@
       <button class="bar-btn" @click.stop="handleBack">✕</button>
       <div class="bar-title">{{ storyStore.state.currentChapterTitle }}</div>
       <button class="bar-btn" @click.stop="showHistory = !showHistory">📋</button>
+      <button class="bar-btn" @click.stop="handleQuickSave" title="快速存档 (Q)">💾</button>
+      <button class="bar-btn" @click.stop="handleQuickLoad" title="快速读档 (W)">📂</button>
       <button class="bar-btn" @click.stop="openSaveLoad('save')">💾</button>
       <button class="bar-btn" @click.stop="openSaveLoad('load')">📂</button>
       <button class="bar-btn" :class="{ on: storyStore.state.isAutoPlay }" @click.stop="storyStore.toggleAutoPlay">
@@ -151,6 +157,7 @@ import { useGameStore } from '@/stores/game'
 import { useSfxStore } from '@/stores/sfx'
 import { useBgmStore } from '@/stores/bgm'
 import { useAchievementStore } from '@/stores/achievement'
+import { useSettingsStore } from '@/stores/settings'
 import DialogueHistory from '@/components/DialogueHistory.vue'
 import AchievementNotification from '@/components/AchievementNotification.vue'
 import SaveLoadPanel from '@/components/SaveLoadPanel.vue'
@@ -162,6 +169,7 @@ const gameStore = useGameStore()
 const sfxStore = useSfxStore()
 const bgmStore = useBgmStore()
 const achievementStore = useAchievementStore()
+const settingsStore = useSettingsStore()
 const baseUrl = import.meta.env.BASE_URL
 
 const chapterId = computed(() => route.params.chapterId as string)
@@ -222,6 +230,20 @@ function handleKeydown(e: KeyboardEvent) {
     case 'L':
       e.preventDefault()
       openSaveLoad('load')
+      break
+    case 'q':
+    case 'Q':
+      e.preventDefault()
+      handleQuickSave()
+      break
+    case 'w':
+    case 'W':
+      e.preventDefault()
+      handleQuickLoad()
+      break
+    case 'Tab':
+      e.preventDefault()
+      handleSkip()
       break
   }
 }
@@ -378,6 +400,43 @@ function handleLoad(slot: number) {
   }
   showSaveLoad.value = false
   sfxStore.play('click')
+}
+
+function handleQuickSave() {
+  gameStore.saveToSlot(0) // 使用第一个槽位作为快速存档
+  sfxStore.play('complete')
+  // 显示提示
+  showToastMessage('快速存档成功')
+}
+
+function handleQuickLoad() {
+  const data = gameStore.loadFromSlot(0)
+  if (data) {
+    storyStore.loadChapter(data.chapterId)
+    sfxStore.play('click')
+    showToastMessage('快速读档成功')
+  } else {
+    showToastMessage('没有快速存档')
+  }
+}
+
+function handleSkip() {
+  if (storyStore.canSkip()) {
+    storyStore.skipReadDialogues()
+    sfxStore.play('click')
+  }
+}
+
+// 简单的提示功能
+const toastMessage = ref('')
+const showToastVisible = ref(false)
+
+function showToastMessage(message: string) {
+  toastMessage.value = message
+  showToastVisible.value = true
+  setTimeout(() => {
+    showToastVisible.value = false
+  }, 2000)
 }
 </script>
 

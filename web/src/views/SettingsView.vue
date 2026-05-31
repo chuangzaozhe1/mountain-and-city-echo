@@ -34,6 +34,34 @@
             </button>
           </div>
         </div>
+        <div class="setting-item">
+          <span>文字大小</span>
+          <div class="range-container">
+            <input
+              type="range"
+              v-model="textSize"
+              min="80"
+              max="150"
+              step="10"
+              @input="updateTextSize"
+            />
+            <span class="range-value">{{ textSize }}%</span>
+          </div>
+        </div>
+        <div class="setting-item">
+          <span>对话框透明度</span>
+          <div class="range-container">
+            <input
+              type="range"
+              v-model="dialogueOpacity"
+              min="50"
+              max="100"
+              step="5"
+              @input="updateDialogueOpacity"
+            />
+            <span class="range-value">{{ dialogueOpacity }}%</span>
+          </div>
+        </div>
       </section>
 
       <section class="setting-group">
@@ -73,12 +101,14 @@ import { useStoryStore } from '@/stores/story'
 import { useGameStore } from '@/stores/game'
 import { useBgmStore } from '@/stores/bgm'
 import { useSfxStore } from '@/stores/sfx'
+import { useSettingsStore } from '@/stores/settings'
 
 const router = useRouter()
 const storyStore = useStoryStore()
 const gameStore = useGameStore()
 const bgmStore = useBgmStore()
 const sfxStore = useSfxStore()
+const settingsStore = useSettingsStore()
 
 const speedOptions = [
   { label: '快', value: 30 },
@@ -96,6 +126,8 @@ const textSpeed = ref(storyStore.state.textSpeed)
 const autoInterval = ref(storyStore.state.autoPlayInterval)
 const bgmVolume = ref(bgmStore.volume * 100)
 const sfxVolume = ref(80)
+const textSize = ref(settingsStore.textSize * 100)
+const dialogueOpacity = ref(settingsStore.dialogueOpacity * 100)
 
 function updateBgmVolume() {
   bgmStore.setVolume(bgmVolume.value / 100)
@@ -103,6 +135,14 @@ function updateBgmVolume() {
 
 function updateSfxVolume() {
   sfxStore.setVolume(sfxVolume.value / 100)
+}
+
+function updateTextSize() {
+  settingsStore.setTextSize(textSize.value / 100)
+}
+
+function updateDialogueOpacity() {
+  settingsStore.setDialogueOpacity(dialogueOpacity.value / 100)
 }
 
 function handleReset() {
@@ -186,6 +226,23 @@ h1 {
 
 input[type="range"] {
   width: 150px;
+}
+
+.range-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.range-container input[type="range"] {
+  flex: 1;
+}
+
+.range-value {
+  font-size: 0.85rem;
+  color: rgba(232, 232, 232, 0.7);
+  min-width: 40px;
+  text-align: right;
 }
 
 .danger-btn {

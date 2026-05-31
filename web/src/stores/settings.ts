@@ -9,6 +9,8 @@ export const useSettingsStore = defineStore('settings', () => {
   const bgmVolume = ref(0.5)
   const sfxVolume = ref(0.5)
   const showBondChanges = ref(true)
+  const textSize = ref(1.0) // 字体大小倍数
+  const dialogueOpacity = ref(0.95) // 对话框透明度
 
   function loadFromStorage() {
     const saved = localStorage.getItem(STORAGE_KEY)
@@ -20,6 +22,8 @@ export const useSettingsStore = defineStore('settings', () => {
         if (data.bgmVolume !== undefined) bgmVolume.value = data.bgmVolume
         if (data.sfxVolume !== undefined) sfxVolume.value = data.sfxVolume
         if (data.showBondChanges !== undefined) showBondChanges.value = data.showBondChanges
+        if (data.textSize !== undefined) textSize.value = data.textSize
+        if (data.dialogueOpacity !== undefined) dialogueOpacity.value = data.dialogueOpacity
       } catch (e) {}
     }
   }
@@ -30,7 +34,9 @@ export const useSettingsStore = defineStore('settings', () => {
       autoPlaySpeed: autoPlaySpeed.value,
       bgmVolume: bgmVolume.value,
       sfxVolume: sfxVolume.value,
-      showBondChanges: showBondChanges.value
+      showBondChanges: showBondChanges.value,
+      textSize: textSize.value,
+      dialogueOpacity: dialogueOpacity.value
     }))
   }
 
@@ -59,17 +65,31 @@ export const useSettingsStore = defineStore('settings', () => {
     saveToStorage()
   }
 
+  function setTextSize(size: number) {
+    textSize.value = Math.max(0.8, Math.min(1.5, size))
+    saveToStorage()
+  }
+
+  function setDialogueOpacity(opacity: number) {
+    dialogueOpacity.value = Math.max(0.5, Math.min(1, opacity))
+    saveToStorage()
+  }
+
   return {
     textSpeed,
     autoPlaySpeed,
     bgmVolume,
     sfxVolume,
     showBondChanges,
+    textSize,
+    dialogueOpacity,
     loadFromStorage,
     setTextSpeed,
     setAutoPlaySpeed,
     setBgmVolume,
     setSfxVolume,
-    setShowBondChanges
+    setShowBondChanges,
+    setTextSize,
+    setDialogueOpacity
   }
 })
