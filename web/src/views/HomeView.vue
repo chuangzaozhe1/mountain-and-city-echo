@@ -82,6 +82,16 @@
           场景回顾
         </button>
 
+        <button class="menu-btn secondary" @click="router.push('/statistics')">
+          <span class="btn-icon">📊</span>
+          游戏统计
+        </button>
+
+        <button class="menu-btn secondary" @click="router.push('/endings')">
+          <span class="btn-icon">🎬</span>
+          结局图鉴
+        </button>
+
         <div class="menu-row">
           <button class="menu-btn tertiary" @click="router.push('/settings')">
             <span class="btn-icon">⚙️</span>

@@ -158,6 +158,8 @@ import { useSfxStore } from '@/stores/sfx'
 import { useBgmStore } from '@/stores/bgm'
 import { useAchievementStore } from '@/stores/achievement'
 import { useSettingsStore } from '@/stores/settings'
+import { useStatisticsStore } from '@/stores/statistics'
+import { useSwipe } from '@/composables/useSwipe'
 import DialogueHistory from '@/components/DialogueHistory.vue'
 import AchievementNotification from '@/components/AchievementNotification.vue'
 import SaveLoadPanel from '@/components/SaveLoadPanel.vue'
@@ -170,6 +172,7 @@ const sfxStore = useSfxStore()
 const bgmStore = useBgmStore()
 const achievementStore = useAchievementStore()
 const settingsStore = useSettingsStore()
+const statsStore = useStatisticsStore()
 const baseUrl = import.meta.env.BASE_URL
 
 const chapterId = computed(() => route.params.chapterId as string)
@@ -182,13 +185,40 @@ const showHistory = ref(false)
 const showSaveLoad = ref(false)
 const saveLoadMode = ref<'save' | 'load'>('save')
 
+// 手势支持
+useSwipe({
+  threshold: 50,
+  onSwipeLeft: () => {
+    // 左滑：跳过已读对话
+    if (storyStore.canSkip()) {
+      storyStore.skipReadDialogues()
+      sfxStore.play('click')
+    }
+  },
+  onSwipeRight: () => {
+    // 右滑：返回
+    handleBack()
+  },
+  onSwipeUp: () => {
+    // 上滑：打开对话历史
+    showHistory.value = true
+  },
+  onSwipeDown: () => {
+    // 下滑：关闭对话历史
+    showHistory.value = false
+  }
+})
+
 onMounted(() => {
   storyStore.loadChapter(chapterId.value)
   window.addEventListener('keydown', handleKeydown)
+  statsStore.startTimer()
+  statsStore.updatePlayTimes()
 })
 onUnmounted(() => {
   window.removeEventListener('keydown', handleKeydown)
   storyStore.cleanup()
+  statsStore.stopTimer()
 })
 
 function handleKeydown(e: KeyboardEvent) {
@@ -381,6 +411,7 @@ function openSaveLoad(mode: 'save' | 'load') {
 
 function handleSave(slot: number) {
   gameStore.saveToSlot(slot)
+  statsStore.recordSave()
   showSaveLoad.value = false
   sfxStore.play('complete')
 }
@@ -398,6 +429,7 @@ function handleLoad(slot: number) {
       storyStore.loadChapter(data.chapterId)
     }
   }
+  statsStore.recordLoad()
   showSaveLoad.value = false
   sfxStore.play('click')
 }
