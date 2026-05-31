@@ -71,6 +71,12 @@
           回忆相册
         </button>
 
+        <button class="menu-btn secondary" @click="router.push('/achievements')">
+          <span class="btn-icon">🏆</span>
+          成就系统
+          <span class="achievement-badge">{{ achievementStore.unlockedCount }}/{{ achievementStore.totalCount }}</span>
+        </button>
+
         <div class="menu-row">
           <button class="menu-btn tertiary" @click="router.push('/settings')">
             <span class="btn-icon">⚙️</span>
@@ -83,7 +89,7 @@
     </main>
 
     <footer class="footer">
-      <span class="version">v1.0</span>
+      <span class="version">v1.1</span>
       <span class="separator">·</span>
       <span>个人娱乐版 · 非商用</span>
     </footer>
@@ -93,9 +99,11 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { useGameStore } from '@/stores/game'
+import { useAchievementStore } from '@/stores/achievement'
 
 const router = useRouter()
 const gameStore = useGameStore()
+const achievementStore = useAchievementStore()
 
 const characters = [
   { id: 'tangxin', name: '唐鑫', icon: '♂' },
@@ -482,5 +490,14 @@ function getParticleStyle(index: number) {
 
 .separator {
   color: rgba(255, 255, 255, 0.2);
+}
+
+/* 成就徽章 */
+.achievement-badge {
+  font-size: 0.75rem;
+  background: rgba(124, 111, 205, 0.3);
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: auto;
 }
 </style>

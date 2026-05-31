@@ -120,11 +120,22 @@
       @dismiss="achievementStore.clearNewAchievement()"
     />
 
+    <!-- 存档/读档面板 -->
+    <SaveLoadPanel
+      :visible="showSaveLoad"
+      :mode="saveLoadMode"
+      @close="showSaveLoad = false"
+      @save="handleSave"
+      @load="handleLoad"
+    />
+
     <!-- 顶部栏 -->
     <div class="top-bar">
       <button class="bar-btn" @click.stop="handleBack">✕</button>
       <div class="bar-title">{{ storyStore.state.currentChapterTitle }}</div>
       <button class="bar-btn" @click.stop="showHistory = !showHistory">📋</button>
+      <button class="bar-btn" @click.stop="openSaveLoad('save')">💾</button>
+      <button class="bar-btn" @click.stop="openSaveLoad('load')">📂</button>
       <button class="bar-btn" :class="{ on: storyStore.state.isAutoPlay }" @click.stop="storyStore.toggleAutoPlay">
         {{ storyStore.state.isAutoPlay ? '⏸' : '▶' }}
       </button>
@@ -136,15 +147,18 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStoryStore } from '@/stores/story'
+import { useGameStore } from '@/stores/game'
 import { useSfxStore } from '@/stores/sfx'
 import { useBgmStore } from '@/stores/bgm'
 import { useAchievementStore } from '@/stores/achievement'
 import DialogueHistory from '@/components/DialogueHistory.vue'
 import AchievementNotification from '@/components/AchievementNotification.vue'
+import SaveLoadPanel from '@/components/SaveLoadPanel.vue'
 
 const route = useRoute()
 const router = useRouter()
 const storyStore = useStoryStore()
+const gameStore = useGameStore()
 const sfxStore = useSfxStore()
 const bgmStore = useBgmStore()
 const achievementStore = useAchievementStore()
@@ -157,6 +171,8 @@ const femaleCharacters = ['苏清颜', '林晚星']
 const isFemaleSpeaker = computed(() => femaleCharacters.includes(storyStore.currentSpeaker))
 
 const showHistory = ref(false)
+const showSaveLoad = ref(false)
+const saveLoadMode = ref<'save' | 'load'>('save')
 
 onMounted(() => {
   storyStore.loadChapter(chapterId.value)
@@ -168,10 +184,11 @@ onUnmounted(() => {
 })
 
 function handleKeydown(e: KeyboardEvent) {
-  // 如果历史面板打开，Escape 关闭
-  if (showHistory.value) {
+  // 如果面板打开，Escape 关闭
+  if (showHistory.value || showSaveLoad.value) {
     if (e.key === 'Escape') {
       showHistory.value = false
+      showSaveLoad.value = false
     }
     return
   }
@@ -195,6 +212,16 @@ function handleKeydown(e: KeyboardEvent) {
     case 'A':
       e.preventDefault()
       storyStore.toggleAutoPlay()
+      break
+    case 's':
+    case 'S':
+      e.preventDefault()
+      openSaveLoad('save')
+      break
+    case 'l':
+    case 'L':
+      e.preventDefault()
+      openSaveLoad('load')
       break
   }
 }
@@ -323,6 +350,34 @@ function getBackgroundStyle(id: string) {
   }
   // 备用渐变背景
   return bgColors[id] || defaultBg
+}
+
+function openSaveLoad(mode: 'save' | 'load') {
+  saveLoadMode.value = mode
+  showSaveLoad.value = true
+}
+
+function handleSave(slot: number) {
+  gameStore.saveToSlot(slot)
+  showSaveLoad.value = false
+  sfxStore.play('complete')
+}
+
+function handleLoad(slot: number) {
+  if (slot === -1) {
+    // 加载自动存档
+    const data = gameStore.getSaveData()
+    if (data.chapterId) {
+      storyStore.loadChapter(data.chapterId)
+    }
+  } else {
+    const data = gameStore.loadFromSlot(slot)
+    if (data) {
+      storyStore.loadChapter(data.chapterId)
+    }
+  }
+  showSaveLoad.value = false
+  sfxStore.play('click')
 }
 </script>
 
