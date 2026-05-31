@@ -8,7 +8,7 @@
       <div
         :key="storyStore.currentBackground"
         class="bg-layer"
-        :style="{ background: storyStore.currentBackground ? getBackgroundStyle(storyStore.currentBackground) : defaultBg }"
+        :style="{ background: getBackgroundStyle(storyStore.currentBackground || 'default') }"
       ></div>
     </transition>
 
@@ -160,6 +160,8 @@ import { useAchievementStore } from '@/stores/achievement'
 import { useSettingsStore } from '@/stores/settings'
 import { useStatisticsStore } from '@/stores/statistics'
 import { useSwipe } from '@/composables/useSwipe'
+import { getCharacterName, getCharacterIcon, isFemaleCharacter } from '@/constants/characters'
+import { getBackgroundStyle } from '@/constants/backgrounds'
 import DialogueHistory from '@/components/DialogueHistory.vue'
 import AchievementNotification from '@/components/AchievementNotification.vue'
 import SaveLoadPanel from '@/components/SaveLoadPanel.vue'
@@ -178,8 +180,7 @@ const baseUrl = import.meta.env.BASE_URL
 const chapterId = computed(() => route.params.chapterId as string)
 const hasNextChapter = computed(() => !!storyStore.state.nextChapterId)
 
-const femaleCharacters = ['苏清颜', '林晚星']
-const isFemaleSpeaker = computed(() => femaleCharacters.includes(storyStore.currentSpeaker))
+const isFemaleSpeaker = computed(() => isFemaleCharacter(storyStore.currentSpeaker))
 
 const showHistory = ref(false)
 const showSaveLoad = ref(false)
@@ -293,116 +294,13 @@ function goToNext() {
 }
 
 function getAvatar(id: string) {
-  return { tangxin: '♂', suqingyan: '♀', linwanxing: '✿', xuzhinan: '◆' }[id] || '?'
+  return getCharacterIcon(id)
 }
 function getCharName(id: string) {
-  return { tangxin: '唐鑫', suqingyan: '苏清颜', linwanxing: '林晚星', xuzhinan: '许知楠' }[id] || id
+  return getCharacterName(id)
 }
 
-// 背景图片 - 使用本地图片（Unsplash 免费图片）
-const bgImages: Record<string, string> = {
-  // 城市场景
-  office: `${baseUrl}data/images/city_1.jpg`,
-  home_night: `${baseUrl}data/images/night_1.jpg`,
-  chongqing_night: `${baseUrl}data/images/night_2.jpg`,
-  chongqing_station: `${baseUrl}data/images/night_2.jpg`,
-  station: `${baseUrl}data/images/night_2.jpg`,
-  metro_station: `${baseUrl}data/images/night_2.jpg`,
-
-  // 咖啡店/餐厅场景
-  cafe_interior: `${baseUrl}data/images/cafe_1.jpg`,
-  cafe: `${baseUrl}data/images/cafe_1.jpg`,
-  restaurant: `${baseUrl}data/images/cafe_1.jpg`,
-  hotpot_restaurant: `${baseUrl}data/images/cafe_1.jpg`,
-
-  // 夜市/夜景场景
-  night_market: `${baseUrl}data/images/night_2.jpg`,
-  night_street: `${baseUrl}data/images/night_2.jpg`,
-
-  // 山野场景
-  jinyun_mountain_trail: `${baseUrl}data/images/mountain_1.jpg`,
-  jinyun_summit: `${baseUrl}data/images/mountain_2.jpg`,
-  mountain_trail: `${baseUrl}data/images/mountain_1.jpg`,
-  mountain_path: `${baseUrl}data/images/mountain_1.jpg`,
-  mountain_viewpoint: `${baseUrl}data/images/mountain_2.jpg`,
-  mountain_night: `${baseUrl}data/images/night_1.jpg`,
-  mountain_rain: `${baseUrl}data/images/night_1.jpg`,
-
-  // 湖边/野餐场景
-  dai_lake_picnic: `${baseUrl}data/images/mountain_1.jpg`,
-  minsu: `${baseUrl}data/images/night_1.jpg`,
-
-  // 浪漫场景
-  romantic: `${baseUrl}data/images/romantic_1.jpg`,
-
-  // 沙漠场景
-  desert: `${baseUrl}data/images/night_2.jpg`,
-  desert_night: `${baseUrl}data/images/night_1.jpg`,
-
-  // 其他场景
-  school_entrance: `${baseUrl}data/images/city_1.jpg`,
-  meeting_hall: `${baseUrl}data/images/city_1.jpg`,
-  school_office: `${baseUrl}data/images/city_1.jpg`,
-  classroom: `${baseUrl}data/images/city_1.jpg`,
-}
-
-// 背景色（作为备用）
-const bgColors: Record<string, string> = {
-  // 城市场景
-  office: 'linear-gradient(135deg, #dfe6e9 0%, #b2bec3 100%)',
-  home_night: 'linear-gradient(180deg, #2d3436 0%, #1e272e 100%)',
-  chongqing_night: 'linear-gradient(180deg, #0c0c1e 0%, #1a1a3e 50%, #2d2d6b 100%)',
-  chongqing_station: 'linear-gradient(135deg, #636e72 0%, #2d3436 100%)',
-  station: 'linear-gradient(135deg, #636e72 0%, #2d3436 100%)',
-  metro_station: 'linear-gradient(135deg, #636e72 0%, #b2bec3 100%)',
-
-  // 咖啡店/餐厅场景
-  cafe_interior: 'linear-gradient(135deg, #f5e6d3 0%, #e8d5c4 50%, #d4c4b0 100%)',
-  cafe: 'linear-gradient(135deg, #f5e6d3 0%, #e8d5c4 50%, #d4c4b0 100%)',
-  restaurant: 'linear-gradient(135deg, #fdcb6e 0%, #f39c12 100%)',
-  hotpot_restaurant: 'linear-gradient(135deg, #d63031 0%, #e17055 50%, #fab1a0 100%)',
-
-  // 夜市/夜景场景
-  night_market: 'linear-gradient(180deg, #1a1a2e 0%, #e74c3c 50%, #f39c12 100%)',
-  night_street: 'linear-gradient(180deg, #1a1a2e 0%, #e74c3c 50%, #f39c12 100%)',
-
-  // 山野场景
-  jinyun_mountain_trail: 'linear-gradient(135deg, #00b894 0%, #55efc4 50%, #dfe6e9 100%)',
-  jinyun_summit: 'linear-gradient(180deg, #74b9ff 0%, #fdcb6e 100%)',
-  mountain_trail: 'linear-gradient(135deg, #00b894 0%, #55efc4 50%, #81ecec 100%)',
-  mountain_path: 'linear-gradient(135deg, #00b894 0%, #55efc4 50%, #81ecec 100%)',
-  mountain_viewpoint: 'linear-gradient(180deg, #74b9ff 0%, #a29bfe 50%, #81ecec 100%)',
-  mountain_night: 'linear-gradient(180deg, #0a1628 0%, #1a2a4a 50%, #2d4a6a 100%)',
-  mountain_rain: 'linear-gradient(180deg, #0a1628 0%, #1a2a4a 50%, #2d4a6a 100%)',
-
-  // 湖边/野餐场景
-  dai_lake_picnic: 'linear-gradient(135deg, #a8e6cf 0%, #88d8b0 50%, #56c596 100%)',
-  minsu: 'linear-gradient(135deg, #fab1a0 0%, #ffeaa7 100%)',
-
-  // 浪漫场景
-  romantic: 'linear-gradient(180deg, #2d3436 0%, #6c5ce7 50%, #a29bfe 100%)',
-
-  // 沙漠场景
-  desert: 'linear-gradient(135deg, #fdcb6e 0%, #e17055 100%)',
-  desert_night: 'linear-gradient(180deg, #0c0c1e 0%, #1a1a3e 50%, #2d2d6b 100%)',
-
-  // 其他场景
-  school_entrance: 'linear-gradient(135deg, #00b894 0%, #81ecec 100%)',
-  meeting_hall: 'linear-gradient(135deg, #636e72 0%, #b2bec3 100%)',
-  school_office: 'linear-gradient(135deg, #dfe6e9 0%, #b2bec3 100%)',
-  classroom: 'linear-gradient(135deg, #dfe6e9 0%, #b2bec3 100%)',
-}
-
-const defaultBg = 'linear-gradient(180deg, #1e1e2e 0%, #2d2d44 100%)'
-
-function getBackgroundStyle(id: string) {
-  // 优先使用图片背景
-  if (bgImages[id]) {
-    return `url(${bgImages[id]}) center/cover no-repeat, ${bgColors[id] || defaultBg}`
-  }
-  // 备用渐变背景
-  return bgColors[id] || defaultBg
-}
+// 使用共享的背景样式函数
 
 function openSaveLoad(mode: 'save' | 'load') {
   saveLoadMode.value = mode

@@ -4,21 +4,44 @@
       <component :is="Component" />
     </transition>
   </router-view>
+  <ErrorNotification />
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, onErrorCaptured } from 'vue'
 import { useBgmStore } from '@/stores/bgm'
 import { useGameStore } from '@/stores/game'
+import { useError } from '@/composables/useError'
+import ErrorNotification from '@/components/ErrorNotification.vue'
 
 const bgmStore = useBgmStore()
 const gameStore = useGameStore()
+const { addError, clearOldErrors } = useError()
 
 onMounted(() => {
   // 初始化游戏数据
   gameStore.loadFromStorage()
   // 初始化 BGM
   bgmStore.init()
+
+  // 清理旧错误
+  clearOldErrors()
+
+  // 全局未捕获错误
+  window.addEventListener('unhandledrejection', (event) => {
+    addError('未处理的 Promise 错误', 'error', event.reason)
+  })
+
+  // 全局错误
+  window.onerror = (message, _source, _lineno, _colno, error) => {
+    addError(String(message), 'error', error?.stack)
+  }
+})
+
+// Vue 错误捕获
+onErrorCaptured((error, _instance, _info) => {
+  addError('组件错误', 'error', error.stack)
+  return false // 阻止错误继续传播
 })
 </script>
 
