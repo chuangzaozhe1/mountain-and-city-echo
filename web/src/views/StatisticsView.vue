@@ -399,4 +399,159 @@ h1 {
   color: rgba(232, 232, 232, 0.4);
   padding: 1rem;
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem;
+  }
+
+  .content {
+    padding: 0 0.75rem 1.5rem;
+  }
+
+  .overview-cards {
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
+
+  .stat-card {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .stat-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+  }
+
+  .stat-value {
+    font-size: 1.1rem;
+  }
+
+  .stat-card.primary .stat-value {
+    font-size: 1.3rem;
+  }
+
+  .section {
+    margin-bottom: 1rem;
+  }
+
+  .stat-row {
+    padding: 10px 0;
+  }
+
+  .bond-item {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .bond-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
+
+  .bond-value {
+    font-size: 0.95rem;
+  }
+
+  .choice-item {
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 375px) {
+  .header {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  h1 {
+    font-size: 1.1rem;
+  }
+
+  .content {
+    padding: 0 0.5rem 1rem;
+  }
+
+  .overview-cards {
+    gap: 8px;
+    margin-bottom: 0.75rem;
+  }
+
+  .stat-card {
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .stat-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .stat-value {
+    font-size: 1rem;
+  }
+
+  .stat-card.primary .stat-value {
+    font-size: 1.2rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+  }
+
+  .section {
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .stat-row {
+    padding: 8px 0;
+  }
+
+  .stat-name,
+  .stat-row .stat-value {
+    font-size: 0.9rem;
+  }
+
+  .bond-item {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .bond-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+
+  .bond-name {
+    font-size: 0.8rem;
+  }
+
+  .bond-value {
+    font-size: 0.9rem;
+    min-width: 25px;
+  }
+
+  .choice-item {
+    padding: 8px;
+  }
+
+  .choice-chapter {
+    font-size: 0.85rem;
+  }
+
+  .choice-time {
+    font-size: 0.75rem;
+  }
+}
 </style>

@@ -358,4 +358,150 @@ h1 {
 .modal-fade-leave-to {
   opacity: 0;
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem;
+  }
+
+  .content {
+    padding: 0 0.75rem 1.5rem;
+  }
+
+  .character-section {
+    margin-bottom: 1rem;
+  }
+
+  .endings-grid {
+    gap: 8px;
+  }
+
+  .ending-card {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .ending-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+  }
+
+  .ending-title {
+    font-size: 0.9rem;
+  }
+
+  .ending-desc {
+    font-size: 0.75rem;
+  }
+
+  .ending-modal {
+    padding: 1rem;
+  }
+
+  .modal-content {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+
+  .modal-icon {
+    font-size: 2.5rem;
+  }
+
+  .modal-title {
+    font-size: 1.3rem;
+  }
+
+  .modal-desc {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .header {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  h1 {
+    font-size: 1.1rem;
+  }
+
+  .content {
+    padding: 0 0.5rem 1rem;
+  }
+
+  .character-title {
+    font-size: 0.95rem;
+  }
+
+  .character-icon {
+    font-size: 1rem;
+  }
+
+  .endings-grid {
+    gap: 6px;
+  }
+
+  .ending-card {
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .ending-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .ending-title {
+    font-size: 0.85rem;
+  }
+
+  .ending-desc {
+    font-size: 0.7rem;
+  }
+
+  .ending-check {
+    font-size: 1rem;
+  }
+
+  .ending-modal {
+    padding: 0.75rem;
+  }
+
+  .modal-content {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+
+  .modal-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .modal-title {
+    font-size: 1.2rem;
+  }
+
+  .modal-desc {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .modal-character {
+    font-size: 0.85rem;
+  }
+
+  .modal-time {
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .modal-close {
+    padding: 8px 20px;
+    font-size: 0.95rem;
+  }
+}
 </style>

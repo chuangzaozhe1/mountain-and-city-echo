@@ -258,4 +258,99 @@ h1 {
   font-size: 1.2rem;
   opacity: 0.5;
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem;
+  }
+
+  .content {
+    padding: 0 0.75rem 1.5rem;
+  }
+
+  .tabs {
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .tab-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .achievement-list {
+    gap: 10px;
+  }
+
+  .achievement-item {
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .achievement-title {
+    font-size: 0.95rem;
+  }
+
+  .achievement-desc {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .header {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  h1 {
+    font-size: 1.1rem;
+  }
+
+  .content {
+    padding: 0 0.5rem 1rem;
+  }
+
+  .tabs {
+    gap: 0.3rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .tab-btn {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.75rem;
+  }
+
+  .achievement-list {
+    gap: 8px;
+  }
+
+  .achievement-item {
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .achievement-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .achievement-title {
+    font-size: 0.9rem;
+  }
+
+  .achievement-desc {
+    font-size: 0.75rem;
+  }
+
+  .achievement-time {
+    font-size: 0.7rem;
+  }
+
+  .status-unlocked,
+  .status-locked {
+    font-size: 1rem;
+  }
+}
 </style>

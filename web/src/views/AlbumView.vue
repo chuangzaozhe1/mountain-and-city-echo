@@ -306,4 +306,79 @@ h1 {
 .viewer-fade-leave-to {
   opacity: 0;
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem;
+  }
+
+  .content {
+    padding: 0 0.75rem 1.5rem;
+  }
+
+  .tabs {
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .tab-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .cg-grid {
+    gap: 0.5rem;
+  }
+
+  .cg-info {
+    padding: 0.4rem;
+  }
+
+  .cg-title {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .header {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  h1 {
+    font-size: 1.1rem;
+  }
+
+  .content {
+    padding: 0 0.5rem 1rem;
+  }
+
+  .tabs {
+    gap: 0.3rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .tab-btn {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.75rem;
+  }
+
+  .cg-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+  }
+
+  .cg-info {
+    padding: 0.3rem;
+  }
+
+  .cg-title {
+    font-size: 0.65rem;
+  }
+
+  .cg-hint {
+    font-size: 0.6rem;
+  }
+}
 </style>

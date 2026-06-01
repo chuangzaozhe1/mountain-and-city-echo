@@ -276,4 +276,91 @@ input[type="range"] {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem;
+  }
+
+  .content {
+    padding: 0.75rem;
+  }
+
+  .setting-item {
+    padding: 0.75rem 0;
+  }
+
+  .speed-options button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .danger-btn {
+    padding: 0.75rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .header {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  h1 {
+    font-size: 1.1rem;
+  }
+
+  .content {
+    padding: 0.5rem;
+  }
+
+  .setting-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .setting-group h2 {
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .setting-item {
+    padding: 0.6rem 0;
+  }
+
+  .setting-item span {
+    font-size: 0.9rem;
+  }
+
+  .speed-options {
+    gap: 0.4rem;
+  }
+
+  .speed-options button {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.8rem;
+  }
+
+  .range-container input[type="range"] {
+    width: 100px;
+  }
+
+  .range-value {
+    font-size: 0.8rem;
+    min-width: 35px;
+  }
+
+  .danger-btn {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+    border-radius: 10px;
+  }
+
+  .toggle-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    min-width: 50px;
+  }
+}
 </style>

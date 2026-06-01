@@ -133,4 +133,64 @@ h1 {
   right: 1rem;
   font-size: 1.2rem;
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem;
+  }
+
+  .content {
+    padding: 0.75rem;
+  }
+
+  .chapters-grid {
+    gap: 0.75rem;
+  }
+
+  .chapter-card {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+
+  .chapter-number {
+    font-size: 1.75rem;
+  }
+
+  .chapter-title {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .header {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  h1 {
+    font-size: 1.1rem;
+  }
+
+  .content {
+    padding: 0.5rem;
+  }
+
+  .chapters-grid {
+    gap: 0.5rem;
+  }
+
+  .chapter-card {
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .chapter-number {
+    font-size: 1.5rem;
+  }
+
+  .chapter-title {
+    font-size: 0.9rem;
+  }
+}
 </style>
